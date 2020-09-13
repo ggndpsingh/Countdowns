@@ -42,17 +42,17 @@ enum DateComponent: Hashable {
     var label: String {
         switch self {
         case .day:
-            return isSingular ? "Day" : "Days"
+            return isSingular ? "day" : "days"
         case .month:
-            return isSingular ? "Month" : "Months"
+            return isSingular ? "Month" : "months"
         case .year:
-            return isSingular ? "Year" : "Years"
+            return isSingular ? "year" : "years"
         case .hour:
-            return isSingular ? "Hour" : "Hours"
+            return isSingular ? "hour" : "hours"
         case .minute:
-            return isSingular ? "Minute" : "Minutes"
+            return isSingular ? "minute" : "minutes"
         case .second:
-            return isSingular ? "Second" : "Seconds"
+            return isSingular ? "second" : "seconds"
         }
     }
 }

@@ -15,20 +15,26 @@ struct ContentView: View {
         animation: .default)
     private var countdowns: FetchedResults<CountdownItem>
 
-    @State private var isCreating: Bool = false
-
     private let columns: [GridItem] = [GridItem(.adaptive(minimum: 400, maximum: 600))]
+    @State private var isCreating: Bool = false
+    @State private var timer: Timer?
+    @State private var viewStates: [CountdownGridItem.ViewState] = []
 
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(countdowns) { countdown in
-                        CountdownView(countdown: countdown, tapHandler: deleteItem)
+                    ForEach(viewStates) { viewState in
+                        CountdownGridItem(viewState: viewState)
+                            .cornerRadius(24)
+                            .onTapGesture {
+                                deleteItem(id: viewState.id)
+                            }
                     }
                 }
-                .padding()
             }
+            .onAppear { startCountdown() }
+            .onDisappear { pauseCountdown() }
             .toolbar {
                 Button(action: addItem) {
                     Label("Add Item", systemImage: "plus")
@@ -49,7 +55,8 @@ struct ContentView: View {
         }
     }
 
-    private func deleteItem(item: CountdownItem) {
+    private func deleteItem(id: NSManagedObjectID) {
+        let item = viewContext.object(with: id)
         withAnimation {
             viewContext.delete(item)
 
@@ -60,6 +67,17 @@ struct ContentView: View {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
+    }
+
+    private func startCountdown() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            viewStates = countdowns.map(CountdownGridItem.ViewState.init)
+        })
+        timer?.fire()
+    }
+
+    private func pauseCountdown() {
+        timer?.invalidate()
     }
 }
 
@@ -73,5 +91,6 @@ private let itemFormatter: DateFormatter = {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environment(\.managedObjectContext, PersistenceController.inMemory.container.viewContext)
     }
 }

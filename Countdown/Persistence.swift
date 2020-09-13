@@ -1,14 +1,10 @@
-//
-//  Persistence.swift
-//  Countdown
-//
 //  Created by Gagandeep Singh on 6/9/20.
-//
 
 import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
+    static let inMemory = PersistenceController(inMemory: true)
 
     let container: NSPersistentCloudKitContainer
 

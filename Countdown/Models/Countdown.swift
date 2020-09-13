@@ -10,8 +10,8 @@ extension CountdownItem {
 
     var hasEnded: Bool { date <= .now }
 
-    var components: [DateComponent] {
-        return CountdownCalculator.shared.countdown(for: date)
+    func components(size: CountdownSize = .medium, trimmed: Bool = true) -> [DateComponent] {
+        return CountdownCalculator.shared.countdown(for: date, size: size, trimmed: trimmed)
     }
 
     var dateString: String {
@@ -23,12 +23,27 @@ extension CountdownItem {
     static func create(
         in context: NSManagedObjectContext,
         title: String,
-        date: Date) throws {
+        date: Date,
+        image: String?) throws {
         
         let item = CountdownItem(context: context)
         item.title_ = title
         item.date_ = date
+        item.image = image
         try context.save()
+    }
+
+    static func create(
+        date: Date,
+        title: String,
+        image: String?) -> CountdownItem {
+        let context = PersistenceController.inMemory.container.viewContext
+        let item = CountdownItem(context: context)
+        item.title_ = title
+        item.date_ = date
+        item.image = image
+        try? context.save()
+        return item
     }
 
     func delete(

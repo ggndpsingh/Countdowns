@@ -8,9 +8,9 @@ struct ComponentView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 4) {
             Text(String(component.value))
-                .font(Font.system(size: 32, weight: .medium, design: .default))
+                .font(Font.system(size: 48, weight: .medium, design: .default))
             Text(component.label)
-                .font(.caption)
+                .font(.subheadline)
         }
         .foregroundColor(.white)
         .cornerRadius(8)
