@@ -36,3 +36,9 @@ struct PersistenceController {
         })
     }
 }
+
+extension NSManagedObjectContext {
+    static var mainContext: NSManagedObjectContext {
+        PersistenceController.shared.container.viewContext
+    }
+}

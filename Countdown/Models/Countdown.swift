@@ -4,10 +4,33 @@ import Foundation
 import CloudKit
 import CoreData
 
-extension CountdownItem {
-    var date: Date { date_ ?? .now }
-    var title: String { title_ ?? "" }
+struct Countdown: Identifiable {
+    let id: UUID
+    var date: Date
+    var title: String
+    var image: String?
 
+    init(object: CountdownObject) {
+        id = object.id ?? .init()
+        date = object.date ?? .init()
+        title = object.title ?? ""
+        image = object.image
+    }
+
+    init?(objectID id: UUID) {
+        guard let object = CountdownObject.fetch(with: id) else { return nil }
+        self.init(object: object)
+    }
+
+    init(id: UUID = .init(), date: Date = Date(), title: String = "", image: String? = nil) {
+        self.id = id
+        self.date = date
+        self.title = title
+        self.image = image
+    }
+}
+
+extension Countdown {
     var hasEnded: Bool { date <= .now }
 
     func components(size: CountdownSize = .medium, trimmed: Bool = true) -> [DateComponent] {
@@ -19,31 +42,31 @@ extension CountdownItem {
     }
 }
 
-extension CountdownItem {
-    static func create(
-        in context: NSManagedObjectContext,
-        title: String,
-        date: Date,
-        image: String?) throws {
-        
-        let item = CountdownItem(context: context)
-        item.title_ = title
-        item.date_ = date
-        item.image = image
-        try context.save()
+extension CountdownObject {
+    static func fetch(with id: UUID, in context: NSManagedObjectContext = .mainContext) -> CountdownObject? {
+        let request = NSFetchRequest<CountdownObject>(entityName: "CountdownObject")
+        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+
+        do {
+            let result = try context.fetch(request)
+            return result.first
+        } catch {
+            fatalError("Failed to fetch employees: \(error)")
+        }
     }
 
-    static func create(
-        date: Date,
-        title: String,
-        image: String?) -> CountdownItem {
-        let context = PersistenceController.inMemory.container.viewContext
-        let item = CountdownItem(context: context)
-        item.title_ = title
-        item.date_ = date
-        item.image = image
-        try? context.save()
-        return item
+    static func create(from countdown: Countdown, in context: NSManagedObjectContext) {
+        let item = CountdownObject(context: context)
+        item.id = countdown.id
+        item.date = countdown.date
+        item.title = countdown.title
+        item.image = countdown.image
+    }
+
+    func update(from countdown: Countdown) {
+        date = countdown.date
+        title = countdown.title
+        image = countdown.image
     }
 
     func delete(
@@ -52,7 +75,7 @@ extension CountdownItem {
     }
 }
 
-extension CountdownItem {
+extension CountdownObject {
     enum Key: String {
         case title
         case date

@@ -9,12 +9,18 @@ import SwiftUI
 
 @main
 struct CountdownApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .background {
+               print("Background")
+            }
         }
     }
 }

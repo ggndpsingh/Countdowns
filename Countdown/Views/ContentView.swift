@@ -1,9 +1,5 @@
-//
-//  ContentView.swift
-//  Countdown
-//
 //  Created by Gagandeep Singh on 6/9/20.
-//
+
 
 import SwiftUI
 import CoreData
@@ -11,30 +7,26 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownItem.date_, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
         animation: .default)
-    private var countdowns: FetchedResults<CountdownItem>
+    private var objects: FetchedResults<CountdownObject>
 
     private let columns: [GridItem] = [GridItem(.adaptive(minimum: 400, maximum: 600))]
     @State private var isCreating: Bool = false
-    @State private var timer: Timer?
-    @State private var viewStates: [CountdownGridItem.ViewState] = []
+    @State private var flipped: [UUID] = []
 
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(viewStates) { viewState in
-                        CountdownGridItem(viewState: viewState)
+                    ForEach(objects) {
+                        let countdown = Countdown(object: $0)
+                        CountdownGridItem(countdown: countdown, flipped: flipped.contains(countdown.id))
+                            .environment(\.managedObjectContext, viewContext)
                             .cornerRadius(24)
-                            .onTapGesture {
-                                deleteItem(id: viewState.id)
-                            }
                     }
                 }
             }
-            .onAppear { startCountdown() }
-            .onDisappear { pauseCountdown() }
             .toolbar {
                 Button(action: addItem) {
                     Label("Add Item", systemImage: "plus")
@@ -43,41 +35,33 @@ struct ContentView: View {
             .navigationTitle("Countdowns")
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .sheet(isPresented: $isCreating, content: {
-            CreateCountdownView()
-                .environment(\.managedObjectContext, viewContext)
-        })
     }
 
     private func addItem() {
-        withAnimation {
-            isCreating = true
+        objects.forEach { deleteItem(id: $0.id!) }
+        
+        let item = Countdown()
+        CountdownObject.create(from: item, in: viewContext)
+        flipped.append(item.id)
+        do {
+            try viewContext.save()
+        } catch {
+            print(error)
         }
     }
 
-    private func deleteItem(id: NSManagedObjectID) {
-        let item = viewContext.object(with: id)
+    private func deleteItem(id: UUID) {
         withAnimation {
-            viewContext.delete(item)
-
             do {
+                if let item = CountdownObject.fetch(with: id, in: viewContext) {
+                    viewContext.delete(item)
+                }
                 try viewContext.save()
             } catch {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
-    }
-
-    private func startCountdown() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            viewStates = countdowns.map(CountdownGridItem.ViewState.init)
-        })
-        timer?.fire()
-    }
-
-    private func pauseCountdown() {
-        timer?.invalidate()
     }
 }
 
