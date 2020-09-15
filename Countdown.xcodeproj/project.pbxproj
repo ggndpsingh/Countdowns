@@ -17,6 +17,7 @@
 		E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */; };
 		E658E8BD2510FEEA007E9AFD /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BC2510FEEA007E9AFD /* Blur.swift */; };
 		E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BE2510FF70007E9AFD /* TitleView.swift */; };
+		E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
 		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 		E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackViewModel.swift; sourceTree = "<group>"; };
 		E658E8BC2510FEEA007E9AFD /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		E658E8BE2510FF70007E9AFD /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		E6E3140C2504DF87005C8B61 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				E658E8AD25105E93007E9AFD /* FlipView.swift */,
 				E658E8BC2510FEEA007E9AFD /* Blur.swift */,
+				E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
 				E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */,
+				E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
 				E6E3144E2504E0A2005C8B61 /* CloudKitRecord.swift in Sources */,
 				E6E3144F2504E0A2005C8B61 /* CKContainer.swift in Sources */,

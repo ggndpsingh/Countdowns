@@ -39,6 +39,10 @@ enum DateComponent: Hashable {
         }
     }
 
+    var valueString: String {
+        value < 10 ? "0" + String(value) : String(value)
+    }
+
     var label: String {
         switch self {
         case .day:

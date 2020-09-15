@@ -3,6 +3,7 @@
 import Foundation
 import CloudKit
 import CoreData
+import UserNotifications
 
 struct Countdown: Identifiable, Equatable {
     let id: UUID
@@ -32,6 +33,10 @@ struct Countdown: Identifiable, Equatable {
 
 extension Countdown {
     var hasEnded: Bool { date <= .now }
+
+    var hasReminder: Bool {
+        UNUserNotificationCenter.current().hasPendingNotification(with: id.uuidString)
+    }
 
     func components(size: CountdownSize = .medium, trimmed: Bool = true) -> [DateComponent] {
         return CountdownCalculator.shared.countdown(for: date, size: size, trimmed: trimmed)

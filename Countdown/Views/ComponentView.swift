@@ -6,12 +6,15 @@ struct ComponentView: View {
     let component: DateComponent
 
     var body: some View {
-        VStack(alignment: .center, spacing: 4) {
-            Text(String(component.value))
+        VStack {
+            Text(component.valueString)
                 .font(Font.system(size: 48, weight: .medium, design: .monospaced))
             Text(component.label)
-                .font(.subheadline)
+                .font(.caption)
         }
+        .shadow(color: .black, radius: 10, x: 0.0, y: 0.0)
+        .padding(4)
+        .background(Color.white.opacity(0.3))
         .foregroundColor(.white)
         .cornerRadius(8)
     }

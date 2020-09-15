@@ -59,7 +59,7 @@ struct CardBackView: View {
                     }.padding(.vertical, 8)
 
                     HStack {
-                        Toggle(isOn: $viewModel.allDay) {
+                        Toggle(isOn: $viewModel.reminder) {
                             Image(systemName: "bell.fill")
                                 .frame(width: 24, height: 24)
                                 .background(Circle().fill(Color.white.opacity(0.7)))

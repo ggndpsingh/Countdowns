@@ -16,11 +16,9 @@ struct CountdownView: View {
                 Text("Countdow Ended")
                     .font(.title)
             } else {
-                HStack(spacing: 16) {
+                HStack(spacing: 8) {
                     ForEach(components, id: \.self) {
                         ComponentView(component: $0)
-                            .shadow(color: Color.black.opacity(0.5), radius: 0, x: 1, y: 1)
-                            .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 0)
                     }
                 }
                 .onAppear(perform: countdown)

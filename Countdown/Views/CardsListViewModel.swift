@@ -9,14 +9,6 @@ final class CardsListViewModel: ObservableObject {
 
     init(context: NSManagedObjectContext = .mainContext) {
         self.context = context
-
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                print("All set!")
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
     }
 
     var hasTemporaryItem: Bool { temporaryItemID != nil }
@@ -53,20 +45,6 @@ final class CardsListViewModel: ObservableObject {
         } catch {
             print(error)
         }
-
-        let content = UNMutableNotificationContent()
-        content.title = countdown.title
-        content.subtitle = "Its here!"
-        content.sound = UNNotificationSound.defaultCritical
-
-        // show this notification five seconds from now
-        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: countdown.date), repeats: false)
-
-        // choose a random identifier
-        let request = UNNotificationRequest(identifier: countdown.id.uuidString, content: content, trigger: trigger)
-
-        // add our notification request
-        UNUserNotificationCenter.current().add(request)
     }
 
     func deleteItem(id: UUID) {
