@@ -7,11 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E658E8AC251057D1007E9AFD /* CountdownCardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AB251057D1007E9AFD /* CountdownCardFrontView.swift */; };
+		E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AB251057D1007E9AFD /* CardFrontView.swift */; };
 		E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AD25105E93007E9AFD /* FlipView.swift */; };
 		E658E8B02510E86B007E9AFD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AF2510E86B007E9AFD /* Color.swift */; };
+		E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */; };
+		E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B32510FB28007E9AFD /* CardBackground.swift */; };
+		E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B52510FD7C007E9AFD /* CardView.swift */; };
+		E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B72510FE0B007E9AFD /* CardBackView.swift */; };
+		E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */; };
+		E658E8BD2510FEEA007E9AFD /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BC2510FEEA007E9AFD /* Blur.swift */; };
+		E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BE2510FF70007E9AFD /* TitleView.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
-		E6E3140D2504DF87005C8B61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* ContentView.swift */; };
+		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
 		E6E314122504DF87005C8B61 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E314112504DF87005C8B61 /* Preview Assets.xcassets */; };
 		E6E314142504DF87005C8B61 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
@@ -28,7 +35,6 @@
 		E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314472504E0A2005C8B61 /* DateComponent.swift */; };
 		E6E314532504E0A2005C8B61 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314492504E0A2005C8B61 /* ComponentView.swift */; };
 		E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3144A2504E0A2005C8B61 /* CountdownView.swift */; };
-		E6E314552504E0A2005C8B61 /* CreateCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3144B2504E0A2005C8B61 /* CreateCountdownView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,12 +55,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E658E8AB251057D1007E9AFD /* CountdownCardFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownCardFrontView.swift; sourceTree = "<group>"; };
+		E658E8AB251057D1007E9AFD /* CardFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFrontView.swift; sourceTree = "<group>"; };
 		E658E8AD25105E93007E9AFD /* FlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipView.swift; sourceTree = "<group>"; };
 		E658E8AF2510E86B007E9AFD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListViewModel.swift; sourceTree = "<group>"; };
+		E658E8B32510FB28007E9AFD /* CardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackground.swift; sourceTree = "<group>"; };
+		E658E8B52510FD7C007E9AFD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E658E8B72510FE0B007E9AFD /* CardBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackView.swift; sourceTree = "<group>"; };
+		E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackViewModel.swift; sourceTree = "<group>"; };
+		E658E8BC2510FEEA007E9AFD /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		E658E8BE2510FF70007E9AFD /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
-		E6E3140C2504DF87005C8B61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E6E3140C2504DF87005C8B61 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
 		E6E3140E2504DF87005C8B61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6E314112504DF87005C8B61 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E6E314132504DF87005C8B61 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -77,7 +90,6 @@
 		E6E314472504E0A2005C8B61 /* DateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
 		E6E314492504E0A2005C8B61 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		E6E3144A2504E0A2005C8B61 /* CountdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
-		E6E3144B2504E0A2005C8B61 /* CreateCountdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCountdownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +118,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E658E8BB2510FEE3007E9AFD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E658E8AD25105E93007E9AFD /* FlipView.swift */,
+				E658E8BC2510FEEA007E9AFD /* Blur.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E6E313FE2504DF87005C8B61 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +151,7 @@
 		E6E314092504DF87005C8B61 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E658E8BB2510FEE3007E9AFD /* Helpers */,
 				E6E314402504E0A2005C8B61 /* CloudKit */,
 				E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */,
 				E658E8AF2510E86B007E9AFD /* Color.swift */,
@@ -211,12 +233,16 @@
 		E6E314482504E0A2005C8B61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E6E3140C2504DF87005C8B61 /* ContentView.swift */,
+				E6E3140C2504DF87005C8B61 /* CardsListView.swift */,
+				E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */,
+				E658E8B52510FD7C007E9AFD /* CardView.swift */,
+				E658E8AB251057D1007E9AFD /* CardFrontView.swift */,
+				E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */,
+				E658E8B72510FE0B007E9AFD /* CardBackView.swift */,
 				E6E314492504E0A2005C8B61 /* ComponentView.swift */,
 				E6E3144A2504E0A2005C8B61 /* CountdownView.swift */,
-				E658E8AD25105E93007E9AFD /* FlipView.swift */,
-				E658E8AB251057D1007E9AFD /* CountdownCardFrontView.swift */,
-				E6E3144B2504E0A2005C8B61 /* CreateCountdownView.swift */,
+				E658E8BE2510FF70007E9AFD /* TitleView.swift */,
+				E658E8B32510FB28007E9AFD /* CardBackground.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,23 +376,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E658E8BD2510FEEA007E9AFD /* Blur.swift in Sources */,
+				E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */,
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E6E3144D2504E0A2005C8B61 /* RemoteRepository.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
-				E658E8AC251057D1007E9AFD /* CountdownCardFrontView.swift in Sources */,
-				E6E314552504E0A2005C8B61 /* CreateCountdownView.swift in Sources */,
+				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
-				E6E3140D2504DF87005C8B61 /* ContentView.swift in Sources */,
+				E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */,
+				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
 				E6E3144E2504E0A2005C8B61 /* CloudKitRecord.swift in Sources */,
 				E6E3144F2504E0A2005C8B61 /* CKContainer.swift in Sources */,
+				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
+				E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */,
+				E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */,
 				E6E314532504E0A2005C8B61 /* ComponentView.swift in Sources */,
 				E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */,
 				E6E314172504DF87005C8B61 /* Countdown.xcdatamodeld in Sources */,
 				E6E314512504E0A2005C8B61 /* Countdown.swift in Sources */,
 				E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */,
+				E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

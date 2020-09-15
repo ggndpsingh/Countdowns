@@ -1,9 +1,4 @@
-//
-//  CountdownApp.swift
-//  Countdown
-//
 //  Created by Gagandeep Singh on 6/9/20.
-//
 
 import SwiftUI
 
@@ -14,7 +9,7 @@ struct CountdownApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: .init())
+            CardsListView(viewModel: .init())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .onChange(of: scenePhase) { phase in

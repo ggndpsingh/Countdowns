@@ -26,7 +26,7 @@ struct Countdown: Identifiable, Equatable {
         self.id = id
         self.date = date
         self.title = title
-        self.image = "sweden"
+        self.image = image
     }
 }
 

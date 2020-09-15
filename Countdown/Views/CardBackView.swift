@@ -1,38 +1,14 @@
-//  Created by Gagandeep Singh on 6/9/20.
+//  Created by Gagandeep Singh on 15/9/20.
 
 import SwiftUI
-import CoreData
 
-final class CreateCountdownViewModel: ObservableObject {
-    @Published var countdown: Countdown
-    var allDay: Bool {
-        set {
-            newValue
-                ? countdown.date.setTimeToZero()
-                : countdown.date.setTimeToNow()
-        }
-        get { return countdown.date.isMidnight }
-    }
-
-    init(id: UUID) {
-        let countdown = Countdown(objectID: id) ?? .init()
-        self.countdown = countdown
-        self.allDay = countdown.date.isMidnight
-    }
-
-    internal init(countdown: Countdown) {
-        self.countdown = countdown
-        allDay = countdown.date.isMidnight
-    }
-}
-
-struct CreateCountdownView: View {
-    @ObservedObject private var viewModel: CreateCountdownViewModel
+struct CardBackView: View {
+    @ObservedObject private var viewModel: CardBackViewModel
     let doneHandler: (Countdown) -> Void
     let cancelHandler: (UUID) -> Void
 
     init(
-        viewModel: CreateCountdownViewModel,
+        viewModel: CardBackViewModel,
         doneHandler: @escaping (Countdown) -> Void,
         cancelHandler: @escaping (UUID) -> Void) {
         self.viewModel = viewModel
@@ -43,16 +19,17 @@ struct CreateCountdownView: View {
     var body: some View {
         ZStack {
             GeometryReader { geometry in
-                CardBackground(image: viewModel.countdown.image, size: geometry.size)
+                CardBackground(image: viewModel.countdown.image, blur: true, size: geometry.size)
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
-                Blur(style: .systemThinMaterial)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-
                 VStack(alignment: .leading, spacing: 0) {
-                    HStack(spacing: 16) {
-                        TextField("Title", text: $viewModel.countdown.title)
-                            .autocapitalization(.sentences)
+                    VStack(alignment: .leading, spacing: 16) {
+                        TextField("New Countdown", text: $viewModel.countdown.title)
+                            .font(.title2)
+                            .autocapitalization(.words)
+                        Text(viewModel.countdown.dateString)
+                            .font(.caption)
+                            .foregroundColor(.gray)
                     }
                     .padding()
                     .background(Color.systemBackground.opacity(0.7))
@@ -122,25 +99,15 @@ struct CreateCountdownView: View {
     }
 }
 
-struct CreateCountdownView_Previews: PreviewProvider {
+struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ZStack {
-                let date =  Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero()
-                CreateCountdownView(viewModel: .init(countdown: .init(date: date, title: "Test", image: "sweden")), doneHandler: {_ in }, cancelHandler: {_ in })
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "apple")), doneHandler: {_ in}, cancelHandler: {_ in})
             }
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
-            .background(Color.red)
-            .cornerRadius(24)
-
-            ZStack {
-                let date =  Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero()
-                CreateCountdownView(viewModel: .init(countdown: .init(date: date, title: "Test", image: "sweden")), doneHandler: {_ in }, cancelHandler: {_ in })
-            }
-            .preferredColorScheme(.dark)
-            .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
-            .background(Color.red)
             .cornerRadius(24)
         }
+        .padding()
     }
 }

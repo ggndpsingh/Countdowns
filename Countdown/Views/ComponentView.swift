@@ -19,7 +19,14 @@ struct ComponentView: View {
 
 struct ComponentView_Previews: PreviewProvider {
     static var previews: some View {
-        ComponentView(component: .year(2))
-            .background(Color.blue)
+        Group {
+            ZStack {
+                CardFrontView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "apple"), deleteHandler: {_ in})
+            }
+            .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
+            .cornerRadius(24)
+        }
+        .padding()
+
     }
 }

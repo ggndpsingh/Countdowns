@@ -1,9 +1,4 @@
-//
-//  RemoteRepository.swift
-//  Countdown
-//
 //  Created by Gagandeep Singh on 5/9/20.
-//
 
 import Foundation
 import CloudKit
