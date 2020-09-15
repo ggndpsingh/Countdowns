@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E658E8AC251057D1007E9AFD /* CountdownCardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AB251057D1007E9AFD /* CountdownCardFrontView.swift */; };
+		E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AD25105E93007E9AFD /* FlipView.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
 		E6E3140D2504DF87005C8B61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* ContentView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E658E8AB251057D1007E9AFD /* CountdownCardFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownCardFrontView.swift; sourceTree = "<group>"; };
+		E658E8AD25105E93007E9AFD /* FlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipView.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		E6E3140C2504DF87005C8B61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				E6E3140C2504DF87005C8B61 /* ContentView.swift */,
 				E6E314492504E0A2005C8B61 /* ComponentView.swift */,
 				E6E3144A2504E0A2005C8B61 /* CountdownView.swift */,
+				E658E8AD25105E93007E9AFD /* FlipView.swift */,
+				E658E8AB251057D1007E9AFD /* CountdownCardFrontView.swift */,
 				E6E3144B2504E0A2005C8B61 /* CreateCountdownView.swift */,
 			);
 			path = Views;
@@ -345,6 +351,7 @@
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E6E3144D2504E0A2005C8B61 /* RemoteRepository.swift in Sources */,
+				E658E8AC251057D1007E9AFD /* CountdownCardFrontView.swift in Sources */,
 				E6E314552504E0A2005C8B61 /* CreateCountdownView.swift in Sources */,
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
@@ -355,6 +362,7 @@
 				E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */,
 				E6E314172504DF87005C8B61 /* Countdown.xcdatamodeld in Sources */,
 				E6E314512504E0A2005C8B61 /* Countdown.swift in Sources */,
+				E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

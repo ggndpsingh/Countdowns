@@ -26,29 +26,29 @@ final class CreateCountdownViewModel: ObservableObject {
 
     func save() {
         let context: NSManagedObjectContext = .mainContext
-//        DispatchQueue.global(qos: .userInteractive).async {
-            do {
-                if let existing = CountdownObject.fetch(with: countdown.id, in: context) {
-                    existing.update(from: countdown)
-                } else {
-                    CountdownObject.create(from: countdown, in: context)
-                }
-
-                try context.save()
-            } catch {
-                print(error)
+        do {
+            if let existing = CountdownObject.fetch(with: countdown.id, in: context) {
+                existing.update(from: countdown)
+            } else {
+                CountdownObject.create(from: countdown, in: context)
             }
-//        }
+
+            try context.save()
+        } catch {
+            print(error)
+        }
     }
 }
 
 struct CreateCountdownView: View {
     @ObservedObject private var viewModel: CreateCountdownViewModel
     let doneHandler: () -> Void
+    let cancelHandler: () -> Void
 
-    init(viewModel: CreateCountdownViewModel, doneHandler: @escaping () -> Void) {
+    init(viewModel: CreateCountdownViewModel, doneHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
         self.viewModel = viewModel
         self.doneHandler = doneHandler
+        self.cancelHandler = cancelHandler
     }
 
     var body: some View {
@@ -84,7 +84,7 @@ struct CreateCountdownView: View {
 
             HStack {
                 Button(action: {
-                    doneHandler()
+                    cancelHandler()
                 }) {
                     Text("Cancel")
                     .foregroundColor(.white)
@@ -117,7 +117,7 @@ struct CreateCountdownView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             let date =  Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero()
-            CreateCountdownView(viewModel: .init(countdown: .init(date: date, title: "Test", image: "sweden")), doneHandler: {})
+            CreateCountdownView(viewModel: .init(countdown: .init(date: date, title: "Test", image: "sweden")), doneHandler: {}, cancelHandler: {})
         }
         .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
         .background(Color.red)
