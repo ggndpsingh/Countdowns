@@ -7,27 +7,30 @@ struct CountdownCardFrontView: View {
     let deleteHandler: (UUID) -> Void
 
     var body: some View {
-        GeometryReader { geometry in
-            GridItemBackground(image: countdown.image, size: geometry.size)
-                .cornerRadius(24)
-            HStack(alignment: .top) {
-                TitleView(title: countdown.title, date: countdown.dateString)
-                Spacer()
-                HStack {
-                    Button(action: {
-                        deleteHandler(countdown.id)
-                    }, label: {
-                        Image(systemName: "trash")
-                            .frame(width: 36, height: 36)
-                            .background(Circle().fill(Color.white.opacity(0.7)))
-                            .foregroundColor(.red)
-                    })
+        ZStack(alignment: .topLeading) {
+            GeometryReader { geometry in
+                CardBackground(image: countdown.image, size: geometry.size)
+                    .cornerRadius(24)
+
+                HStack(alignment: .top) {
+                    TitleView(title: countdown.title, date: countdown.dateString)
+                    Spacer()
+                    HStack {
+                        Button(action: {
+                            deleteHandler(countdown.id)
+                        }, label: {
+                            Image(systemName: "trash")
+                                .frame(width: 36, height: 36)
+                                .background(Circle().fill(Color.white.opacity(0.7)))
+                                .foregroundColor(.red)
+                        })
+                    }
+                    .font(.subheadline)
                 }
-                .font(.subheadline)
+                .padding()
+                CountdownView(date: countdown.date)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding()
-            CountdownView(date: countdown.date)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

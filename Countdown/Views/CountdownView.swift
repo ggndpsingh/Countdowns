@@ -29,9 +29,7 @@ struct CountdownGridItem: View {
         FlipView(
             isFlipped: flipped,
             front:{
-                ZStack(alignment: .topLeading) {
-                    CountdownCardFrontView(countdown: countdown, deleteHandler: deleteHandler)
-                }
+                CountdownCardFrontView(countdown: countdown, deleteHandler: deleteHandler)
                 .onAppear {
                     if isNew {
                         withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
@@ -128,21 +126,35 @@ struct CountdownView: View {
     }
 }
 
-struct GridItemBackground: View {
+struct CardBackground: View {
     let image: String?
     let size: CGSize
 
     var body: some View {
         if let image = image {
-            Image(image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: size.width, height: size.height, alignment: .center)
-                .clipped()
-                .cornerRadius(24)
+            ZStack {
+                Image(image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: size.width, height: size.height, alignment: .center)
+                    .clipped()
+                    .cornerRadius(24)
+            }
         } else {
             Rectangle()
                 .fill(Color.yellow)
                 .frame(width: size.width, height: size.height, alignment: .center)
         }    }
+}
+
+struct Blur: UIViewRepresentable {
+    var style: UIBlurEffect.Style
+
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: style)
+    }
 }

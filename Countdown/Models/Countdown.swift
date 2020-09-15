@@ -9,14 +9,12 @@ struct Countdown: Identifiable, Equatable {
     var date: Date
     var title: String
     var image: String?
-    var isNew: Bool
 
     init(object: CountdownObject) {
         id = object.id ?? .init()
         date = object.date ?? .init()
         title = object.title ?? ""
         image = object.image
-        isNew = false
     }
 
     init?(objectID id: UUID) {
@@ -28,8 +26,7 @@ struct Countdown: Identifiable, Equatable {
         self.id = id
         self.date = date
         self.title = title
-        self.image = image
-        self.isNew = true
+        self.image = "sweden"
     }
 }
 
