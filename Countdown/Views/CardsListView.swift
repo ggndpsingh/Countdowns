@@ -15,6 +15,8 @@ struct CardsListView: View {
     @ObservedObject var viewModel: CardsListViewModel
     private let columns: [GridItem] = [GridItem(.adaptive(minimum: 480, maximum: 600))]
 
+    @State var pickingPhotos: Bool = false
+
     private var countdowns: [Countdown] {
         objects.map(Countdown.init).sorted {
             if viewModel.isTemporaryItem(id: $0.id) {
@@ -41,6 +43,9 @@ struct CardsListView: View {
                     }
                 }
             }
+            .sheet(isPresented: $pickingPhotos, content: {
+                PhotoPicker(imageURL: $viewModel.newItemURL)
+            })
             .toolbar {
                 Button(action: addItem) {
                     Label("Add Item", systemImage: "plus")
@@ -53,9 +58,10 @@ struct CardsListView: View {
     }
 
     private func addItem() {
-        withAnimation(.spring()) {
-            viewModel.addItem()
-        }
+        pickingPhotos = true
+//        withAnimation(.spring()) {
+//            viewModel.addItem()
+//        }
     }
 
     private func deleteItem(id: UUID) {

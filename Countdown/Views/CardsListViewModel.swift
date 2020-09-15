@@ -11,10 +11,17 @@ final class CardsListViewModel: ObservableObject {
         self.context = context
     }
 
+    var newItemURL: URL? {
+        didSet {
+            if let url = newItemURL {
+                addItem(url: url)
+            }
+        }
+    }
     var hasTemporaryItem: Bool { temporaryItemID != nil }
 
-    func addItem() {
-        let item = Countdown()
+    func addItem(url: URL) {
+        let item = Countdown(image: url.absoluteString)
         CountdownObject.create(from: item, in: context)
         do {
             try context.save()

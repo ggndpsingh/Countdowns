@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "UnsplashPhotoPicker",
+        "repositoryURL": "https://github.com/nidegen/unsplash-photopicker-ios",
+        "state": {
+          "branch": "master",
+          "revision": "07a0b058f2410d07d3b095a1618f237f4374a280",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

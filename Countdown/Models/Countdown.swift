@@ -15,7 +15,7 @@ struct Countdown: Identifiable, Equatable {
         id = object.id ?? .init()
         date = object.date ?? .init()
         title = object.title ?? ""
-        image = object.image
+        image = object.imageURL
     }
 
     init?(objectID id: UUID) {
@@ -65,13 +65,13 @@ extension CountdownObject {
         item.id = countdown.id
         item.date = countdown.date
         item.title = countdown.title
-        item.image = countdown.image
+        item.imageURL = countdown.image
     }
 
     func update(from countdown: Countdown) {
         date = countdown.date
         title = countdown.title
-        image = countdown.image
+        imageURL = countdown.image
     }
 
     func delete(

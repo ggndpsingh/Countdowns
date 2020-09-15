@@ -19,7 +19,7 @@ struct CardBackView: View {
     var body: some View {
         ZStack {
             GeometryReader { geometry in
-                CardBackground(image: viewModel.countdown.image, blur: true, size: geometry.size)
+                CardBackground(imageURL: viewModel.countdown.image, blur: true, size: geometry.size)
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
                 VStack(alignment: .leading, spacing: 0) {

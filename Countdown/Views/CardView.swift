@@ -54,7 +54,9 @@ struct CardView: View {
 
     private func flipIfNew() {
         if isNew {
-            flip()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.flip()
+            }
         }
     }
 

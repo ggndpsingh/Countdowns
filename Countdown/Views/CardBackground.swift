@@ -3,35 +3,28 @@
 import SwiftUI
 
 struct CardBackground: View {
-    let image: String?
+    let imageURL: String?
     let blur: Bool
     let size: CGSize
 
     var body: some View {
-        if let image = image {
-            ZStack {
-                Image(image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: size.width, height: size.height, alignment: .center)
-                    .clipped()
-                    .cornerRadius(24)
-                    .overlay(
-                        Group {
-                            if blur {
-                                Blur(style: .systemThinMaterial)
-                            } else {
-                                RoundedRectangle(cornerRadius: 24)
-                                    .stroke(Color.purple, lineWidth: 0)
-                            }
-                        }
-                    )
-            }
-        } else {
-            RoundedRectangle(cornerRadius: 24)
-                .fill(Color.yellow)
-                .frame(width: size.width, height: size.height, alignment: .center)
-        }
+        ImageView(path: imageURL!)
+            .frame(width: size.width, height: size.height, alignment: .center)
+            .cornerRadius(24)
+            .contentShape(
+                RoundedRectangle(cornerRadius: 24)
+            )
+            .clipped(antialiased: false)
+            .overlay(
+                Group {
+                    if blur {
+                        Blur(style: .systemThinMaterial)
+                    } else {
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.purple, lineWidth: 0)
+                    }
+                }
+            )
     }
 }
 
@@ -39,9 +32,7 @@ struct CardBackground: View {
 struct CardBackground_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardBackground(image: nil, blur: false, size: .init(width: 300, height: 300))
-            CardBackground(image: "sweden", blur: false, size: .init(width: 300, height: 300))
-            CardBackground(image: "sweded", blur: true, size: .init(width: 300, height: 300))
+            CardBackground(imageURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Apple_park_cupertino_2019.jpg/480px-Apple_park_cupertino_2019.jpg", blur: false, size: .init(width: 300, height: 300))
         }
     }
 }

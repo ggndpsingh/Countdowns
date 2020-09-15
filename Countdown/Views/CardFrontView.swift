@@ -10,7 +10,7 @@ struct CardFrontView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { geometry in
-                CardBackground(image: countdown.image, blur: false, size: geometry.size)
+                CardBackground(imageURL: countdown.image, blur: false, size: geometry.size)
 
                 HStack(alignment: .top) {
                     TitleView(title: countdown.title, date: countdown.dateString)

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,9 @@
 		E658E8BD2510FEEA007E9AFD /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BC2510FEEA007E9AFD /* Blur.swift */; };
 		E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BE2510FF70007E9AFD /* TitleView.swift */; };
 		E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */; };
+		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
+		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
+		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
 		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
@@ -67,6 +70,8 @@
 		E658E8BC2510FEEA007E9AFD /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		E658E8BE2510FF70007E9AFD /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
+		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		E6E3140C2504DF87005C8B61 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6E3143D2504E007005C8B61 /* CloudKit.framework in Frameworks */,
+				E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +174,7 @@
 				E6E314182504DF87005C8B61 /* Info.plist */,
 				E6E314152504DF87005C8B61 /* Countdown.xcdatamodeld */,
 				E6E314102504DF87005C8B61 /* Preview Content */,
+				E66169A1251119AF00E5C15C /* PhotoPicker.swift */,
 			);
 			path = Countdown;
 			sourceTree = "<group>";
@@ -246,6 +253,7 @@
 				E6E3144A2504E0A2005C8B61 /* CountdownView.swift */,
 				E658E8BE2510FF70007E9AFD /* TitleView.swift */,
 				E658E8B32510FB28007E9AFD /* CardBackground.swift */,
+				E66169A3251122B200E5C15C /* ImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +274,9 @@
 			dependencies = (
 			);
 			name = Countdown;
+			packageProductDependencies = (
+				E661699F2511195400E5C15C /* UnsplashPhotoPicker */,
+			);
 			productName = Countdown;
 			productReference = E6E314072504DF87005C8B61 /* Countdown.app */;
 			productType = "com.apple.product-type.application";
@@ -337,6 +348,8 @@
 				Base,
 			);
 			mainGroup = E6E313FE2504DF87005C8B61;
+			packageReferences = (
+			);
 			productRefGroup = E6E314082504DF87005C8B61 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -383,6 +396,7 @@
 				E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */,
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
+				E66169A4251122B200E5C15C /* ImageView.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E6E3144D2504E0A2005C8B61 /* RemoteRepository.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
@@ -402,6 +416,7 @@
 				E6E314172504DF87005C8B61 /* Countdown.xcdatamodeld in Sources */,
 				E6E314512504E0A2005C8B61 /* Countdown.swift in Sources */,
 				E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */,
+				E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */,
 				E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,6 +739,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E661699F2511195400E5C15C /* UnsplashPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnsplashPhotoPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E6E314152504DF87005C8B61 /* Countdown.xcdatamodeld */ = {
