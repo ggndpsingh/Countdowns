@@ -7,14 +7,14 @@ struct CountdownGridItem: View {
     @State var flipped: Bool = false
     let countdown: Countdown
     let isNew: Bool
-    let doneHandler:  (UUID) -> Void
+    let doneHandler:  (Countdown) -> Void
     let cancelHandler: (UUID) -> Void
     let deleteHandler: (UUID) -> Void
 
     internal init(
         countdown: Countdown,
         isNew: Bool,
-        doneHandler: @escaping (UUID) -> Void,
+        doneHandler: @escaping (Countdown) -> Void,
         cancelHandler: @escaping (UUID) -> Void,
         deleteHandler: @escaping (UUID) -> Void) {
 
@@ -45,22 +45,29 @@ struct CountdownGridItem: View {
                     }
                 }
             }, back: {
-                CreateCountdownView(viewModel: .init(countdown: countdown), doneHandler: {
-                    doneHandler(countdown.id)
-                    withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-                        flipped.toggle()
-                    }
-                }, cancelHandler: {
-                    cancelHandler(countdown.id)
-                    withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-                        flipped.toggle()
-                    }
-                })
-                .cornerRadius(24)
+                CreateCountdownView(
+                    viewModel: .init(countdown: countdown),
+                    doneHandler: handleDone,
+                    cancelHandler: handleCancel)
+                    .cornerRadius(24)
             }
         )
         .frame(height: 320)
         .padding()
+    }
+
+    private func handleDone(countdown: Countdown) {
+        doneHandler(countdown)
+        withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
+            flipped.toggle()
+        }
+    }
+
+    private func handleCancel(id: UUID) {
+        cancelHandler(countdown.id)
+        withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
+            flipped.toggle()
+        }
     }
 }
 

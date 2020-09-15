@@ -23,29 +23,17 @@ final class CreateCountdownViewModel: ObservableObject {
         self.countdown = countdown
         allDay = countdown.date.isMidnight
     }
-
-    func save() {
-        let context: NSManagedObjectContext = .mainContext
-        do {
-            if let existing = CountdownObject.fetch(with: countdown.id, in: context) {
-                existing.update(from: countdown)
-            } else {
-                CountdownObject.create(from: countdown, in: context)
-            }
-
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
 }
 
 struct CreateCountdownView: View {
     @ObservedObject private var viewModel: CreateCountdownViewModel
-    let doneHandler: () -> Void
-    let cancelHandler: () -> Void
+    let doneHandler: (Countdown) -> Void
+    let cancelHandler: (UUID) -> Void
 
-    init(viewModel: CreateCountdownViewModel, doneHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
+    init(
+        viewModel: CreateCountdownViewModel,
+        doneHandler: @escaping (Countdown) -> Void,
+        cancelHandler: @escaping (UUID) -> Void) {
         self.viewModel = viewModel
         self.doneHandler = doneHandler
         self.cancelHandler = cancelHandler
@@ -83,9 +71,7 @@ struct CreateCountdownView: View {
             Spacer()
 
             HStack {
-                Button(action: {
-                    cancelHandler()
-                }) {
+                Button(action: { cancelHandler(viewModel.countdown.id) }) {
                     Text("Cancel")
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, maxHeight: 44)
@@ -94,10 +80,7 @@ struct CreateCountdownView: View {
                             .fill(Color.gray))
                 }
 
-                Button(action: {
-                    viewModel.save()
-                    doneHandler()
-                }) {
+                Button(action: { doneHandler(viewModel.countdown) }) {
                     Text("Done")
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, maxHeight: 44)
@@ -117,7 +100,7 @@ struct CreateCountdownView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             let date =  Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero()
-            CreateCountdownView(viewModel: .init(countdown: .init(date: date, title: "Test", image: "sweden")), doneHandler: {}, cancelHandler: {})
+            CreateCountdownView(viewModel: .init(countdown: .init(date: date, title: "Test", image: "sweden")), doneHandler: {_ in }, cancelHandler: {_ in })
         }
         .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
         .background(Color.red)

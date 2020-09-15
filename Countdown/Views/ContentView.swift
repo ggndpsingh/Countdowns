@@ -6,7 +6,6 @@ import CoreData
 
 final class CountdownsViewModel: ObservableObject {
     private let context: NSManagedObjectContext
-
     private var temporaryItemID: UUID?
 
     init(context: NSManagedObjectContext = .mainContext) {
@@ -31,6 +30,19 @@ final class CountdownsViewModel: ObservableObject {
     func handleCancel(for itemID: UUID) {
         if temporaryItemID == itemID {
             deleteItem(id: itemID)
+            temporaryItemID = nil
+        }
+    }
+
+    func handleDone(countdown: Countdown) {
+        temporaryItemID = nil
+        guard let existing = CountdownObject.fetch(with: countdown.id, in: context) else { return }
+        existing.update(from: countdown)
+
+        do {
+            try context.save()
+        } catch {
+            print(error)
         }
     }
 
@@ -74,9 +86,14 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(countdowns) {
-                        CountdownGridItem(countdown: $0, isNew: viewModel.isTemporaryItem(id: $0.id), doneHandler: {_ in}, cancelHandler: viewModel.handleCancel,deleteHandler: viewModel.deleteItem)
-                            .environment(\.managedObjectContext, viewContext)
-                            .cornerRadius(24)
+                        CountdownGridItem(
+                            countdown: $0,
+                            isNew: viewModel.isTemporaryItem(id: $0.id),
+                            doneHandler: viewModel.handleDone,
+                            cancelHandler: viewModel.handleCancel,
+                            deleteHandler: viewModel.deleteItem)
+                                .environment(\.managedObjectContext, viewContext)
+                                .cornerRadius(24)
                     }
                 }
             }
