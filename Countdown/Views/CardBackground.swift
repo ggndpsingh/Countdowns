@@ -18,7 +18,7 @@ struct CardBackground: View {
             .overlay(
                 Group {
                     if blur {
-                        Blur(style: .systemThinMaterial)
+                        Blur(style: .systemThickMaterial)
                     } else {
                         RoundedRectangle(cornerRadius: 24)
                             .stroke(Color.purple, lineWidth: 0)
@@ -32,7 +32,7 @@ struct CardBackground: View {
 struct CardBackground_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardBackground(imageURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Apple_park_cupertino_2019.jpg/480px-Apple_park_cupertino_2019.jpg", blur: false, size: .init(width: 300, height: 300))
+            CardBackground(imageURL: "https://images.unsplash.com/photo-1600017751108-6df9a5a7334e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0", blur: false, size: .init(width: 300, height: 300))
         }
     }
 }

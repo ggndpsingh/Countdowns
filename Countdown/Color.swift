@@ -5,5 +5,6 @@ import SwiftUI
 extension Color {
     static let systemBackground = Color(UIColor.systemBackground)
     static let secondarySystemBackground = Color(UIColor.secondarySystemBackground)
-    static let label = Color(UIColor.label)
+    static let label = Color(UIColor.darkGray)
+    static let secondaryLabel = Color(UIColor.secondaryLabel)
 }

@@ -4,18 +4,18 @@ import SwiftUI
 import Combine
 
 struct ImageView: View {
-    @ObservedObject var provider: ImageProvider
+    @ObservedObject var imageLoader: ImageLoader
     private let path: String
 
     init(path: String) {
-        provider = ImageProvider()
+        imageLoader = .init(url: URL(string: path)!)
         self.path = path
-        provider.load(at: path)
+        imageLoader.load()
     }
 
     var body: some View {
         Group {
-            if let image = provider.image {
+            if let image = imageLoader.image {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -23,72 +23,56 @@ struct ImageView: View {
                 Color.yellow
             }
         }
-        .onDisappear(perform: provider.cancel)
     }
 }
 
-class ImageProvider: ObservableObject {
+class ImageLoader: ObservableObject {
     @Published var image: UIImage?
+    private let url: URL
+    private var cache: ImageCache = .shared
     private var cancellable: AnyCancellable?
-    private let loader = ImageLoader(cache: ImageCache())
 
-    func load(at path: String) {
-        guard let url = URL(string: path) else { return }
-        cancellable = loader.load(at: url) { result in
-            self.image = result.1
-        }
+    init(url: URL) {
+        self.url = url
     }
 
-    func cancel() {
-        cancellable?.cancel()
-    }
-}
-
-class ImageLoader {
-    private var cache: ImageCache
-
-    init(cache: ImageCache) {
-        self.cache = cache
-    }
-
-    func load(at url: URL, completion: @escaping ((String, UIImage?)) -> Void) -> AnyCancellable? {
+    func load() {
         if let image = cache[url.absoluteString] {
-            completion((url.absoluteString, image))
-            return nil
+            self.image = image
+            return
         }
 
-        return URLSession.shared.dataTaskPublisher(for: url)
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
+            .handleEvents(receiveOutput: { [weak self] in self?.cache($0) })
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { image in
-                self.cache(image, url: url)
-                completion((url.absoluteString, image))
-            })
+            .assign(to: \.image, on: self)
     }
 
-    private func cache(_ image: UIImage?, url: URL) {
+    private func cache(_ image: UIImage?) {
         image.map { cache[url.absoluteString] = $0 }
     }
 }
 
-protocol ProvidesImageCache {
-    subscript(_ path: String) -> UIImage? { get set }
-}
-
-struct ImageCache: ProvidesImageCache {
+struct ImageCache {
+    static let shared = ImageCache()
     private let cache = NSCache<NSString, UIImage>()
 
+    private func getImage(for key: String) -> UIImage? {
+        cache.object(forKey: key as NSString)
+    }
+
+    private func cacheImage(_ image: UIImage?, for key: String) {
+        guard let image = image else {
+             return cache.removeObject(forKey: key as NSString)
+        }
+
+        cache.setObject(image, forKey: key as NSString)
+    }
+
     subscript(_ key: String) -> UIImage? {
-        get {
-            cache.object(forKey: key as NSString)
-        }
-        set {
-            if newValue == nil {
-                 cache.removeObject(forKey: key as NSString)
-            } else {
-                cache.setObject(newValue!, forKey: key as NSString)
-            }
-        }
+        get { getImage(for: key) }
+        set { cacheImage(newValue, for: key) }
     }
 }

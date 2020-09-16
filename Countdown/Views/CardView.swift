@@ -29,8 +29,7 @@ struct CardView: View {
             isFlipped: flipped,
             front:{
                 CardFrontView(
-                    countdown: countdown,
-                    deleteHandler: deleteHandler)
+                    countdown: countdown)
                     .onAppear(perform: flipIfNew)
                     .onTapGesture(perform: flip)
             }, back: {
@@ -38,7 +37,8 @@ struct CardView: View {
                     viewModel: .init(
                         countdown: countdown),
                     doneHandler: handleDone,
-                    cancelHandler: handleCancel)
+                    cancelHandler: handleCancel,
+                    deleteHandler: handleDelete)
                     .cornerRadius(24)
             }
         )
@@ -68,10 +68,14 @@ struct CardView: View {
     }
 
     private func handleCancel(id: UUID) {
-        cancelHandler(countdown.id)
+        cancelHandler(id)
         withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
             flipped.toggle()
         }
+    }
+
+    private func handleDelete(id: UUID) {
+        deleteHandler(id)
     }
 }
 

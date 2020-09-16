@@ -7,19 +7,22 @@ struct TitleView: View {
     let date: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(Font.system(size: 40, weight: .medium, design: .default))
-                    .shadow(color: Color.black.opacity(0.3), radius: 0, x: 1, y: 1)
-                    .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 0)
-                Text(date)
-                    .font(Font.system(size: 16, weight: .regular, design: .rounded))
-                    .shadow(color: Color.black.opacity(0.3), radius: 0, x: 1, y: 1)
-                    .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 0)
+        ZStack {
+            Blur(style: .systemThinMaterialLight)
+            
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(Font.system(size: 20, weight: .regular, design: .default))
+                    Text(date)
+                        .font(Font.system(size: 10, weight: .regular, design: .rounded))
+                }
+                .foregroundColor(.label)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
+            .padding()
         }
-        .foregroundColor(.white)
+        .frame(maxWidth: .infinity, idealHeight: 70, maxHeight: 70, alignment: .top)
     }
 }
 
@@ -27,8 +30,14 @@ struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ZStack {
-                CardFrontView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "apple"), deleteHandler: {_ in})
+                CardFrontView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Indian Date Night! 🍎", image: "https://images.unsplash.com/photo-1600173220698-9dddbbd35fb3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"))
             }
+            .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
+            .cornerRadius(24)
+            ZStack {
+                CardFrontView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Indian Date Night!", image: "https://images.unsplash.com/photo-1600173220698-9dddbbd35fb3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"))
+            }
+            .preferredColorScheme(.dark)
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
             .cornerRadius(24)
         }
