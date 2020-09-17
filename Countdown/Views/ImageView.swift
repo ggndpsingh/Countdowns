@@ -20,7 +20,7 @@ struct ImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {
-                Color.yellow
+                Color.secondarySystemBackground
             }
         }
     }

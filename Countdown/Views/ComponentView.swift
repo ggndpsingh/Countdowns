@@ -14,8 +14,8 @@ struct ComponentView: View {
         }
         .padding(.horizontal, 6)
         .padding(.vertical, 12)
-        .background(Color.black.opacity(0.5))
-        .foregroundColor(.white)
+        .background(Color.systemBackground.opacity(0.5))
+        .foregroundColor(.label)
         .cornerRadius(8)
     }
 }

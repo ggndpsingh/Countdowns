@@ -5,82 +5,64 @@ import SwiftUI
 struct CardView: View {
     @State private var flipped: Bool = false
     let countdown: Countdown
+    let isFlipped: Bool
     let isNew: Bool
+    let tapHandler: (UUID) -> Void
     let doneHandler:  (Countdown) -> Void
-    let cancelHandler: (UUID) -> Void
-    let deleteHandler: (UUID) -> Void
+    let deleteHandler: () -> Void
 
     internal init(
         countdown: Countdown,
+        isFlipped: Bool,
         isNew: Bool,
+        tapHandler: @escaping (UUID) -> Void,
         doneHandler: @escaping (Countdown) -> Void,
-        cancelHandler: @escaping (UUID) -> Void,
-        deleteHandler: @escaping (UUID) -> Void) {
+        deleteHandler: @escaping () -> Void) {
 
         self.countdown = countdown
+        self.isFlipped = isFlipped
         self.isNew = isNew
+        self.tapHandler = tapHandler
         self.doneHandler = doneHandler
-        self.cancelHandler = cancelHandler
         self.deleteHandler = deleteHandler
     }
 
     var body: some View {
         FlipView(
-            isFlipped: flipped,
+            isFlipped: flipped || isFlipped,
             front:{
                 CardFrontView(
                     countdown: countdown)
-                    .onAppear(perform: flipIfNew)
-                    .onTapGesture(perform: flip)
+                    .onTapGesture { tapHandler(countdown.id) }
+                    .frame(height: 320)
             }, back: {
                 CardBackView(
                     viewModel: .init(
                         countdown: countdown),
-                    doneHandler: handleDone,
-                    cancelHandler: handleCancel,
-                    deleteHandler: handleDelete)
-                    .cornerRadius(24)
+                    doneHandler: {
+                        if flipped {
+                            withFlipAnimation(flipped.toggle())
+                        }
+                        doneHandler($0)
+                    },
+                    deleteHandler: deleteHandler)
             }
         )
-        .frame(height: 320)
-        .padding()
-    }
-
-    private func flip() {
-        withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-            flipped.toggle()
-        }
-    }
-
-    private func flipIfNew() {
-        if isNew {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.flip()
+        .onAppear {
+            if isNew {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
+                        flipped = true
+                    }
+                }
             }
         }
-    }
-
-    private func handleDone(countdown: Countdown) {
-        doneHandler(countdown)
-        withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-            flipped.toggle()
-        }
-    }
-
-    private func handleCancel(id: UUID) {
-        cancelHandler(id)
-        withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-            flipped.toggle()
-        }
-    }
-
-    private func handleDelete(id: UUID) {
-        deleteHandler(id)
+        .padding()
     }
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "apple"), isNew: false, doneHandler: { _ in }, cancelHandler: { _ in }, deleteHandler: { _ in })
+        CardView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "apple"), isFlipped: false, isNew: false, tapHandler: {_ in}, doneHandler: {_ in }, deleteHandler: {})
     }
 }

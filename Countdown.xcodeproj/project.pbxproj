@@ -21,6 +21,7 @@
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
+		E6C4D04F2513279A00BAE909 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D04E2513279A00BAE909 /* DatePickerView.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
 		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		E6C4D04E2513279A00BAE909 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		E6E3140C2504DF87005C8B61 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				E658E8BE2510FF70007E9AFD /* TitleView.swift */,
 				E658E8B32510FB28007E9AFD /* CardBackground.swift */,
 				E66169A3251122B200E5C15C /* ImageView.swift */,
+				E6C4D04E2513279A00BAE909 /* DatePickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				E6E3144E2504E0A2005C8B61 /* CloudKitRecord.swift in Sources */,
 				E6E3144F2504E0A2005C8B61 /* CKContainer.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
+				E6C4D04F2513279A00BAE909 /* DatePickerView.swift in Sources */,
 				E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */,
 				E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */,
 				E6E314532504E0A2005C8B61 /* ComponentView.swift in Sources */,

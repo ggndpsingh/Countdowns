@@ -43,7 +43,7 @@ extension Countdown {
     }
 
     var dateString: String {
-        DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
+        DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: date.isMidnight ? .none : .short)
     }
 }
 

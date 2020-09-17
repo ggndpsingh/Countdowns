@@ -8,7 +8,7 @@ struct TitleView: View {
 
     var body: some View {
         ZStack {
-            Blur(style: .systemThinMaterialLight)
+            Blur(style: .systemThinMaterial)
             
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {

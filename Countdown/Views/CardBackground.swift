@@ -18,7 +18,7 @@ struct CardBackground: View {
             .overlay(
                 Group {
                     if blur {
-                        Blur(style: .systemThickMaterial)
+                        Blur(style: .systemThinMaterial)
                     } else {
                         RoundedRectangle(cornerRadius: 24)
                             .stroke(Color.purple, lineWidth: 0)

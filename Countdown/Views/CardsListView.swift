@@ -5,6 +5,16 @@ import SwiftUI
 import CoreData
 import UserNotifications
 
+func withFlipAnimation<Result>(_ body: @autoclosure () throws -> Result) rethrows -> Result {
+    try withAnimation(.spring(response: 0.7, dampingFraction: 0.9), body)
+}
+
+extension Animation {
+    static var flipAnimation: Animation {
+        .spring(response: 1, dampingFraction: 0.8)
+    }
+}
+
 struct CardsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
@@ -31,21 +41,30 @@ struct CardsListView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(countdowns) {
+                    ForEach(countdowns) { countdown in
                         CardView(
-                            countdown: $0,
-                            isNew: viewModel.isTemporaryItem(id: $0.id),
-                            doneHandler: viewModel.handleDone,
-                            cancelHandler: viewModel.handleCancel,
-                            deleteHandler: viewModel.deleteItem)
-                                .environment(\.managedObjectContext, viewContext)
-                                .cornerRadius(24)
+                            countdown: countdown,
+                            isFlipped: viewModel.isCardFlipped(id: countdown.id),
+                            isNew: viewModel.isTemporaryItem(id: countdown.id),
+                            tapHandler: { id in
+                                withFlipAnimation(viewModel.flipCard(id: id))
+                            },
+                            doneHandler: { updatedCountdown in
+                                withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown))
+                            },
+                            deleteHandler: {
+                                withFlipAnimation(viewModel.deleteItem(id: countdown.id))
+                            })
+                            .environment(\.managedObjectContext, viewContext)
+//                            .onTapGesture(count: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/, perform: {
+//                                viewModel.deleteItem(id: countdown.id)
+//                            })
                     }
                 }
             }
-            .sheet(isPresented: $pickingPhotos, content: {
+            .sheet(isPresented: $pickingPhotos) {
                 PhotoPicker(imageURL: $viewModel.newItemURL)
-            })
+            }
             .toolbar {
                 Button(action: addItem) {
                     Label("Add Item", systemImage: "plus")

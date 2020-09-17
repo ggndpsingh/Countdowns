@@ -5,31 +5,33 @@ import CoreData
 
 final class CardBackViewModel: ObservableObject {
     @Published var countdown: Countdown
+
     var allDay: Bool {
-        didSet {
-            allDay
+        get { countdown.date.isMidnight }
+        set {
+            newValue
                 ? countdown.date.setTimeToZero()
                 : countdown.date.setTimeToNow()
         }
     }
 
-    @Published var reminder: Bool {
-        didSet {
-            reminder ? addReminder() : removeReminder()
-        }
+    var changesMade: Bool {
+        guard let original = CountdownObject.fetch(with: countdown.id) else { return false }
+        return countdown != .init(object: original)
+    }
+
+    var reminder: Bool {
+        get { countdown.hasReminder }
+        set { newValue ? addReminder() : removeReminder() }
     }
 
     init(id: UUID) {
         let countdown = Countdown(objectID: id) ?? .init()
         self.countdown = countdown
-        self.allDay = countdown.date.isMidnight
-        self.reminder = countdown.hasReminder
     }
 
     internal init(countdown: Countdown) {
         self.countdown = countdown
-        allDay = countdown.date.isMidnight
-        reminder = countdown.hasReminder
     }
 
     func addReminder() {
@@ -50,6 +52,7 @@ final class CardBackViewModel: ObservableObject {
 
                     // add our notification request
                     UNUserNotificationCenter.current().add(request)
+                    self.objectWillChange.send()
                 } else {
                     self.reminder = false
                 }
@@ -59,5 +62,6 @@ final class CardBackViewModel: ObservableObject {
 
     func removeReminder() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [countdown.id.uuidString])
+        objectWillChange.send()
     }
 }
