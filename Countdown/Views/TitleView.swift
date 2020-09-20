@@ -8,16 +8,13 @@ struct TitleView: View {
 
     var body: some View {
         ZStack {
-            Blur(style: .systemThinMaterial)
-            
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(Font.system(size: 20, weight: .regular, design: .default))
+                        .font(Font.system(size: 24, weight: .regular, design: .default))
                     Text(date)
-                        .font(Font.system(size: 10, weight: .regular, design: .rounded))
+                        .font(Font.system(size: 12, weight: .regular, design: .rounded))
                 }
-                .foregroundColor(.label)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
             .padding()

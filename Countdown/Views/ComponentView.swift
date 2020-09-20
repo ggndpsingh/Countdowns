@@ -12,10 +12,8 @@ struct ComponentView: View {
             Text(component.label)
                 .font(Font.system(size: 10, weight: .medium, design: .default))
         }
-        .padding(.horizontal, 6)
+        .padding(.horizontal, 4)
         .padding(.vertical, 12)
-        .background(Color.systemBackground.opacity(0.5))
-        .foregroundColor(.label)
         .cornerRadius(8)
     }
 }

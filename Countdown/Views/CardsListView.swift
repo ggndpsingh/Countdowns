@@ -56,9 +56,6 @@ struct CardsListView: View {
                                 withFlipAnimation(viewModel.deleteItem(id: countdown.id))
                             })
                             .environment(\.managedObjectContext, viewContext)
-//                            .onTapGesture(count: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/, perform: {
-//                                viewModel.deleteItem(id: countdown.id)
-//                            })
                     }
                 }
             }

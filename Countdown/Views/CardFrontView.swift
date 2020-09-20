@@ -8,15 +8,15 @@ struct CardFrontView: View {
     var body: some View {
         ZStack {
             GeometryReader { geometry in
-                CardBackground(imageURL: countdown.image, blur: false, size: geometry.size)
-                VStack(spacing: 0) {
-                    TitleView(title: countdown.title, date: countdown.dateString)
-                    CountdownView(date: countdown.date)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .offset(y: -12)
-                }
+                CardBackground(imageURL: countdown.image, size: geometry.size)
+                    .overlay(Rectangle().fill(Color.black.opacity(0.3)))
+                TitleView(title: countdown.title, date: countdown.dateString)
+                CountdownView(date: countdown.date)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .offset(y: 16)
             }
         }
+        .foregroundColor(.white)
         .cornerRadius(24)
     }
 }

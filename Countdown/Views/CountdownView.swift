@@ -30,7 +30,7 @@ struct CountdownView: View {
     }
 
     private func countdown() {
-        components = CountdownCalculator.shared.countdown(for: date, size: .full)
+        components = CountdownCalculator.shared.countdown(for: date, size: .medium)
     }
 }
 

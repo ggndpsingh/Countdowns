@@ -21,7 +21,8 @@ struct CardBackView: View {
     var body: some View {
         ZStack {
             GeometryReader { geometry in
-                CardBackground(imageURL: viewModel.countdown.image, blur: true, size: geometry.size)
+                CardBackground(imageURL: viewModel.countdown.image, size: geometry.size)
+                    .overlay(Rectangle().fill(Color.systemBackground.opacity(0.6)))
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
                 VStack(alignment: .leading, spacing:24) {
@@ -52,13 +53,13 @@ struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1600017751108-6df9a5a7334e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")), doneHandler: {_ in }, deleteHandler: {})
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")), doneHandler: {_ in }, deleteHandler: {})
             }
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
             .cornerRadius(24)
 
             ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1600017751108-6df9a5a7334e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")), doneHandler: {_ in }, deleteHandler: {})
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")), doneHandler: {_ in }, deleteHandler: {})
             }
             .preferredColorScheme(.dark)
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
@@ -77,41 +78,50 @@ extension CardBackView {
 
         var body: some View {
             HStack(spacing: 16) {
-                Button(action: doneHandler) {
-                    Image(systemName: viewModel.changesMade ? "checkmark" : "plus")
-                        .rotationEffect(.degrees(viewModel.changesMade ? 0 : 45))
-                        .frame(width: 40, height: 40)
-                        .background(Blur(style: .systemThinMaterial))
-                        .clipShape(Circle())
-                        .foregroundColor(viewModel.changesMade ? .green : .gray)
-                }
+                RoundButton(
+                    action: doneHandler,
+                    image: viewModel.changesMade ? "checkmark" : "plus",
+                    color: viewModel.changesMade ? .green : .gray)
+                    .rotationEffect(.degrees(viewModel.changesMade ? 0 : 45))
 
                 Spacer()
 
-                Button(action: { viewModel.reminder.toggle() }) {
-                    Image(systemName: viewModel.reminder ? "bell.fill" : "bell")
-                        .frame(width: 40, height: 40)
-                        .background(Blur(style: .systemThinMaterial))
-                        .clipShape(Circle())
-                        .foregroundColor(viewModel.reminder ? .orange : .gray)
-                }
+                RoundButton(
+                    action: { viewModel.reminder.toggle() },
+                    image: viewModel.reminder ? "bell.fill" : "bell",
+                    color: viewModel.reminder ? .orange : .gray)
 
-                Button(action: { deleteAlertPresented = true }) {
-                    Image(systemName: "trash")
-                        .frame(width: 40, height: 40)
-                        .background(Blur(style: .systemThinMaterial))
-                        .clipShape(Circle())
-                        .foregroundColor(.red)
+                RoundButton(
+                    action: { deleteAlertPresented = true },
+                    image: "trash",
+                    color: .red)
                 }
                 .alert(isPresented: $deleteAlertPresented) {
                     Alert(
                         title: Text("Delete Countdown"),
                         message: Text("Are you sure you want to delete this countdown?"),
                         primaryButton: .destructive(Text("Delete"), action: deleteHandler),
-                                                    secondaryButton: .cancel(Text("Cancel")))
-                }
+                        secondaryButton: .cancel(Text("Cancel")))
             }
-            .font(.title3)
+        }
+    }
+}
+
+extension CardBackView.ButtonsView {
+    struct RoundButton: View {
+        let action: () -> Void
+        let image: String
+        let color: Color
+
+        var body: some View {
+            Button(action: action) {
+                Image(systemName: image)
+                    .font(.title3)
+                    .frame(width: 40, height: 40)
+                    .background(Blur(style: .systemThinMaterial))
+                    .clipShape(Circle())
+                    .foregroundColor(color)
+            }
         }
     }
 }
@@ -125,9 +135,9 @@ extension CardBackView {
                 .font(Font.system(size: 20, weight: .regular, design: .default))
                 .autocapitalization(.words)
                 .padding()
-                .foregroundColor(Color.primary)
-                .background(Blur(style: .systemMaterial))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .foregroundColor(Color.label)
+                .background(Color.systemBackground.opacity(0.8))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                 .frame(maxWidth: .infinity)
         }
     }
@@ -160,8 +170,8 @@ extension CardBackView {
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Blur(style: .systemMaterial))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .background(Color.systemBackground.opacity(0.8))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
 }
