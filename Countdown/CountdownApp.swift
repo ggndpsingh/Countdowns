@@ -9,7 +9,7 @@ struct CountdownApp: App {
 
     var body: some Scene {
         WindowGroup {
-            CardsListView(viewModel: .init())
+            CardsListView(viewModel: .init(context: persistenceController.container.viewContext))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .onChange(of: scenePhase) { phase in

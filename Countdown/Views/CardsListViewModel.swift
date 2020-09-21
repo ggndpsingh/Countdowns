@@ -2,24 +2,16 @@
 
 import SwiftUI
 import CoreData
+import WidgetKit
 
 final class CardsListViewModel: ObservableObject {
+    private var storage = CountdownStorage()
     private let context: NSManagedObjectContext
     private var flippedCardID: UUID?
     private var temporaryItemID: UUID?
 
-    init(context: NSManagedObjectContext = .mainContext) {
+    init(context: NSManagedObjectContext) {
         self.context = context
-
-//        for i in 0..<100 {
-//            let countdown = Countdown(id: .init(), date: Date.now.addingTimeInterval(TimeInterval(3600 * i)), title: "Countdown \(i)", image: "https://images.unsplash.com/photo-1600017751108-6df9a5a7334e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")
-//            CountdownObject.create(from: countdown, in: context)
-//        }
-//        do {
-//            try context.save()
-//        } catch {
-//            print(error)
-//        }
     }
 
     var newItemURL: URL? {
@@ -68,11 +60,11 @@ final class CardsListViewModel: ObservableObject {
             }
         }
         temporaryItemID = nil
-
         existing.update(from: countdown)
 
         do {
             try context.save()
+            storage.addCountdown(countdown)
         } catch {
             print(error)
         }
@@ -85,6 +77,8 @@ final class CardsListViewModel: ObservableObject {
                     context.delete(item)
                 }
                 try context.save()
+                storage.removeCountdown(id: id.uuidString)
+                WidgetCenter.shared.reloadAllTimelines()
             } catch {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")

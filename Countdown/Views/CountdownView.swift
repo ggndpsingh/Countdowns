@@ -6,6 +6,7 @@ import CoreData
 struct CountdownView: View {
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let date: Date
+    let size: CountdownSize
     private var hasEnded: Bool { date <= .now }
 
     @State private var components: [DateComponent] = []
@@ -27,10 +28,11 @@ struct CountdownView: View {
                 }
             }
         }
+        .foregroundColor(.white)
     }
 
     private func countdown() {
-        components = CountdownCalculator.shared.countdown(for: date, size: .medium)
+        components = CountdownCalculator.countdown(for: date, size: .medium)
     }
 }
 

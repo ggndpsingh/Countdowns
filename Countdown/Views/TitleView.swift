@@ -20,6 +20,7 @@ struct TitleView: View {
             .padding()
         }
         .frame(maxWidth: .infinity, idealHeight: 70, maxHeight: 70, alignment: .top)
+        .foregroundColor(.white)
     }
 }
 
@@ -39,6 +40,5 @@ struct TitleView_Previews: PreviewProvider {
             .cornerRadius(24)
         }
         .padding()
-
     }
 }

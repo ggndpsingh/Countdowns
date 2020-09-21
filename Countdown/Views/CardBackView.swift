@@ -53,13 +53,13 @@ struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")), doneHandler: {_ in }, deleteHandler: {})
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), context: PersistenceController.inMemory.container.viewContext), doneHandler: {_ in }, deleteHandler: {})
             }
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
             .cornerRadius(24)
 
             ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")), doneHandler: {_ in }, deleteHandler: {})
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), context: PersistenceController.inMemory.container.viewContext), doneHandler: {_ in }, deleteHandler: {})
             }
             .preferredColorScheme(.dark)
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)

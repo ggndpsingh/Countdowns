@@ -5,19 +5,20 @@ import CloudKit
 
 protocol CloudKitRecord {
     associatedtype Key: RawRepresentable where Key.RawValue == String
-    var id: CKRecord.ID { get set }
+    var id: UUID { get set }
     init(from record: CKRecord)
 }
 
 extension CloudKitRecord {
-    static var recordType: String { String(describing: self) }
+    var recordID: CKRecord.ID { .init(recordName: id.uuidString) }
+     static var recordType: String { "CD_CountdownObject" }
 
     static var database: CKDatabase {
-        return CKContainer.default().publicCloudDatabase
+        return CKContainer.init(identifier: "iCloud.com.deepgagan.Countdown").privateCloudDatabase
     }
 
     var record: CKRecord {
-        let record = CKRecord(recordType: Self.recordType, recordID: id)
+        let record = CKRecord(recordType: Self.recordType, recordID: recordID)
         let mirror = Mirror(reflecting: self)
         for child in mirror.children {
             if let label = child.label, let key = Key(rawValue: label) {
@@ -54,7 +55,7 @@ extension CloudKitRecord {
 
     func delete(completion: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            Self.database.delete(withRecordID: self.id) { _, error in
+            Self.database.delete(withRecordID: self.recordID) { _, error in
                 DispatchQueue.main.async {
                     completion(error)
                 }

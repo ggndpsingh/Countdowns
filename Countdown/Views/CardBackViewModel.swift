@@ -4,6 +4,7 @@ import SwiftUI
 import CoreData
 
 final class CardBackViewModel: ObservableObject {
+    private var viewContext: NSManagedObjectContext
     @Published var countdown: Countdown
 
     var allDay: Bool {
@@ -16,7 +17,7 @@ final class CardBackViewModel: ObservableObject {
     }
 
     var changesMade: Bool {
-        guard let original = CountdownObject.fetch(with: countdown.id) else { return false }
+        guard let original = CountdownObject.fetch(with: countdown.id, in: viewContext) else { return false }
         return countdown != .init(object: original)
     }
 
@@ -25,12 +26,14 @@ final class CardBackViewModel: ObservableObject {
         set { newValue ? addReminder() : removeReminder() }
     }
 
-    init(id: UUID) {
-        let countdown = Countdown(objectID: id) ?? .init()
+    init(id: UUID, context: NSManagedObjectContext) {
+        self.viewContext = context
+        let countdown = Countdown(objectID: id, in: context) ?? .init()
         self.countdown = countdown
     }
 
-    internal init(countdown: Countdown) {
+    internal init(countdown: Countdown, context: NSManagedObjectContext) {
+        self.viewContext = context
         self.countdown = countdown
     }
 

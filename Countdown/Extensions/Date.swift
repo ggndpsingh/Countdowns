@@ -14,6 +14,25 @@ extension Date {
 }
 
 extension Date {
+    static let christmas: Date = {
+        let today = Date()
+
+        var components = DateComponents(month: 11, day: 25)
+        if (today.allComponents.month ?? 0) >= 11 && (today.allComponents.day ?? 0) >= 25 {
+            components.year = (today.allComponents.year ?? 0) + 1
+        } else {
+            components.year = today.allComponents.year ?? 0
+        }
+
+        return Calendar.current.date(from: components) ?? Date()
+    }()
+}
+
+extension Date {
+    var allComponents: DateComponents {
+        Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+    }
+
     func diff(until date: Date) -> DateComponents {
         Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self, to: date)
     }

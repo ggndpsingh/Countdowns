@@ -11,22 +11,11 @@ struct CardFrontView: View {
                 CardBackground(imageURL: countdown.image, size: geometry.size)
                     .overlay(Rectangle().fill(Color.black.opacity(0.3)))
                 TitleView(title: countdown.title, date: countdown.dateString)
-                CountdownView(date: countdown.date)
+                CountdownView(date: countdown.date, size: .medium)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .offset(y: 16)
             }
         }
-        .foregroundColor(.white)
         .cornerRadius(24)
-    }
-}
-
-struct CardFrontView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            CardFrontView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1600017751108-6df9a5a7334e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"))
-                .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
-        }
-        .padding()
     }
 }

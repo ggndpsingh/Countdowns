@@ -5,25 +5,13 @@ import CloudKit
 import CoreData
 import UserNotifications
 
-struct Countdown: Identifiable, Equatable {
-    let id: UUID
+struct Countdown: Identifiable, Equatable, Codable {
+    var id: UUID
     var date: Date
     var title: String
-    var image: String?
+    var image: String
 
-    init(object: CountdownObject) {
-        id = object.id ?? .init()
-        date = object.date ?? .init()
-        title = object.title ?? ""
-        image = object.imageURL
-    }
-
-    init?(objectID id: UUID) {
-        guard let object = CountdownObject.fetch(with: id) else { return nil }
-        self.init(object: object)
-    }
-
-    init(id: UUID = .init(), date: Date = Date(), title: String = "", image: String? = nil) {
+    init(id: UUID = .init(), date: Date = Date(), title: String = "", image: String = "https://images.unsplash.com/photo-1460388052839-a52677720738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400") {
         self.id = id
         self.date = date
         self.title = title
@@ -38,51 +26,13 @@ extension Countdown {
         UNUserNotificationCenter.current().hasPendingNotification(with: id.uuidString)
     }
 
-    func components(size: CountdownSize = .medium, trimmed: Bool = true) -> [DateComponent] {
-        return CountdownCalculator.shared.countdown(for: date, size: size, trimmed: trimmed)
-    }
-
     var dateString: String {
         DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: date.isMidnight ? .none : .short)
     }
 }
 
-extension CountdownObject {
-    static func fetch(with id: UUID, in context: NSManagedObjectContext = .mainContext) -> CountdownObject? {
-        let request = NSFetchRequest<CountdownObject>(entityName: "CountdownObject")
-        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
-
-        do {
-            let result = try context.fetch(request)
-            return result.first
-        } catch {
-            fatalError("Failed to fetch employees: \(error)")
-        }
-    }
-
-    static func create(from countdown: Countdown, in context: NSManagedObjectContext) {
-        let item = CountdownObject(context: context)
-        item.id = countdown.id
-        item.date = countdown.date
-        item.title = countdown.title
-        item.imageURL = countdown.image
-    }
-
-    func update(from countdown: Countdown) {
-        date = countdown.date
-        title = countdown.title
-        imageURL = countdown.image
-    }
-
-    func delete(
-        in context: NSManagedObjectContext) {
-        context.delete(self)
-    }
-}
-
-extension CountdownObject {
-    enum Key: String {
-        case title
-        case date
-    }
+extension Countdown {
+    static let placeholder: Countdown = {
+        .init(id: .init(), date: .christmas, title: "Christmas 🎄", image: "https://images.unsplash.com/photo-1460388052839-a52677720738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400")
+    }()
 }

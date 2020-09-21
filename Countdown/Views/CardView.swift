@@ -3,6 +3,7 @@
 import SwiftUI
 
 struct CardView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @State private var flipped: Bool = false
     let countdown: Countdown
     let isFlipped: Bool
@@ -38,7 +39,7 @@ struct CardView: View {
             }, back: {
                 CardBackView(
                     viewModel: .init(
-                        countdown: countdown),
+                        countdown: countdown, context: viewContext),
                     doneHandler: {
                         if flipped {
                             withFlipAnimation(flipped.toggle())
