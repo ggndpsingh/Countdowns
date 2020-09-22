@@ -24,14 +24,20 @@ extension StorageProvider {
         }
         storage.setValue(value, forKey: key.rawValue)
     }
+
+    func removeValue(for key: Key) {
+        storage.removeObject(forKey: key.rawValue)
+    }
 }
 
-struct CountdownStorage: StorageProvider {
+final class CountdownStorage: StorageProvider {
+    static let shared = CountdownStorage()
+
     enum Key: String {
         case countdowns
     }
 
-    mutating func addCountdown(_ countdown: Countdown) {
+    func addCountdown(_ countdown: Countdown) {
         var countdowns: [String: Data] = getValue(for: .countdowns) ?? [:]
 
         let encoder = JSONEncoder()
@@ -46,7 +52,7 @@ struct CountdownStorage: StorageProvider {
         }
     }
 
-    mutating func removeCountdown(id: String) {
+    func removeCountdown(id: String) {
         var countdowns: [String: Data] = getValue(for: .countdowns) ?? [:]
         countdowns.removeValue(forKey: id)
         setValue(countdowns, for: .countdowns)
@@ -75,5 +81,9 @@ struct CountdownStorage: StorageProvider {
             }
         }
         return countdowns
+    }
+
+    func clearCountdowns() {
+        removeValue(for: .countdowns)
     }
 }

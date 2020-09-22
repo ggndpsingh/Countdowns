@@ -15,7 +15,16 @@ extension Animation {
     }
 }
 
+class ListPositionModel: ObservableObject {
+    enum Position {
+        case top, bottom
+    }
+
+    @Published var position: Position?
+}
+
 struct CardsListView: View {
+    @StateObject var listPositionModel: ListPositionModel = .init()
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
@@ -40,22 +49,36 @@ struct CardsListView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(countdowns) { countdown in
-                        CardView(
-                            countdown: countdown,
-                            isFlipped: viewModel.isCardFlipped(id: countdown.id),
-                            isNew: viewModel.isTemporaryItem(id: countdown.id),
-                            tapHandler: { id in
-                                withFlipAnimation(viewModel.flipCard(id: id))
-                            },
-                            doneHandler: { updatedCountdown in
-                                withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown))
-                            },
-                            deleteHandler: {
-                                withFlipAnimation(viewModel.deleteItem(id: countdown.id))
-                            })
-                            .environment(\.managedObjectContext, viewContext)
+                ScrollViewReader { proxy in
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(countdowns) { countdown in
+                            CardView(
+                                countdown: countdown,
+                                isFlipped: viewModel.isCardFlipped(id: countdown.id),
+                                isNew: viewModel.isTemporaryItem(id: countdown.id),
+                                tapHandler: { id in
+                                    withFlipAnimation(viewModel.flipCard(id: id))
+                                },
+                                doneHandler: { updatedCountdown in
+                                    withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown))
+                                },
+                                deleteHandler: {
+                                    withFlipAnimation(viewModel.deleteItem(id: countdown.id))
+                                })
+                                .environment(\.managedObjectContext, viewContext)
+                        }
+                    }
+                    .onReceive(listPositionModel.$position) { position in
+                        withAnimation {
+                            switch position {
+                            case .top:
+                                proxy.scrollTo(countdowns.first?.id, anchor: .top)
+                            case .bottom:
+                                proxy.scrollTo(countdowns.last?.id, anchor: .bottom)
+                            default:
+                                break
+                            }
+                        }
                     }
                 }
             }
@@ -74,10 +97,8 @@ struct CardsListView: View {
     }
 
     private func addItem() {
+//        listPositionModel.position = .bottom
         pickingPhotos = true
-//        withAnimation(.spring()) {
-//            viewModel.addItem()
-//        }
     }
 
     private func deleteItem(id: UUID) {

@@ -5,7 +5,7 @@ import CoreData
 import WidgetKit
 
 final class CardsListViewModel: ObservableObject {
-    private var storage = CountdownStorage()
+    private var storage = CountdownStorage.shared
     private let context: NSManagedObjectContext
     private var flippedCardID: UUID?
     private var temporaryItemID: UUID?

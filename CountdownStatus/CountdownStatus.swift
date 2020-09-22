@@ -5,7 +5,7 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    let storage = CountdownStorage()
+    private let storage = CountdownStorage.shared
 
     func placeholder(in context: Context) -> CountdownEntry {
         CountdownEntry(date: Date(), countdown: .placeholder, configuration: SelectCountdownIntent())

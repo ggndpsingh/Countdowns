@@ -1,8 +1,9 @@
 //  Created by Gagandeep Singh on 6/9/20.
 
+import WidgetKit
 import CoreData
 
-struct PersistenceController {
+final class PersistenceController {
     static let shared = PersistenceController()
     static let inMemory = PersistenceController(inMemory: true)
 
@@ -34,5 +35,19 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(storeRemoteChange(_:)),
+            name: .NSPersistentStoreRemoteChange, object: container.persistentStoreCoordinator)
+    }
+
+    @objc
+    func storeRemoteChange(_ notification: Notification) {
+        let countdowns = CountdownObject.fetchAll(in: container.viewContext)
+        CountdownStorage.shared.clearCountdowns()
+        countdowns.forEach {
+            CountdownStorage.shared.addCountdown(.init(object: $0))
+        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

@@ -60,6 +60,7 @@
 		E67C538625188A1E00402D27 /* WidgetEmptyStateSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538525188A1E00402D27 /* WidgetEmptyStateSmall.swift */; };
 		E67C538825188A3B00402D27 /* WidgetEmptyStateMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538725188A3B00402D27 /* WidgetEmptyStateMedium.swift */; };
 		E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538925188A4100402D27 /* WidgetEmptyStateLarge.swift */; };
+		E67C538E2518A10200402D27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538D2518A10200402D27 /* AppDelegate.swift */; };
 		E680AD5C25175C4D001B5333 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD5B25175C4D001B5333 /* WidgetKit.framework */; };
 		E680AD5E25175C4D001B5333 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD5D25175C4D001B5333 /* SwiftUI.framework */; };
 		E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E680AD6025175C4D001B5333 /* CountdownStatus.swift */; };
@@ -180,6 +181,7 @@
 		E67C538525188A1E00402D27 /* WidgetEmptyStateSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyStateSmall.swift; sourceTree = "<group>"; };
 		E67C538725188A3B00402D27 /* WidgetEmptyStateMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyStateMedium.swift; sourceTree = "<group>"; };
 		E67C538925188A4100402D27 /* WidgetEmptyStateLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyStateLarge.swift; sourceTree = "<group>"; };
+		E67C538D2518A10200402D27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../../../../../Desktop/AppDelegate.swift; sourceTree = "<group>"; };
 		E680AD5A25175C4D001B5333 /* CountdownStatusExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CountdownStatusExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E680AD5B25175C4D001B5333 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E680AD5D25175C4D001B5333 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -302,6 +304,7 @@
 				E6CAB06325172720003848F9 /* ImageCache.swift */,
 				E6CAB07125172F51003848F9 /* ImageLoader.swift */,
 				E67C536525182A7D00402D27 /* Settings.swift */,
+				E67C538D2518A10200402D27 /* AppDelegate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
 				E6E3144E2504E0A2005C8B61 /* CloudKitRecord.swift in Sources */,
 				E6E3144F2504E0A2005C8B61 /* CKContainer.swift in Sources */,
+				E67C538E2518A10200402D27 /* AppDelegate.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
 				E6C4D04F2513279A00BAE909 /* DatePickerView.swift in Sources */,
 				E67C536625182A7D00402D27 /* Settings.swift in Sources */,
