@@ -80,7 +80,7 @@ final class CountdownStorage: StorageProvider {
                 countdowns.append(countdown)
             }
         }
-        return countdowns
+        return countdowns.sorted { $0.date < $1.date }
     }
 
     func clearCountdowns() {

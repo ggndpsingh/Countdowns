@@ -13,7 +13,7 @@ struct Provider: IntentTimelineProvider {
 
     func getSnapshot(for configuration: SelectCountdownIntent, in context: Context, completion: @escaping (CountdownEntry) -> ()) {
         if context.isPreview {
-            let countdown = storage.getCountdowns().randomElement() ?? .placeholder
+            let countdown = storage.getCountdowns().first ?? .placeholder
             let entry = CountdownEntry(date: Date(), countdown: countdown, configuration: configuration)
             return completion(entry)
         }
@@ -28,7 +28,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: SelectCountdownIntent, in context: Context, completion: @escaping (Timeline<CountdownEntry>) -> ()) {
-        var countdown = storage.getCountdowns().randomElement()
+        var countdown = storage.getCountdowns().first
 
         if let id = configuration.countdown?.identifier, let stored = storage.getCountdown(id: id) {
             countdown = stored
