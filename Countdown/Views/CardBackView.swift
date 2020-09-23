@@ -10,10 +10,6 @@ struct CardBackView: View {
     let doneHandler: (Countdown) -> Void
     let deleteHandler: () -> Void
 
-    private var hasChanges: Bool {
-        viewModel.countdownsManager.objectHasChange(countdown: viewModel.countdown)
-    }
-
     init(
         viewModel: CardBackViewModel,
         doneHandler: @escaping (Countdown) -> Void,
@@ -32,7 +28,7 @@ struct CardBackView: View {
 
                 VStack(alignment: .leading, spacing:24) {
                     ButtonsView(
-                        hasChanges: hasChanges,
+                        hasChanges: viewModel.hasChanges,
                         hasReminder: viewModel.hasReminder,
                         reminderHandler: { viewModel.hasReminder.toggle() },
                         deleteHandler: deleteHandler,
@@ -41,9 +37,9 @@ struct CardBackView: View {
                         })
 
                     VStack(spacing: 16) {
-                        TitleInput(title: $viewModel.countdown.title)
+                        TitleInput(title: $viewModel.title)
                         DateInput(
-                            date: $viewModel.countdown.date,
+                            date: $viewModel.date,
                             allDay: $viewModel.allDay)
                     }
 

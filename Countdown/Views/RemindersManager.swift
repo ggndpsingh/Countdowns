@@ -3,7 +3,7 @@
 import UserNotifications
 
 class RemindersManager: ObservableObject {
-    func addReminder(for countdown: Countdown, completion: (Bool) -> Void) {
+    func addReminder(for countdown: Countdown, completion: @escaping () -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             DispatchQueue.main.async {
                 if success {
@@ -18,6 +18,7 @@ class RemindersManager: ObservableObject {
 
                     UNUserNotificationCenter.current().add(request)
                 }
+                completion()
             }
         }
     }

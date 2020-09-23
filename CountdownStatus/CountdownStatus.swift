@@ -48,9 +48,9 @@ struct Provider: IntentTimelineProvider {
 
         if countdown != nil {
             var date = Date()
-            for _ in 0..<15 {
+            for _ in 0..<10 {
                 entries.append(CountdownEntry(date: date, countdown: countdown, configuration: configuration))
-                date = Calendar.current.date(byAdding: .minute, value: 1, to: date)!
+                date = Calendar.current.date(byAdding: .second, value: 30, to: date)!
             }
         } else {
             entries.append(.init(date: Date(), countdown: nil, configuration: configuration))

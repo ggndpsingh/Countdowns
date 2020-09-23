@@ -4,9 +4,9 @@ import SwiftUI
 import CoreData
 
 final class CardBackViewModel: ObservableObject {
+    @Published var countdown: Countdown
     private let remindersManager = RemindersManager()
     let countdownsManager: CountdownsManager
-    @Published var countdown: Countdown
 
     internal init(countdown: Countdown, countdownsManager: CountdownsManager) {
         self.countdown = countdown
@@ -22,14 +22,28 @@ final class CardBackViewModel: ObservableObject {
         }
     }
 
+    var title: String {
+        get { countdown.title }
+        set { countdown.title = newValue }
+    }
+
+    var date: Date {
+        get { countdown.date }
+        set { countdown.date = newValue }
+    }
+
     var hasReminder: Bool {
         get { remindersManager.reminderExists(for: countdown.id) }
         set { newValue ? addReminder() : removeReminder() }
     }
 
+    var hasChanges: Bool {
+        countdownsManager.objectHasChange(countdown: countdown)
+    }
+
     private func addReminder() {
-        remindersManager.addReminder(for: countdown) { _ in
-            objectWillChange.send()
+        remindersManager.addReminder(for: countdown) {
+            self.objectWillChange.send()
         }
     }
 
