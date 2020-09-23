@@ -4,8 +4,14 @@ import SwiftUI
 import CoreData
 
 final class CardBackViewModel: ObservableObject {
-    private var viewContext: NSManagedObjectContext
+    private let remindersManager = RemindersManager()
+    let countdownsManager: CountdownsManager
     @Published var countdown: Countdown
+
+    internal init(countdown: Countdown, countdownsManager: CountdownsManager) {
+        self.countdown = countdown
+        self.countdownsManager = countdownsManager
+    }
 
     var allDay: Bool {
         get { countdown.date.isMidnight }
@@ -16,55 +22,19 @@ final class CardBackViewModel: ObservableObject {
         }
     }
 
-    var changesMade: Bool {
-        guard let original = CountdownObject.fetch(with: countdown.id, in: viewContext) else { return false }
-        return countdown != .init(object: original)
-    }
-
-    var reminder: Bool {
-        get { countdown.hasReminder }
+    var hasReminder: Bool {
+        get { remindersManager.reminderExists(for: countdown.id) }
         set { newValue ? addReminder() : removeReminder() }
     }
 
-    init(id: UUID, context: NSManagedObjectContext) {
-        self.viewContext = context
-        let countdown = Countdown(objectID: id, in: context) ?? .init()
-        self.countdown = countdown
-    }
-
-    internal init(countdown: Countdown, context: NSManagedObjectContext) {
-        self.viewContext = context
-        self.countdown = countdown
-    }
-
-    func addReminder() {
-        let countdown = self.countdown
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            DispatchQueue.main.async {
-                if success {
-                    let content = UNMutableNotificationContent()
-                    content.title = countdown.title
-                    content.subtitle = countdown.dateString
-                    content.sound = UNNotificationSound.defaultCritical
-
-                    // show this notification five seconds from now
-                    let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: countdown.date), repeats: false)
-
-                    // choose a random identifier
-                    let request = UNNotificationRequest(identifier: countdown.id.uuidString, content: content, trigger: trigger)
-
-                    // add our notification request
-                    UNUserNotificationCenter.current().add(request)
-                    self.objectWillChange.send()
-                } else {
-                    self.reminder = false
-                }
-            }
+    private func addReminder() {
+        remindersManager.addReminder(for: countdown) { _ in
+            objectWillChange.send()
         }
     }
 
-    func removeReminder() {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [countdown.id.uuidString])
+    private func removeReminder() {
+        remindersManager.removeReminder(id: countdown.id)
         objectWillChange.send()
     }
 }

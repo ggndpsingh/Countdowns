@@ -22,10 +22,6 @@ struct Countdown: Identifiable, Equatable, Codable {
 extension Countdown {
     var hasEnded: Bool { date <= .now }
 
-    var hasReminder: Bool {
-        UNUserNotificationCenter.current().hasPendingNotification(with: id.uuidString)
-    }
-
     var dateString: String {
         DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: date.isMidnight ? .none : .short)
     }

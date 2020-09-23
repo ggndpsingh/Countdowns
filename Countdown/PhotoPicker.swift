@@ -4,7 +4,7 @@ import SwiftUI
 import  UnsplashPhotoPicker
 
 struct PhotoPicker: UIViewControllerRepresentable {
-    @Binding var imageURL: URL?
+    let selectionHandler: (URL?) -> Void
 
     func makeUIViewController(context: Context) -> UnsplashPhotoPicker {
         let picker = UnsplashPhotoPicker(
@@ -24,7 +24,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
 
     class Coordinator: NSObject, UnsplashPhotoPickerDelegate {
         func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
-            parent.imageURL = photos.first?.urls[.regular]
+            parent.selectionHandler(photos.first?.urls[.regular])
         }
 
         func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) { }

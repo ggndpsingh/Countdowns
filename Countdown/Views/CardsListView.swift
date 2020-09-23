@@ -28,16 +28,16 @@ struct CardsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
-        animation: .default)
-    private var objects: FetchedResults<CountdownObject>
+        animation: .default
+    ) private var objects: FetchedResults<CountdownObject>
 
     @ObservedObject var viewModel: CardsListViewModel
     private let columns: [GridItem] = [GridItem(.adaptive(minimum: 480, maximum: 600))]
-
     @State var pickingPhotos: Bool = false
 
     private var countdowns: [Countdown] {
-        objects.map(Countdown.init).sorted {
+        return objects.map(Countdown.init).sorted {
+
             if viewModel.isTemporaryItem(id: $0.id) {
                 return true
             }
@@ -65,6 +65,7 @@ struct CardsListView: View {
                                 deleteHandler: {
                                     withFlipAnimation(viewModel.deleteItem(id: countdown.id))
                                 })
+                                .id(countdown.id)
                                 .environment(\.managedObjectContext, viewContext)
                         }
                     }
@@ -83,7 +84,7 @@ struct CardsListView: View {
                 }
             }
             .sheet(isPresented: $pickingPhotos) {
-                PhotoPicker(imageURL: $viewModel.newItemURL)
+                PhotoPicker(selectionHandler: viewModel.addItem)
             }
             .toolbar {
                 Button(action: addItem) {
@@ -97,22 +98,8 @@ struct CardsListView: View {
     }
 
     private func addItem() {
-//        listPositionModel.position = .bottom
+        listPositionModel.position = .top
         pickingPhotos = true
-    }
-
-    private func deleteItem(id: UUID) {
-        withAnimation {
-            do {
-                if let item = CountdownObject.fetch(with: id, in: viewContext) {
-                    viewContext.delete(item)
-                }
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
 }
 
@@ -126,6 +113,5 @@ private let itemFormatter: DateFormatter = {
 struct CardsListView_Previews: PreviewProvider {
     static var previews: some View {
         CardsListView(viewModel: .init(context: PersistenceController.inMemory.container.viewContext))
-            .environment(\.managedObjectContext, PersistenceController.inMemory.container.viewContext)
     }
 }

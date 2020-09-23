@@ -2,28 +2,24 @@
 
 import SwiftUI
 import CoreData
-import WidgetKit
 
 final class CardsListViewModel: ObservableObject {
-    private let context: NSManagedObjectContext
+    let manager: CountdownsManager
     private var flippedCardID: UUID?
     private var temporaryItemID: UUID?
 
     init(context: NSManagedObjectContext) {
-        self.context = context
+        manager = .init(context: context)
     }
 
-    var newItemURL: URL? {
-        didSet {
-            if let url = newItemURL {
-                addItem(url: url)
-            }
-        }
-    }
     var hasTemporaryItem: Bool { temporaryItemID != nil }
 
     func isCardFlipped(id: UUID) -> Bool {
         temporaryItemID != id && flippedCardID == id
+    }
+
+    func isTemporaryItem(id: UUID) -> Bool {
+        id == temporaryItemID
     }
 
     func flipCard(id: UUID) {
@@ -31,43 +27,24 @@ final class CardsListViewModel: ObservableObject {
         objectWillChange.send()
     }
 
-    func addItem(url: URL) {
-        let item = Countdown(image: url.absoluteString)
-        CountdownObject.create(from: item, in: context)
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-        temporaryItemID = item.id
-        flippedCardID = item.id
-    }
-
-    func isTemporaryItem(id: UUID) -> Bool {
-        id == temporaryItemID
+    func addItem(imageURL: URL?) {
+        guard let url = imageURL else { return }
+        temporaryItemID = manager.createNewObject(with: url)
     }
 
     func handleDone(countdown: Countdown) {
-        guard let existing = CountdownObject.fetch(with: countdown.id, in: context) else { return }
         flippedCardID = nil
 
-        if let temp = temporaryItemID, countdown.id == temp {
-            if countdown == .init(object: existing) {
-                deleteItem(id: countdown.id)
-                temporaryItemID = nil
-                return
-            }
+        if countdown.id == temporaryItemID, !manager.objectHasChange(countdown: countdown) {
+            temporaryItemID = nil
+            return deleteItem(id: countdown.id)
         }
+
         temporaryItemID = nil
-        existing.update(from: countdown)
-        try? context.save()
+        manager.updateObject(for: countdown)
     }
 
     func deleteItem(id: UUID) {
-        if let item = CountdownObject.fetch(with: id, in: context) {
-            context.delete(item)
-        }
-        try? context.save()
-        WidgetCenter.shared.reloadAllTimelines()
+        manager.deleteObject(with: id)
     }
 }

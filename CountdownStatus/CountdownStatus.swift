@@ -5,10 +5,10 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    private let viewContext = PersistenceController.shared.container.viewContext
+    private let manager = CountdownsManager(context: PersistenceController.shared.container.viewContext)
 
     private var firstCountdown: Countdown? {
-        CountdownObject.fetchAll(in: viewContext).map(Countdown.init).first
+        manager.getAllObjects().first.map(Countdown.init)
     }
 
     private var placeholder: Countdown {
@@ -19,7 +19,7 @@ struct Provider: IntentTimelineProvider {
         guard
             let id = configuration.countdown?.identifier,
             let uuid = UUID(uuidString: id) else { return nil }
-        return CountdownObject.fetch(with: uuid, in: viewContext).map(Countdown.init)
+        return manager.getObject(by: uuid).map(Countdown.init)
     }
 
     func placeholder(in context: Context) -> CountdownEntry {

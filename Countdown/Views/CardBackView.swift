@@ -3,11 +3,16 @@
 import SwiftUI
 
 struct CardBackView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
     let doneHandler: (Countdown) -> Void
     let deleteHandler: () -> Void
+
+    private var hasChanges: Bool {
+        viewModel.countdownsManager.objectHasChange(countdown: viewModel.countdown)
+    }
 
     init(
         viewModel: CardBackViewModel,
@@ -27,10 +32,13 @@ struct CardBackView: View {
 
                 VStack(alignment: .leading, spacing:24) {
                     ButtonsView(
-                        viewModel: viewModel,
-                        deleteHandler: deleteHandler) {
+                        hasChanges: hasChanges,
+                        hasReminder: viewModel.hasReminder,
+                        reminderHandler: { viewModel.hasReminder.toggle() },
+                        deleteHandler: deleteHandler,
+                        doneHandler: {
                             doneHandler(viewModel.countdown)
-                        }
+                        })
 
                     VStack(spacing: 16) {
                         TitleInput(title: $viewModel.countdown.title)
@@ -53,13 +61,13 @@ struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), context: PersistenceController.inMemory.container.viewContext), doneHandler: {_ in }, deleteHandler: {})
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_ in }, deleteHandler: {})
             }
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
             .cornerRadius(24)
 
             ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), context: PersistenceController.inMemory.container.viewContext), doneHandler: {_ in }, deleteHandler: {})
+                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_ in }, deleteHandler: {})
             }
             .preferredColorScheme(.dark)
             .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
@@ -72,7 +80,9 @@ struct CardBackView_Previews: PreviewProvider {
 extension CardBackView {
     struct ButtonsView: View {
         @State private var deleteAlertPresented: Bool = false
-        let viewModel: CardBackViewModel
+        let hasChanges: Bool
+        let hasReminder: Bool
+        let reminderHandler: () -> Void
         let deleteHandler: () -> Void
         let doneHandler: () -> Void
 
@@ -80,16 +90,16 @@ extension CardBackView {
             HStack(spacing: 16) {
                 RoundButton(
                     action: doneHandler,
-                    image: viewModel.changesMade ? "checkmark" : "plus",
-                    color: viewModel.changesMade ? .green : .gray)
-                    .rotationEffect(.degrees(viewModel.changesMade ? 0 : 45))
+                    image: hasChanges ? "checkmark" : "plus",
+                    color: hasChanges ? .green : .gray)
+                    .rotationEffect(.degrees(hasChanges ? 0 : 45))
 
                 Spacer()
 
                 RoundButton(
-                    action: { viewModel.reminder.toggle() },
-                    image: viewModel.reminder ? "bell.fill" : "bell",
-                    color: viewModel.reminder ? .orange : .gray)
+                    action: reminderHandler,
+                    image: hasReminder ? "bell.fill" : "bell",
+                    color: hasReminder ? .orange : .gray)
 
                 RoundButton(
                     action: { deleteAlertPresented = true },

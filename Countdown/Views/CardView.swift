@@ -38,8 +38,7 @@ struct CardView: View {
                     .frame(height: 320)
             }, back: {
                 CardBackView(
-                    viewModel: .init(
-                        countdown: countdown, context: viewContext),
+                    viewModel: .init(countdown: countdown, countdownsManager: .init(context: viewContext)),
                     doneHandler: {
                         if flipped {
                             withFlipAnimation(flipped.toggle())
@@ -47,6 +46,7 @@ struct CardView: View {
                         doneHandler($0)
                     },
                     deleteHandler: deleteHandler)
+                    .environment(\.managedObjectContext, viewContext)
             }
         )
         .onAppear {
