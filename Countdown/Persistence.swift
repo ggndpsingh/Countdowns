@@ -14,10 +14,9 @@ final class PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
 
-        guard let description = container.persistentStoreDescriptions.first else {
-            fatalError("###\(#function): failed to retrieve cloud kit container description")
-        }
-        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        let cloud = NSPersistentStoreDescription(url: .storeURL(for: "group.com.deepgagan.CountdownGroup", databaseName: "Cloud"))
+        cloud.cloudKitContainerOptions = .init(containerIdentifier: "iCloud.com.deepgagan.Countdown")
+        container.persistentStoreDescriptions = [cloud]
 
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -35,19 +34,16 @@ final class PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(storeRemoteChange(_:)),
-            name: .NSPersistentStoreRemoteChange, object: container.persistentStoreCoordinator)
     }
+}
 
-    @objc
-    func storeRemoteChange(_ notification: Notification) {
-        let countdowns = CountdownObject.fetchAll(in: container.viewContext)
-        CountdownStorage.shared.clearCountdowns()
-        countdowns.forEach {
-            CountdownStorage.shared.addCountdown(.init(object: $0))
+public extension URL {
+    /// Returns a URL for the given app group and database pointing to the sqlite database.
+    static func storeURL(for appGroup: String, databaseName: String) -> URL {
+        guard let fileContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
+            fatalError("Shared file container could not be created.")
         }
-        WidgetCenter.shared.reloadAllTimelines()
+
+        return fileContainer.appendingPathComponent("\(databaseName).sqlite")
     }
 }

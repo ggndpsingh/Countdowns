@@ -4,7 +4,7 @@ import Intents
 import CloudKit
 
 class IntentHandler: INExtension, SelectCountdownIntentHandling {
-    private let storage = CountdownStorage.shared
+    private let viewContext = PersistenceController.shared.container.viewContext
 
     override func handler(for intent: INIntent) -> Any {
         // This is the default implementation.  If you want different objects to handle different intents,
@@ -18,7 +18,7 @@ class IntentHandler: INExtension, SelectCountdownIntentHandling {
     }
 
     func provideCountdownOptionsCollection(for intent: SelectCountdownIntent, with completion: @escaping (INObjectCollection<WidgetCountdown>?, Error?) -> Void) {
-        let countdowns = storage.getCountdowns()
+        let countdowns = CountdownObject.fetchAll(in: viewContext).map(Countdown.init)
         let collection = INObjectCollection(items: countdowns.map { WidgetCountdown(identifier: $0.id.uuidString, display: $0.title) })
         completion(collection, nil)
     }

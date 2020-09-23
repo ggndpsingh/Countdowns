@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6226793251B210700C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
+		E6226794251B231A00C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
+		E6226795251B235400C726C4 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
+		E6226796251B237300C726C4 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B772517643800F2DD13 /* IntentHandler.swift */; };
 		E6517B7F2517643800F2DD13 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD7D25175EF3001B5333 /* IntentsUI.framework */; };
 		E6517B822517643800F2DD13 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B812517643800F2DD13 /* IntentViewController.swift */; };
@@ -37,8 +41,6 @@
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
-		E67C536625182A7D00402D27 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C536525182A7D00402D27 /* Settings.swift */; };
-		E67C53672518314300402D27 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C536525182A7D00402D27 /* Settings.swift */; };
 		E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E67C53692518317100402D27 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
 		E67C536A2518317100402D27 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314462504E0A2005C8B61 /* Countdown.swift */; };
@@ -49,7 +51,6 @@
 		E67C536F2518319B00402D27 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AF2510E86B007E9AFD /* Color.swift */; };
 		E67C53702518319B00402D27 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3143F2504E0A2005C8B61 /* Date.swift */; };
 		E67C53712518319B00402D27 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */; };
-		E67C53732518342000402D27 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C536525182A7D00402D27 /* Settings.swift */; };
 		E67C5376251839AD00402D27 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314492504E0A2005C8B61 /* ComponentView.swift */; };
 		E67C537A2518752100402D27 /* WidgetCountdowntLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C5378251873D600402D27 /* WidgetCountdowntLarge.swift */; };
 		E67C537C25187A7500402D27 /* WidgetCountdownMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C537B25187A7500402D27 /* WidgetCountdownMedium.swift */; };
@@ -170,7 +171,6 @@
 		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		E67C536525182A7D00402D27 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		E67C537725183E4B00402D27 /* CountdownStatusExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountdownStatusExtension.entitlements; sourceTree = "<group>"; };
 		E67C5378251873D600402D27 /* WidgetCountdowntLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdowntLarge.swift; sourceTree = "<group>"; };
 		E67C537B25187A7500402D27 /* WidgetCountdownMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdownMedium.swift; sourceTree = "<group>"; };
@@ -303,7 +303,6 @@
 				E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */,
 				E6CAB06325172720003848F9 /* ImageCache.swift */,
 				E6CAB07125172F51003848F9 /* ImageLoader.swift */,
-				E67C536525182A7D00402D27 /* Settings.swift */,
 				E67C538D2518A10200402D27 /* AppDelegate.swift */,
 			);
 			path = Helpers;
@@ -690,6 +689,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6517B9B251766AD00F2DD13 /* DateComponent.swift in Sources */,
+				E6226795251B235400C726C4 /* CountdownObject.swift in Sources */,
+				E6226796251B237300C726C4 /* Countdown+CountdownObject.swift in Sources */,
 				E6517B9E2517684400F2DD13 /* RemoteRepository.swift in Sources */,
 				E6517B9C251766B700F2DD13 /* CountdownCalculator.swift in Sources */,
 				E6517B962517668400F2DD13 /* Countdown.xcdatamodeld in Sources */,
@@ -698,7 +699,7 @@
 				E6517B9A251766A400F2DD13 /* Date.swift in Sources */,
 				E6517B9F2517685200F2DD13 /* CloudKitRecord.swift in Sources */,
 				E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */,
-				E67C53732518342000402D27 /* Settings.swift in Sources */,
+				E6226794251B231A00C726C4 /* Persistence.swift in Sources */,
 				E6517B9D251766C000F2DD13 /* UNUserNotificationCenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,11 +720,11 @@
 				E680AD6625175C4E001B5333 /* CountdownStatus.intentdefinition in Sources */,
 				E67C536F2518319B00402D27 /* Color.swift in Sources */,
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
-				E67C53672518314300402D27 /* Settings.swift in Sources */,
 				E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */,
 				E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,
 				E67C53702518319B00402D27 /* Date.swift in Sources */,
+				E6226793251B210700C726C4 /* Persistence.swift in Sources */,
 				E67C5380251887C100402D27 /* WidgetCountdownProvider.swift in Sources */,
 				E67C53822518880500402D27 /* CountdonWidget.swift in Sources */,
 				E67C537A2518752100402D27 /* WidgetCountdowntLarge.swift in Sources */,
@@ -766,7 +767,6 @@
 				E67C538E2518A10200402D27 /* AppDelegate.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
 				E6C4D04F2513279A00BAE909 /* DatePickerView.swift in Sources */,
-				E67C536625182A7D00402D27 /* Settings.swift in Sources */,
 				E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */,
 				E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */,
 				E6CAB06C25172849003848F9 /* Countdown+CountdownObject.swift in Sources */,

@@ -3,6 +3,10 @@
 import CoreData
 
 extension CountdownObject {
+    @nonobjc public class func createFetchRequest() -> NSFetchRequest<CountdownObject> {
+        return NSFetchRequest<CountdownObject>(entityName: "Commit")
+    }
+
     static func fetchAll(in context: NSManagedObjectContext) -> [CountdownObject] {
         let request = NSFetchRequest<CountdownObject>(entityName: "CountdownObject")
         return (try? context.fetch(request)) ?? []

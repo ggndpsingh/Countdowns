@@ -5,7 +5,22 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    private let storage = CountdownStorage.shared
+    private let viewContext = PersistenceController.shared.container.viewContext
+
+    private var firstCountdown: Countdown? {
+        CountdownObject.fetchAll(in: viewContext).map(Countdown.init).first
+    }
+
+    private var placeholder: Countdown {
+        firstCountdown ?? .placeholder
+    }
+
+    private func getCountdown(for configuration: SelectCountdownIntent) -> Countdown? {
+        guard
+            let id = configuration.countdown?.identifier,
+            let uuid = UUID(uuidString: id) else { return nil }
+        return CountdownObject.fetch(with: uuid, in: viewContext).map(Countdown.init)
+    }
 
     func placeholder(in context: Context) -> CountdownEntry {
         CountdownEntry(date: Date(), countdown: .placeholder, configuration: SelectCountdownIntent())
@@ -13,12 +28,11 @@ struct Provider: IntentTimelineProvider {
 
     func getSnapshot(for configuration: SelectCountdownIntent, in context: Context, completion: @escaping (CountdownEntry) -> ()) {
         if context.isPreview {
-            let countdown = storage.getCountdowns().first ?? .placeholder
-            let entry = CountdownEntry(date: Date(), countdown: countdown, configuration: configuration)
+            let entry = CountdownEntry(date: Date(), countdown: placeholder, configuration: configuration)
             return completion(entry)
         }
 
-        guard let id = configuration.countdown?.identifier, let countdown = storage.getCountdown(id: id) else {
+        guard let countdown = getCountdown(for: configuration) else {
             let entry = CountdownEntry(date: Date(), countdown: nil, configuration: configuration)
             return completion(entry)
         }
@@ -28,11 +42,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: SelectCountdownIntent, in context: Context, completion: @escaping (Timeline<CountdownEntry>) -> ()) {
-        var countdown = storage.getCountdowns().first
-
-        if let id = configuration.countdown?.identifier, let stored = storage.getCountdown(id: id) {
-            countdown = stored
-        }
+        let countdown = getCountdown(for: configuration) ?? firstCountdown
 
         var entries: [CountdownEntry] = []
 

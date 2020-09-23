@@ -5,7 +5,6 @@ import CoreData
 import WidgetKit
 
 final class CardsListViewModel: ObservableObject {
-    private var storage = CountdownStorage.shared
     private let context: NSManagedObjectContext
     private var flippedCardID: UUID?
     private var temporaryItemID: UUID?
@@ -61,28 +60,14 @@ final class CardsListViewModel: ObservableObject {
         }
         temporaryItemID = nil
         existing.update(from: countdown)
-
-        do {
-            try context.save()
-            storage.addCountdown(countdown)
-        } catch {
-            print(error)
-        }
+        try? context.save()
     }
 
     func deleteItem(id: UUID) {
-        withAnimation {
-            do {
-                if let item = CountdownObject.fetch(with: id, in: context) {
-                    context.delete(item)
-                }
-                try context.save()
-                storage.removeCountdown(id: id.uuidString)
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        if let item = CountdownObject.fetch(with: id, in: context) {
+            context.delete(item)
         }
+        try? context.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
