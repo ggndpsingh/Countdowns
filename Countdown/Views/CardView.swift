@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct CardView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.countdownsManager) private var countdownsManager
     @State private var flipped: Bool = false
     let countdown: Countdown
     let isFlipped: Bool
@@ -38,7 +38,7 @@ struct CardView: View {
                     .frame(height: 320)
             }, back: {
                 CardBackView(
-                    viewModel: .init(countdown: countdown, countdownsManager: .init(context: viewContext)),
+                    viewModel: .init(countdown: countdown, countdownsManager: countdownsManager),
                     doneHandler: {
                         if flipped {
                             withFlipAnimation(flipped.toggle())
@@ -46,7 +46,6 @@ struct CardView: View {
                         doneHandler($0)
                     },
                     deleteHandler: deleteHandler)
-                    .environment(\.managedObjectContext, viewContext)
             }
         )
         .onAppear {

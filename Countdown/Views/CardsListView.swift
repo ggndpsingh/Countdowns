@@ -66,7 +66,6 @@ struct CardsListView: View {
                                     withFlipAnimation(viewModel.deleteItem(id: countdown.id))
                                 })
                                 .id(countdown.id)
-                                .environment(\.managedObjectContext, viewContext)
                         }
                     }
                     .onReceive(listPositionModel.$position) { position in

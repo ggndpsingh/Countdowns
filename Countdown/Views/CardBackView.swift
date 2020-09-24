@@ -3,7 +3,6 @@
 import SwiftUI
 
 struct CardBackView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 

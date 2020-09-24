@@ -5,7 +5,7 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    private let manager = CountdownsManager(context: PersistenceController.shared.container.viewContext)
+    private let manager = CountdownsManagerKey.defaultValue
 
     private var firstCountdown: Countdown? {
         manager.getAllObjects().first.map(Countdown.init)

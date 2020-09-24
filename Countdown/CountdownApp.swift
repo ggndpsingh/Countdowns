@@ -4,13 +4,15 @@ import SwiftUI
 
 @main
 struct CountdownApp: App {
+    private let persistenceController = PersistenceController.shared
+    private let countdownsManager = CountdownsManagerKey.defaultValue
     @Environment(\.scenePhase) private var scenePhase
-    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             CardsListView(viewModel: .init(context: persistenceController.container.viewContext))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.countdownsManager, countdownsManager)
         }
         .onChange(of: scenePhase) { phase in
             if phase == .background {

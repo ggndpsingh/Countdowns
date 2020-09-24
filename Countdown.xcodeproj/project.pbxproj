@@ -45,13 +45,15 @@
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
+		E67AB3B4251C58D200D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
+		E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
+		E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
 		E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E67C53692518317100402D27 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
 		E67C536A2518317100402D27 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314462504E0A2005C8B61 /* Countdown.swift */; };
 		E67C536B2518317B00402D27 /* Countdown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6E314152504DF87005C8B61 /* Countdown.xcdatamodeld */; };
 		E67C536C2518318300402D27 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314472504E0A2005C8B61 /* DateComponent.swift */; };
 		E67C536D2518318600402D27 /* CountdownCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */; };
-		E67C536E2518319B00402D27 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07825173214003848F9 /* NSManagedObjectContext.swift */; };
 		E67C536F2518319B00402D27 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AF2510E86B007E9AFD /* Color.swift */; };
 		E67C53702518319B00402D27 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3143F2504E0A2005C8B61 /* Date.swift */; };
 		E67C53712518319B00402D27 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */; };
@@ -77,7 +79,6 @@
 		E6CAB067251727DC003848F9 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
 		E6CAB06C25172849003848F9 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E6CAB07225172F51003848F9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07125172F51003848F9 /* ImageLoader.swift */; };
-		E6CAB07925173214003848F9 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07825173214003848F9 /* NSManagedObjectContext.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
 		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
@@ -176,6 +177,7 @@
 		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		E67C537725183E4B00402D27 /* CountdownStatusExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountdownStatusExtension.entitlements; sourceTree = "<group>"; };
 		E67C5378251873D600402D27 /* WidgetCountdowntLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdowntLarge.swift; sourceTree = "<group>"; };
 		E67C537B25187A7500402D27 /* WidgetCountdownMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdownMedium.swift; sourceTree = "<group>"; };
@@ -199,7 +201,6 @@
 		E6CAB066251727DC003848F9 /* CountdownObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownObject.swift; sourceTree = "<group>"; };
 		E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Countdown+CountdownObject.swift"; sourceTree = "<group>"; };
 		E6CAB07125172F51003848F9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		E6CAB07825173214003848F9 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		E6E3140C2504DF87005C8B61 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
@@ -422,7 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
-				E6CAB07825173214003848F9 /* NSManagedObjectContext.swift */,
+				E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -703,6 +704,7 @@
 				E6517B982517669A00F2DD13 /* Countdown.swift in Sources */,
 				E6517B932517646300F2DD13 /* CountdownStatus.intentdefinition in Sources */,
 				E6517B9A251766A400F2DD13 /* Date.swift in Sources */,
+				E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */,
 				E6517B9F2517685200F2DD13 /* CloudKitRecord.swift in Sources */,
 				E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */,
 				E6226794251B231A00C726C4 /* Persistence.swift in Sources */,
@@ -729,6 +731,7 @@
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
 				E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */,
 				E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */,
+				E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,
 				E67C53702518319B00402D27 /* Date.swift in Sources */,
 				E6226793251B210700C726C4 /* Persistence.swift in Sources */,
@@ -745,7 +748,6 @@
 				E67C536A2518317100402D27 /* Countdown.swift in Sources */,
 				E67C536C2518318300402D27 /* DateComponent.swift in Sources */,
 				E67C538825188A3B00402D27 /* WidgetEmptyStateMedium.swift in Sources */,
-				E67C536E2518319B00402D27 /* NSManagedObjectContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,12 +756,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E658E8BD2510FEEA007E9AFD /* Blur.swift in Sources */,
-				E6CAB07925173214003848F9 /* NSManagedObjectContext.swift in Sources */,
 				E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */,
 				E6226798251B26E000C726C4 /* CountdownsManager.swift in Sources */,
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
 				E66169A4251122B200E5C15C /* ImageView.swift in Sources */,
+				E67AB3B4251C58D200D94B87 /* EnvironmentValues.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E6E3144D2504E0A2005C8B61 /* RemoteRepository.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
