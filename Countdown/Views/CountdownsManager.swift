@@ -31,6 +31,12 @@ struct CountdownsManager {
         return (try? context.fetch(request)) ?? []
     }
 
+    func getPendingObjects() -> [CountdownObject] {
+        let request = CountdownObject.createFetchRequest()
+        request.predicate = NSPredicate(format: "date > %@", Date() as CVarArg)
+        return (try? context.fetch(request)) ?? []
+    }
+
     func updateObject(for countdown: Countdown) {
         guard let object = getObject(by: countdown.id) else { return }
         object.date = countdown.date
@@ -55,4 +61,8 @@ struct CountdownsManager {
     private func reloadWidgets() {
         WidgetCenter.shared.reloadAllTimelines()
     }
+}
+
+extension CountdownsManager {
+    var canAddCountdown: Bool { getAllObjects().count < 5 }
 }

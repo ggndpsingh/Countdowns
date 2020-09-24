@@ -48,6 +48,8 @@
 		E67AB3B4251C58D200D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
 		E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
 		E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
+		E67AB3B7251C5D1200D94B87 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06325172720003848F9 /* ImageCache.swift */; };
+		E67AB3B8251C5DD200D94B87 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07125172F51003848F9 /* ImageLoader.swift */; };
 		E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E67C53692518317100402D27 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
 		E67C536A2518317100402D27 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314462504E0A2005C8B61 /* Countdown.swift */; };
@@ -734,7 +736,9 @@
 				E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,
 				E67C53702518319B00402D27 /* Date.swift in Sources */,
+				E67AB3B7251C5D1200D94B87 /* ImageCache.swift in Sources */,
 				E6226793251B210700C726C4 /* Persistence.swift in Sources */,
+				E67AB3B8251C5DD200D94B87 /* ImageLoader.swift in Sources */,
 				E67C5380251887C100402D27 /* WidgetCountdownProvider.swift in Sources */,
 				E67C53822518880500402D27 /* CountdonWidget.swift in Sources */,
 				E67C537A2518752100402D27 /* WidgetCountdowntLarge.swift in Sources */,

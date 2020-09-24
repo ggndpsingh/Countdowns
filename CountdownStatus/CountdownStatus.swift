@@ -8,11 +8,15 @@ struct Provider: IntentTimelineProvider {
     private let manager = CountdownsManagerKey.defaultValue
 
     private var firstCountdown: Countdown? {
-        manager.getAllObjects().first.map(Countdown.init)
+        manager.getPendingObjects().first.map(Countdown.init)
     }
 
     private var placeholder: Countdown {
         firstCountdown ?? .placeholder
+    }
+
+    private var preview: Countdown {
+        manager.getPendingObjects().randomElement().map(Countdown.init) ?? .placeholder
     }
 
     private func getCountdown(for configuration: SelectCountdownIntent) -> Countdown? {
@@ -23,12 +27,12 @@ struct Provider: IntentTimelineProvider {
     }
 
     func placeholder(in context: Context) -> CountdownEntry {
-        CountdownEntry(date: Date(), countdown: .placeholder, configuration: SelectCountdownIntent())
+        CountdownEntry(date: Date(), countdown: placeholder, configuration: SelectCountdownIntent())
     }
 
     func getSnapshot(for configuration: SelectCountdownIntent, in context: Context, completion: @escaping (CountdownEntry) -> ()) {
         if context.isPreview {
-            let entry = CountdownEntry(date: Date(), countdown: placeholder, configuration: configuration)
+            let entry = CountdownEntry(date: Date(), countdown: preview, configuration: configuration)
             return completion(entry)
         }
 

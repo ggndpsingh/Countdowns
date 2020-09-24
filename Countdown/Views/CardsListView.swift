@@ -24,8 +24,10 @@ class ListPositionModel: ObservableObject {
 }
 
 struct CardsListView: View {
-    @StateObject var listPositionModel: ListPositionModel = .init()
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.countdownsManager) private var countdownsManager
+
+    @StateObject var listPositionModel: ListPositionModel = .init()
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
         animation: .default

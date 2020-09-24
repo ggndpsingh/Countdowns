@@ -18,7 +18,7 @@ class IntentHandler: INExtension, SelectCountdownIntentHandling {
     }
 
     func provideCountdownOptionsCollection(for intent: SelectCountdownIntent, with completion: @escaping (INObjectCollection<WidgetCountdown>?, Error?) -> Void) {
-        let countdowns = manager.getAllObjects().map(Countdown.init)
+        let countdowns = manager.getPendingObjects().map(Countdown.init)
         let collection = INObjectCollection(items: countdowns.map { WidgetCountdown(identifier: $0.id.uuidString, display: $0.title) })
         completion(collection, nil)
     }
