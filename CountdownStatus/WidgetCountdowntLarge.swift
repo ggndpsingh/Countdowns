@@ -17,6 +17,7 @@ struct WidgetCountdownLarge: View {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                             .overlay(Rectangle().fill(Color.black.opacity(0.4)))
                     } else {
                         Color.secondarySystemBackground

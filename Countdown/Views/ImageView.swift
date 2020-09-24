@@ -15,9 +15,12 @@ struct ImageView: View {
     var body: some View {
         Group {
             if let image = imageLoader.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+                GeometryReader { geometry in
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                }
             } else {
                 Color.secondarySystemBackground
             }

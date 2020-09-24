@@ -13,10 +13,11 @@ struct WidgetCountdownMedium: View {
             GeometryReader { geometry in
                 Group {
                     if let data = try? Data(contentsOf: URL(string: image)!), let image = UIImage(data: data) {
-                        HStack(alignment: .top) {
+                        HStack {
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
+                                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                                 .overlay(Rectangle().fill(Color.black.opacity(0.4)))
                         }
                     } else {

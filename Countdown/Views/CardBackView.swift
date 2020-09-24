@@ -21,32 +21,30 @@ struct CardBackView: View {
 
     var body: some View {
         ZStack {
-            GeometryReader { geometry in
-                CardBackground(imageURL: viewModel.countdown.image, size: geometry.size)
-                    .overlay(Rectangle().fill(Color.systemBackground.opacity(0.6)))
-                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+            CardBackground(imageURL: viewModel.countdown.image)
+                .overlay(Rectangle().fill(Color.systemBackground.opacity(0.6)))
+                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
-                VStack(alignment: .leading, spacing:24) {
-                    ButtonsView(
-                        hasChanges: viewModel.hasChanges,
-                        hasReminder: viewModel.hasReminder,
-                        reminderHandler: { viewModel.hasReminder.toggle() },
-                        deleteHandler: deleteHandler,
-                        doneHandler: {
-                            doneHandler(viewModel.countdown)
-                        })
+            VStack(alignment: .leading, spacing:24) {
+                ButtonsView(
+                    hasChanges: viewModel.hasChanges,
+                    hasReminder: viewModel.hasReminder,
+                    reminderHandler: { viewModel.hasReminder.toggle() },
+                    deleteHandler: deleteHandler,
+                    doneHandler: {
+                        doneHandler(viewModel.countdown)
+                    })
 
-                    VStack(spacing: 16) {
-                        TitleInput(title: $viewModel.title)
-                        DateInput(
-                            date: $viewModel.date,
-                            allDay: $viewModel.allDay)
-                    }
-
-                    Spacer()
+                VStack(spacing: 16) {
+                    TitleInput(title: $viewModel.title)
+                    DateInput(
+                        date: $viewModel.date,
+                        allDay: $viewModel.allDay)
                 }
-                .padding()
+
+                Spacer()
             }
+            .padding()
         }
         .animation(.easeIn)
         .cornerRadius(24)
