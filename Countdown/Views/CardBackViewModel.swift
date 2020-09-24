@@ -6,10 +6,12 @@ import CoreData
 final class CardBackViewModel: ObservableObject {
     @Published var countdown: Countdown
     private let remindersManager = RemindersManager()
-    let countdownsManager: CountdownsManager
+    private let countdownsManager: CountdownsManager
+    let isNew: Bool
 
-    internal init(countdown: Countdown, countdownsManager: CountdownsManager) {
+    internal init(countdown: Countdown, isNew: Bool, countdownsManager: CountdownsManager) {
         self.countdown = countdown
+        self.isNew = isNew
         self.countdownsManager = countdownsManager
     }
 
@@ -37,8 +39,10 @@ final class CardBackViewModel: ObservableObject {
         set { newValue ? addReminder() : removeReminder() }
     }
 
-    var hasChanges: Bool {
-        countdownsManager.objectHasChange(countdown: countdown)
+    var canSave: Bool {
+        countdown.title.count >= 3
+        && countdown.date > Date()
+        && countdownsManager.objectHasChange(countdown: countdown)
     }
 
     private func addReminder() {

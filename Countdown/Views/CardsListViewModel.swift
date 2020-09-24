@@ -51,24 +51,33 @@ final class CardsListViewModel: NSObject, ObservableObject, NSFetchedResultsCont
     }
 
     func flipCard(id: UUID) {
+        guard temporaryItemID == nil else { return }
         flippedCardID = id
         objectWillChange.send()
     }
 
     func addItem(imageURL: URL?) {
         guard let url = imageURL else { return }
+        flippedCardID = nil
         temporaryItemID = manager.createNewObject(with: url)
     }
 
-    func handleDone(countdown: Countdown) {
+    func handleDone(countdown: Countdown, shouldSave: Bool) {
         flippedCardID = nil
 
-        if countdown.id == temporaryItemID, !manager.objectHasChange(countdown: countdown) {
+        if
+            countdown.id == temporaryItemID,
+            (!shouldSave || !manager.objectHasChange(countdown: countdown))
+        {
             temporaryItemID = nil
             return deleteItem(id: countdown.id)
         }
 
         temporaryItemID = nil
+
+        guard shouldSave else {
+            return objectWillChange.send()
+        }
         manager.updateObject(for: countdown)
     }
 

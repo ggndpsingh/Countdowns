@@ -6,12 +6,12 @@ struct CardBackView: View {
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
-    let doneHandler: (Countdown) -> Void
+    let doneHandler: (Countdown, Bool) -> Void
     let deleteHandler: () -> Void
 
     init(
         viewModel: CardBackViewModel,
-        doneHandler: @escaping (Countdown) -> Void,
+        doneHandler: @escaping (Countdown, Bool) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
         self.doneHandler = doneHandler
@@ -26,15 +26,16 @@ struct CardBackView: View {
 
             VStack(alignment: .leading, spacing:24) {
                 ButtonsView(
-                    hasChanges: viewModel.hasChanges,
+                    isNew: viewModel.isNew,
+                    canSave: viewModel.canSave,
                     hasReminder: viewModel.hasReminder,
                     reminderHandler: { viewModel.hasReminder.toggle() },
                     deleteHandler: deleteHandler,
                     doneHandler: {
-                        doneHandler(viewModel.countdown)
+                        doneHandler(viewModel.countdown, viewModel.canSave)
                     })
 
-                VStack(spacing: 16) {
+                VStack(spacing: 8) {
                     TitleInput(title: $viewModel.title)
                     DateInput(
                         date: $viewModel.date,
@@ -50,30 +51,11 @@ struct CardBackView: View {
     }
 }
 
-struct CardBackView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_ in }, deleteHandler: {})
-            }
-            .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
-            .cornerRadius(24)
-
-            ZStack {
-                CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0"), countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_ in }, deleteHandler: {})
-            }
-            .preferredColorScheme(.dark)
-            .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
-            .cornerRadius(24)
-        }
-        .padding()
-    }
-}
-
 extension CardBackView {
     struct ButtonsView: View {
         @State private var deleteAlertPresented: Bool = false
-        let hasChanges: Bool
+        let isNew: Bool
+        let canSave: Bool
         let hasReminder: Bool
         let reminderHandler: () -> Void
         let deleteHandler: () -> Void
@@ -81,23 +63,24 @@ extension CardBackView {
 
         var body: some View {
             HStack(spacing: 16) {
-                RoundButton(
-                    action: doneHandler,
-                    image: hasChanges ? "checkmark" : "plus",
-                    color: hasChanges ? .green : .gray)
-                    .rotationEffect(.degrees(hasChanges ? 0 : 45))
+                if !isNew {
+                    RoundButton(
+                        action: { deleteAlertPresented = true },
+                        image: "trash",
+                        color: .red)
+                }
 
                 Spacer()
 
                 RoundButton(
                     action: reminderHandler,
                     image: hasReminder ? "bell.fill" : "bell",
-                    color: hasReminder ? .orange : .gray)
+                    color: hasReminder ? .orange : .secondaryLabel)
 
                 RoundButton(
-                    action: { deleteAlertPresented = true },
-                    image: "trash",
-                    color: .red)
+                    action: doneHandler,
+                    image: canSave ? "checkmark" : isNew ? "trash" : "arrow.backward",
+                    color: canSave ? .green : isNew ? .red : .secondaryLabel)
                 }
                 .alert(isPresented: $deleteAlertPresented) {
                     Alert(
@@ -107,23 +90,21 @@ extension CardBackView {
                         secondaryButton: .cancel(Text("Cancel")))
             }
         }
-    }
-}
 
-extension CardBackView.ButtonsView {
-    struct RoundButton: View {
-        let action: () -> Void
-        let image: String
-        let color: Color
+        struct RoundButton: View {
+            let action: () -> Void
+            let image: String
+            let color: Color
 
-        var body: some View {
-            Button(action: action) {
-                Image(systemName: image)
-                    .font(.title3)
-                    .frame(width: 40, height: 40)
-                    .background(Blur(style: .systemThinMaterial))
-                    .clipShape(Circle())
-                    .foregroundColor(color)
+            var body: some View {
+                Button(action: action) {
+                    Image(systemName: image)
+                        .font(Font.system(size: 14, weight: .medium, design: .monospaced))
+                        .frame(width: 40, height: 40)
+                        .background(Blur(style: .systemThinMaterial))
+                        .clipShape(Circle())
+                        .foregroundColor(color)
+                }
             }
         }
     }
@@ -131,17 +112,37 @@ extension CardBackView.ButtonsView {
 
 extension CardBackView {
     struct TitleInput: View {
+        private let minLength = 3
+        private let maxLength = 40
         @Binding var title: String
 
+        private var remainingLimit: Int { maxLength - title.count }
+
         var body: some View {
-            TextField("New Countdown", text: $title)
-                .font(Font.system(size: 20, weight: .regular, design: .default))
-                .autocapitalization(.words)
-                .padding()
-                .foregroundColor(Color.label)
-                .background(Color.systemBackground.opacity(0.8))
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .frame(maxWidth: .infinity)
+            VStack(alignment: .leading, spacing: 0) {
+                TextField("New Countdown", text: $title)
+                    .font(Font.system(size: 16, weight: .regular, design: .default))
+                    .autocapitalization(.words)
+                    .padding(.vertical, 12)
+
+                HStack(spacing: 0) {
+                    Spacer()
+                    Text("\(title.count)")
+                        .foregroundColor((title.count < 3 || remainingLimit <= 5) ? .red : .secondaryLabel)
+                    Text(" / \(minLength)-\(maxLength)")
+                        .foregroundColor(.secondaryLabel)
+                }
+                .padding([.bottom], 8)
+                .font(Font.system(size: 11, weight: .medium, design: .monospaced))
+            }
+            .padding(.horizontal, 8)
+            .foregroundColor(Color.label)
+            .background(Color.systemBackground.opacity(0.8))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .frame(maxWidth: .infinity)
+            .onChange(of: title, perform: { value in
+                self.title = String(value.prefix(maxLength))
+            })
         }
     }
 }
@@ -152,12 +153,21 @@ extension CardBackView {
         @Binding var allDay: Bool
         
         var body: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                DatePicker(
-                    "",
-                    selection: $date,
-                    in: .now...)
-                    .labelsHidden()
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .bottom, spacing: 8) {
+                    DatePicker(
+                        "",
+                        selection: $date,
+                        in: .now...)
+                        .labelsHidden()
+
+                    if date <= Date() {
+                        Text("Must be in future")
+                            .font(Font.system(size: 11, weight: .regular, design: .default))
+                            .foregroundColor(.secondaryLabel)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
 
                 Divider()
 
@@ -171,10 +181,24 @@ extension CardBackView {
                     .font(Font.system(size: 16, weight: .regular, design: .default))
                 }
             }
-            .padding()
+            .padding(.vertical, 12)
+            .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.systemBackground.opacity(0.8))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
+    }
+}
+
+
+struct CardBackView_Previews: PreviewProvider {
+    static var previews: some View {
+        CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1460388052839-a52677720738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400"), isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
+            .frame(width: 400, height: 300)
+            .previewLayout(.sizeThatFits)
+
+        CardBackView(viewModel: .init(countdown: .init(date: Date(), title: "Test", image: "https://images.unsplash.com/photo-1460388052839-a52677720738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400"), isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
+            .preferredColorScheme(.dark)
+            .previewDevice(.init(rawValue: "iPhone SE"))
     }
 }

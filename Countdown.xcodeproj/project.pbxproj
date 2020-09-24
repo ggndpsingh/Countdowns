@@ -42,9 +42,9 @@
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
-		E67AB3B4251C58D200D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
-		E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
-		E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
+		E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
+		E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
+		E67AB3B6251C591100D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B7251C5D1200D94B87 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06325172720003848F9 /* ImageCache.swift */; };
 		E67AB3B8251C5DD200D94B87 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07125172F51003848F9 /* ImageLoader.swift */; };
 		E67C53692518317100402D27 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
@@ -171,7 +171,7 @@
 		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
+		E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+CountdownsManagerKey.swift"; sourceTree = "<group>"; };
 		E67C537725183E4B00402D27 /* CountdownStatusExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountdownStatusExtension.entitlements; sourceTree = "<group>"; };
 		E67C5378251873D600402D27 /* WidgetCountdowntLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdowntLarge.swift; sourceTree = "<group>"; };
 		E67C537B25187A7500402D27 /* WidgetCountdownMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdownMedium.swift; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
-				E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */,
+				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -680,7 +680,7 @@
 				E6517B982517669A00F2DD13 /* Countdown.swift in Sources */,
 				E6517B932517646300F2DD13 /* CountdownStatus.intentdefinition in Sources */,
 				E6517B9A251766A400F2DD13 /* Date.swift in Sources */,
-				E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */,
+				E67AB3B6251C591100D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */,
 				E6226794251B231A00C726C4 /* Persistence.swift in Sources */,
 				E6517B9D251766C000F2DD13 /* UNUserNotificationCenter.swift in Sources */,
@@ -705,7 +705,7 @@
 				E67C536F2518319B00402D27 /* Color.swift in Sources */,
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
 				E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */,
-				E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */,
+				E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,
 				E67C53702518319B00402D27 /* Date.swift in Sources */,
 				E67AB3B7251C5D1200D94B87 /* ImageCache.swift in Sources */,
@@ -737,7 +737,7 @@
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
 				E66169A4251122B200E5C15C /* ImageView.swift in Sources */,
-				E67AB3B4251C58D200D94B87 /* EnvironmentValues.swift in Sources */,
+				E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
 				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,

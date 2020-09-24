@@ -1,6 +1,7 @@
 //  Created by Gagandeep Singh on 23/9/20.
 
 import UserNotifications
+import UIKit
 
 class RemindersManager: ObservableObject {
     func addReminder(for countdown: Countdown, completion: @escaping () -> Void) {
@@ -17,6 +18,7 @@ class RemindersManager: ObservableObject {
                     let request = UNNotificationRequest(identifier: countdown.id.uuidString, content: content, trigger: trigger)
 
                     UNUserNotificationCenter.current().add(request)
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
                 }
                 completion()
             }

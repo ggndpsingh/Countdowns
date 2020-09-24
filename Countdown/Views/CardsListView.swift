@@ -41,8 +41,8 @@ struct CardsListView: View {
                                 tapHandler: { id in
                                     withFlipAnimation(viewModel.flipCard(id: id))
                                 },
-                                doneHandler: { updatedCountdown in
-                                    withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown))
+                                doneHandler: { updatedCountdown, shouldSave  in
+                                    withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
                                 },
                                 deleteHandler: {
                                     withFlipAnimation(viewModel.deleteItem(id: countdown.id))
