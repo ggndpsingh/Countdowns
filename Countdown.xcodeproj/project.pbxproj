@@ -10,7 +10,6 @@
 		E6226793251B210700C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226794251B231A00C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226795251B235400C726C4 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
-		E6226796251B237300C726C4 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E6226798251B26E000C726C4 /* CountdownsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6226797251B26E000C726C4 /* CountdownsManager.swift */; };
 		E6226799251B464F00C726C4 /* CountdownsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6226797251B26E000C726C4 /* CountdownsManager.swift */; };
 		E622679A251B465000C726C4 /* CountdownsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6226797251B26E000C726C4 /* CountdownsManager.swift */; };
@@ -28,8 +27,6 @@
 		E6517B9B251766AD00F2DD13 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314472504E0A2005C8B61 /* DateComponent.swift */; };
 		E6517B9C251766B700F2DD13 /* CountdownCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */; };
 		E6517B9D251766C000F2DD13 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */; };
-		E6517B9E2517684400F2DD13 /* RemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314412504E0A2005C8B61 /* RemoteRepository.swift */; };
-		E6517B9F2517685200F2DD13 /* CloudKitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314422504E0A2005C8B61 /* CloudKitRecord.swift */; };
 		E6517BA1251772AC00F2DD13 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E3143C2504E007005C8B61 /* CloudKit.framework */; };
 		E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AB251057D1007E9AFD /* CardFrontView.swift */; };
 		E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AD25105E93007E9AFD /* FlipView.swift */; };
@@ -50,7 +47,6 @@
 		E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues.swift */; };
 		E67AB3B7251C5D1200D94B87 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06325172720003848F9 /* ImageCache.swift */; };
 		E67AB3B8251C5DD200D94B87 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07125172F51003848F9 /* ImageLoader.swift */; };
-		E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E67C53692518317100402D27 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
 		E67C536A2518317100402D27 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314462504E0A2005C8B61 /* Countdown.swift */; };
 		E67C536B2518317B00402D27 /* Countdown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6E314152504DF87005C8B61 /* Countdown.xcdatamodeld */; };
@@ -76,10 +72,8 @@
 		E680AD6625175C4E001B5333 /* CountdownStatus.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E680AD6225175C4D001B5333 /* CountdownStatus.intentdefinition */; };
 		E680AD6725175C4E001B5333 /* CountdownStatus.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E680AD6225175C4D001B5333 /* CountdownStatus.intentdefinition */; };
 		E680AD6A25175C4E001B5333 /* CountdownStatusExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E680AD5A25175C4D001B5333 /* CountdownStatusExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E6C4D04F2513279A00BAE909 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D04E2513279A00BAE909 /* DatePickerView.swift */; };
 		E6CAB06425172720003848F9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06325172720003848F9 /* ImageCache.swift */; };
 		E6CAB067251727DC003848F9 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
-		E6CAB06C25172849003848F9 /* Countdown+CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */; };
 		E6CAB07225172F51003848F9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07125172F51003848F9 /* ImageLoader.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
 		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
@@ -91,14 +85,12 @@
 		E6E3142D2504DF87005C8B61 /* CountdownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3142C2504DF87005C8B61 /* CountdownUITests.swift */; };
 		E6E3143D2504E007005C8B61 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E3143C2504E007005C8B61 /* CloudKit.framework */; };
 		E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3143F2504E0A2005C8B61 /* Date.swift */; };
-		E6E3144D2504E0A2005C8B61 /* RemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314412504E0A2005C8B61 /* RemoteRepository.swift */; };
-		E6E3144E2504E0A2005C8B61 /* CloudKitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314422504E0A2005C8B61 /* CloudKitRecord.swift */; };
-		E6E3144F2504E0A2005C8B61 /* CKContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314432504E0A2005C8B61 /* CKContainer.swift */; };
 		E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */; };
 		E6E314512504E0A2005C8B61 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314462504E0A2005C8B61 /* Countdown.swift */; };
 		E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314472504E0A2005C8B61 /* DateComponent.swift */; };
 		E6E314532504E0A2005C8B61 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314492504E0A2005C8B61 /* ComponentView.swift */; };
 		E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3144A2504E0A2005C8B61 /* CountdownView.swift */; };
+		E6F81CE1251C81D60029FC93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F81CE0251C81D60029FC93 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,10 +190,8 @@
 		E680AD6325175C4E001B5333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E680AD6525175C4E001B5333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E680AD7D25175EF3001B5333 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
-		E6C4D04E2513279A00BAE909 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		E6CAB06325172720003848F9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		E6CAB066251727DC003848F9 /* CountdownObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownObject.swift; sourceTree = "<group>"; };
-		E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Countdown+CountdownObject.swift"; sourceTree = "<group>"; };
 		E6CAB07125172F51003848F9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
@@ -220,14 +210,12 @@
 		E6E3143A2504E005005C8B61 /* Countdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Countdown.entitlements; sourceTree = "<group>"; };
 		E6E3143C2504E007005C8B61 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E6E3143F2504E0A2005C8B61 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		E6E314412504E0A2005C8B61 /* RemoteRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteRepository.swift; sourceTree = "<group>"; };
-		E6E314422504E0A2005C8B61 /* CloudKitRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitRecord.swift; sourceTree = "<group>"; };
-		E6E314432504E0A2005C8B61 /* CKContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKContainer.swift; sourceTree = "<group>"; };
 		E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownCalculator.swift; sourceTree = "<group>"; };
 		E6E314462504E0A2005C8B61 /* Countdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
 		E6E314472504E0A2005C8B61 /* DateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateComponent.swift; sourceTree = "<group>"; };
 		E6E314492504E0A2005C8B61 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		E6E3144A2504E0A2005C8B61 /* CountdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
+		E6F81CE0251C81D60029FC93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +298,7 @@
 				E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */,
 				E6CAB06325172720003848F9 /* ImageCache.swift */,
 				E6CAB07125172F51003848F9 /* ImageLoader.swift */,
+				E6F81CE0251C81D60029FC93 /* AppDelegate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -366,7 +355,6 @@
 			isa = PBXGroup;
 			children = (
 				E658E8BB2510FEE3007E9AFD /* Helpers */,
-				E6E314402504E0A2005C8B61 /* CloudKit */,
 				E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */,
 				E658E8AF2510E86B007E9AFD /* Color.swift */,
 				E6E3143E2504E0A2005C8B61 /* Extensions */,
@@ -430,21 +418,10 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		E6E314402504E0A2005C8B61 /* CloudKit */ = {
-			isa = PBXGroup;
-			children = (
-				E6E314412504E0A2005C8B61 /* RemoteRepository.swift */,
-				E6E314422504E0A2005C8B61 /* CloudKitRecord.swift */,
-				E6E314432504E0A2005C8B61 /* CKContainer.swift */,
-			);
-			path = CloudKit;
-			sourceTree = "<group>";
-		};
 		E6E314452504E0A2005C8B61 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				E6E314462504E0A2005C8B61 /* Countdown.swift */,
-				E6CAB06B25172849003848F9 /* Countdown+CountdownObject.swift */,
 				E6CAB066251727DC003848F9 /* CountdownObject.swift */,
 				E6E314472504E0A2005C8B61 /* DateComponent.swift */,
 			);
@@ -454,10 +431,10 @@
 		E6E314482504E0A2005C8B61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */,
 				E6E3140C2504DF87005C8B61 /* CardsListView.swift */,
 				E6226797251B26E000C726C4 /* CountdownsManager.swift */,
 				E622679B251B4ACC00C726C4 /* RemindersManager.swift */,
-				E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */,
 				E658E8B52510FD7C007E9AFD /* CardView.swift */,
 				E658E8AB251057D1007E9AFD /* CardFrontView.swift */,
 				E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */,
@@ -467,7 +444,6 @@
 				E658E8BE2510FF70007E9AFD /* TitleView.swift */,
 				E658E8B32510FB28007E9AFD /* CardBackground.swift */,
 				E66169A3251122B200E5C15C /* ImageView.swift */,
-				E6C4D04E2513279A00BAE909 /* DatePickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -698,16 +674,13 @@
 			files = (
 				E6517B9B251766AD00F2DD13 /* DateComponent.swift in Sources */,
 				E6226795251B235400C726C4 /* CountdownObject.swift in Sources */,
-				E6226796251B237300C726C4 /* Countdown+CountdownObject.swift in Sources */,
 				E6226799251B464F00C726C4 /* CountdownsManager.swift in Sources */,
-				E6517B9E2517684400F2DD13 /* RemoteRepository.swift in Sources */,
 				E6517B9C251766B700F2DD13 /* CountdownCalculator.swift in Sources */,
 				E6517B962517668400F2DD13 /* Countdown.xcdatamodeld in Sources */,
 				E6517B982517669A00F2DD13 /* Countdown.swift in Sources */,
 				E6517B932517646300F2DD13 /* CountdownStatus.intentdefinition in Sources */,
 				E6517B9A251766A400F2DD13 /* Date.swift in Sources */,
 				E67AB3B6251C591100D94B87 /* EnvironmentValues.swift in Sources */,
-				E6517B9F2517685200F2DD13 /* CloudKitRecord.swift in Sources */,
 				E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */,
 				E6226794251B231A00C726C4 /* Persistence.swift in Sources */,
 				E6517B9D251766C000F2DD13 /* UNUserNotificationCenter.swift in Sources */,
@@ -731,7 +704,6 @@
 				E680AD6625175C4E001B5333 /* CountdownStatus.intentdefinition in Sources */,
 				E67C536F2518319B00402D27 /* Color.swift in Sources */,
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
-				E67C53682518317100402D27 /* Countdown+CountdownObject.swift in Sources */,
 				E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */,
 				E67AB3B5251C590E00D94B87 /* EnvironmentValues.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,
@@ -767,7 +739,6 @@
 				E66169A4251122B200E5C15C /* ImageView.swift in Sources */,
 				E67AB3B4251C58D200D94B87 /* EnvironmentValues.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
-				E6E3144D2504E0A2005C8B61 /* RemoteRepository.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
 				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,
 				E680AD6725175C4E001B5333 /* CountdownStatus.intentdefinition in Sources */,
@@ -777,15 +748,12 @@
 				E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */,
 				E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
-				E6E3144E2504E0A2005C8B61 /* CloudKitRecord.swift in Sources */,
-				E6E3144F2504E0A2005C8B61 /* CKContainer.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
-				E6C4D04F2513279A00BAE909 /* DatePickerView.swift in Sources */,
 				E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */,
 				E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */,
-				E6CAB06C25172849003848F9 /* Countdown+CountdownObject.swift in Sources */,
 				E6CAB067251727DC003848F9 /* CountdownObject.swift in Sources */,
 				E6E314532504E0A2005C8B61 /* ComponentView.swift in Sources */,
+				E6F81CE1251C81D60029FC93 /* AppDelegate.swift in Sources */,
 				E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */,
 				E6E314172504DF87005C8B61 /* Countdown.xcdatamodeld in Sources */,
 				E6E314512504E0A2005C8B61 /* Countdown.swift in Sources */,

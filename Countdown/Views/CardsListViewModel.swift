@@ -3,13 +3,41 @@
 import SwiftUI
 import CoreData
 
-final class CardsListViewModel: ObservableObject {
-    let manager: CountdownsManager
+class FetchedObjectsViewModel: NSObject, ObservableObject {
+
+    private let fetchedResultsController: NSFetchedResultsController<CountdownObject>
+
+    var delegate: NSFetchedResultsControllerDelegate? {
+        get { fetchedResultsController.delegate }
+        set { fetchedResultsController.delegate = newValue }
+    }
+
+    init(context: NSManagedObjectContext) {
+        let request = CountdownObject.createFetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)]
+        fetchedResultsController = .init(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        super.init()
+        try? fetchedResultsController.performFetch()
+    }
+
+    var fetchedObjects: [CountdownObject] {
+        return fetchedResultsController.fetchedObjects ?? []
+    }
+}
+
+final class CardsListViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
+    private let manager: CountdownsManager
+    private let controller: FetchedObjectsViewModel
     private var flippedCardID: UUID?
     private var temporaryItemID: UUID?
 
+    @Published var scrollToItem: UUID?
+
     init(context: NSManagedObjectContext) {
         manager = .init(context: context)
+        controller = .init(context: context)
+        super.init()
+        controller.delegate = self
     }
 
     var hasTemporaryItem: Bool { temporaryItemID != nil }
@@ -46,5 +74,24 @@ final class CardsListViewModel: ObservableObject {
 
     func deleteItem(id: UUID) {
         manager.deleteObject(with: id)
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        objectWillChange.send()
+    }
+
+    var fetchedObjects: [CountdownObject] {
+        return controller.fetchedObjects
+    }
+
+    var countdowns: [Countdown] {
+        return fetchedObjects.map(Countdown.init).sorted {
+
+            if isTemporaryItem(id: $0.id) {
+                return true
+            }
+
+            return $0.date < $1.date
+        }
     }
 }

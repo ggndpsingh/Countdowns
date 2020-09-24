@@ -60,9 +60,3 @@ struct CardView: View {
         .padding()
     }
 }
-
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "apple"), isFlipped: false, isNew: false, tapHandler: {_ in}, doneHandler: {_ in }, deleteHandler: {})
-    }
-}

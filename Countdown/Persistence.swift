@@ -9,14 +9,19 @@ final class PersistenceController {
 
     let container: NSPersistentCloudKitContainer
 
-    init(inMemory: Bool = false) {
+    init(inMemory: Bool = false) {        
         container = NSPersistentCloudKitContainer(name: "Countdown")
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
 
-        let cloud = NSPersistentStoreDescription(url: .storeURL(for: "group.com.deepgagan.CountdownGroup", databaseName: "Cloud"))
-        cloud.cloudKitContainerOptions = .init(containerIdentifier: "iCloud.com.deepgagan.Countdown")
-        container.persistentStoreDescriptions = [cloud]
+        if inMemory {
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        } else {
+            container.viewContext.automaticallyMergesChangesFromParent = true
+            container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+
+            let cloud = NSPersistentStoreDescription(url: .storeURL(for: "group.com.deepgagan.CountdownGroup", databaseName: "Cloud"))
+            cloud.cloudKitContainerOptions = .init(containerIdentifier: "iCloud.com.deepgagan.Countdown")
+            container.persistentStoreDescriptions = [cloud]
+        }
 
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {

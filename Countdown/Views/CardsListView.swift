@@ -25,35 +25,15 @@ class ListPositionModel: ObservableObject {
 
 struct CardsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.countdownsManager) private var countdownsManager
-
-    @StateObject var listPositionModel: ListPositionModel = .init()
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
-        animation: .default
-    ) private var objects: FetchedResults<CountdownObject>
-
     @ObservedObject var viewModel: CardsListViewModel
-    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 480, maximum: 600))]
     @State var pickingPhotos: Bool = false
-
-    private var countdowns: [Countdown] {
-        return objects.map(Countdown.init).sorted {
-
-            if viewModel.isTemporaryItem(id: $0.id) {
-                return true
-            }
-
-            return $0.date < $1.date
-        }
-    }
 
     var body: some View {
         NavigationView {
             ScrollView {
                 ScrollViewReader { proxy in
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(countdowns) { countdown in
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 480, maximum: 600))], spacing: 16) {
+                        ForEach(viewModel.countdowns) { countdown in
                             CardView(
                                 countdown: countdown,
                                 isFlipped: viewModel.isCardFlipped(id: countdown.id),
@@ -70,17 +50,8 @@ struct CardsListView: View {
                                 .id(countdown.id)
                         }
                     }
-                    .onReceive(listPositionModel.$position) { position in
-                        withAnimation {
-                            switch position {
-                            case .top:
-                                proxy.scrollTo(countdowns.first?.id, anchor: .top)
-                            case .bottom:
-                                proxy.scrollTo(countdowns.last?.id, anchor: .bottom)
-                            default:
-                                break
-                            }
-                        }
+                    .onReceive(viewModel.$scrollToItem) { item in
+                        withAnimation(.easeOut) { proxy.scrollTo(item) }
                     }
                 }
             }
@@ -89,17 +60,19 @@ struct CardsListView: View {
             }
             .toolbar {
                 Button(action: addItem) {
-                    Label("Add Item", systemImage: "plus")
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundColor(.primary)
                 }
                 .disabled(viewModel.hasTemporaryItem)
             }
-            .navigationTitle("Countdowns")
+            .foregroundColor(.white)
+            .navigationTitle("Upcoming")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private func addItem() {
-        listPositionModel.position = .top
+        viewModel.scrollToItem = viewModel.countdowns.first?.id
         pickingPhotos = true
     }
 }
@@ -114,5 +87,7 @@ private let itemFormatter: DateFormatter = {
 struct CardsListView_Previews: PreviewProvider {
     static var previews: some View {
         CardsListView(viewModel: .init(context: PersistenceController.inMemory.container.viewContext))
+            .environment(\.managedObjectContext, PersistenceController.inMemory.container.viewContext)
+            .environment(\.countdownsManager, CountdownsManager(context: PersistenceController.inMemory.container.viewContext))
     }
 }

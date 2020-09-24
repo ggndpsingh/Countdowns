@@ -4,12 +4,6 @@ import Foundation
 import WidgetKit
 
 struct CountdownCalculator {
-    static let dateToCountdownFomatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        return formatter
-    }()
-
     static func countdown(for date: Date, size: CountdownSize, trimmed: Bool = true) -> [DateComponent] {
         let components = dateComponents(for: date, trimmed: trimmed)
 
