@@ -72,6 +72,7 @@ struct CardsListView: View {
             .navigationTitle("Upcoming")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private func addItem() {

@@ -40,6 +40,15 @@ final class CardsListViewModel: NSObject, ObservableObject, NSFetchedResultsCont
         controller = .init(context: context)
         super.init()
         controller.delegate = self
+
+        for family: String in UIFont.familyNames
+                {
+                    print(family)
+                    for names: String in UIFont.fontNames(forFamilyName: family)
+                    {
+                        print("== \(names)")
+                    }
+                }
     }
 
     var hasTemporaryItem: Bool { temporaryItemID != nil }

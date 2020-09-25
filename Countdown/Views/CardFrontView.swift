@@ -23,9 +23,6 @@ struct CardFrontView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CardFrontView(countdown: .preview)
-                .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .previewLayout(.sizeThatFits)
-
 
             CardFrontView(countdown: .preview)
                 .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)

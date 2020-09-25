@@ -42,6 +42,6 @@ extension Countdown {
 
 #if DEBUG
 extension Countdown {
-    static let preview: Countdown = .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")
+    static let preview: Countdown = .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "This is a test title for", image: "https://images.unsplash.com/photo-1565700430899-1c56a5cf64e3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")
 }
 #endif

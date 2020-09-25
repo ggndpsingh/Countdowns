@@ -11,13 +11,22 @@ struct TitleView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(Font.system(size: 24, weight: .regular, design: .default))
+                        .font(Font.system(size: 24, weight: .medium, design: .rounded))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
-            .padding()
+            .padding([.top], 24)
+            .padding(.horizontal, 16)
         }
-        .frame(maxWidth: .infinity, idealHeight: 70, maxHeight: 70, alignment: .top)
+        .frame(alignment: .topLeading)
         .foregroundColor(.white)
+    }
+}
+
+struct TitleView_Previews: PreviewProvider {
+    static var previews: some View {
+        CardFrontView(countdown: .preview)
+            .frame(width: 360, height: 320)
+            .previewLayout(.sizeThatFits)
     }
 }

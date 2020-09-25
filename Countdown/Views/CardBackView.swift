@@ -123,7 +123,7 @@ extension CardBackView {
 extension CardBackView {
     struct TitleInput: View {
         private let minLength = 3
-        private let maxLength = 40
+        private let maxLength = 24
         @Binding var title: String
 
         private var remainingLimit: Int { maxLength - title.count }
