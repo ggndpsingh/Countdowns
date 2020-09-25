@@ -190,15 +190,16 @@ extension CardBackView {
     }
 }
 
-
+#if DEBUG
 struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackView(viewModel: .init(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test", image: "https://images.unsplash.com/photo-1460388052839-a52677720738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400"), isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
+        CardBackView(viewModel: .init(countdown: .preview, isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
             .frame(width: 400, height: 300)
             .previewLayout(.sizeThatFits)
 
-        CardBackView(viewModel: .init(countdown: .init(date: Date(), title: "Test", image: "https://images.unsplash.com/photo-1460388052839-a52677720738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400"), isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
+        CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
             .preferredColorScheme(.dark)
             .previewDevice(.init(rawValue: "iPhone SE"))
     }
 }
+#endif

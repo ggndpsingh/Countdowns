@@ -8,7 +8,7 @@ struct WidgetCountdownProvider: View {
     let title: String
     let date: Date
     let entryDate: Date
-    let image: String
+    let image: String?
 
     var components: [DateComponent] {
         CountdownCalculator.dateComponents(for: date, comparisonDate: entryDate, trimmed: true)
@@ -16,15 +16,22 @@ struct WidgetCountdownProvider: View {
 
 
     var body: some View {
+        ZStack {
+            WidgetBackground(image: image)
+            countdown
+        }
+    }
+
+    private var countdown: AnyView {
         switch family {
         case .systemLarge:
-            return AnyView(WidgetCountdownLarge(title: title, date: date.displayString, image: image, components: components.filtered(for: .systemLarge)))
+            return AnyView(WidgetCountdownLarge(title: title, date: date.displayString, components: components.filtered(for: .systemLarge)))
         case .systemMedium:
-            return AnyView(WidgetCountdownMedium(title: title, image: image, components: components.filtered(for: .systemMedium)))
+            return AnyView(WidgetCountdownMedium(title: title, components: components.filtered(for: .systemMedium)))
         case .systemSmall:
-            return AnyView(WidgetCountdownSmall(title: title, image: image, components: components.filtered(for: .systemSmall)))
+            return AnyView(WidgetCountdownSmall(title: title, components: components.filtered(for: .systemSmall)))
         @unknown default:
-            return AnyView(WidgetCountdownLarge(title: title, date: date.displayString, image: image, components: components.filtered(for: .systemLarge)))
+            return AnyView(WidgetCountdownLarge(title: title, date: date.displayString, components: components.filtered(for: .systemLarge)))
         }
     }
 }

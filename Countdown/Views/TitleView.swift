@@ -12,8 +12,6 @@ struct TitleView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(Font.system(size: 24, weight: .regular, design: .default))
-                    Text(date)
-                        .font(Font.system(size: 12, weight: .regular, design: .rounded))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }

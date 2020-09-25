@@ -5,15 +5,19 @@ import Combine
 
 class ImageLoader: ObservableObject {
     @Published var image: UIImage?
-    private let url: URL
+    private let url: URL?
     private var cache: ImageCache = .shared
     private var cancellable: AnyCancellable?
 
-    init(url: URL) {
-        self.url = url
+    init(urlString: String?) {
+        self.url = {
+            guard let string = urlString else { return nil }
+            return URL(string: string)
+        }()
     }
 
     func load() {
+        guard let url = self.url else { return }
         if let image = cache[url.absoluteString] {
             self.image = image
             return
@@ -22,16 +26,17 @@ class ImageLoader: ObservableObject {
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
-            .handleEvents(receiveOutput: { [weak self] in self?.cache($0) })
+            .handleEvents(receiveOutput: { [weak self] in self?.cache($0, for: url.absoluteString) })
             .receive(on: DispatchQueue.main)
             .assign(to: \.image, on: self)
     }
 
-    private func cache(_ image: UIImage?) {
-        image.map { cache[url.absoluteString] = $0 }
+    private func cache(_ image: UIImage?, for key: String) {
+        image.map { cache[key] = $0 }
     }
 
     func loadSynchronously() -> UIImage? {
+        guard let url = self.url else { return nil }
         if let image = cache[url.absoluteString] {
             return image
         }
@@ -41,7 +46,7 @@ class ImageLoader: ObservableObject {
             let image = UIImage(data: data)
         else { return nil }
 
-        cache[url.absoluteString] = image
+        cache(image, for: url.absoluteString)
         return image
     }
 }

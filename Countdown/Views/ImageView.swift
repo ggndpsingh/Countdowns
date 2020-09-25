@@ -4,11 +4,9 @@ import SwiftUI
 
 struct ImageView: View {
     @ObservedObject var imageLoader: ImageLoader
-    private let path: String
 
-    init(path: String) {
-        imageLoader = .init(url: URL(string: path)!)
-        self.path = path
+    init(path: String?) {
+        imageLoader = ImageLoader(urlString: path)
         imageLoader.load()
     }
 
