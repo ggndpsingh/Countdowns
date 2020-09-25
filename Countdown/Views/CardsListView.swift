@@ -24,16 +24,33 @@ class ListPositionModel: ObservableObject {
 }
 
 struct CardsListView: View {
+    @FetchRequest<CountdownObject>(
+        entity: CountdownObject.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
+        animation: .spring()
+    ) var fetchedObjects
+    
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var viewModel: CardsListViewModel
     @State private var pickingImage: Bool = false
+
+    var countdowns: [Countdown] {
+        return fetchedObjects.map(Countdown.init).sorted {
+
+            if viewModel.isTemporaryItem(id: $0.id) {
+                return true
+            }
+
+            return $0.date < $1.date
+        }
+    }
 
     var body: some View {
         NavigationView {
             ScrollView {
                 ScrollViewReader { proxy in
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 480, maximum: 600))], spacing: 16) {
-                        ForEach(viewModel.countdowns) { countdown in
+                        ForEach(countdowns) { countdown in
                             CardView(
                                 countdown: countdown,
                                 isFlipped: viewModel.isCardFlipped(id: countdown.id),
@@ -79,7 +96,7 @@ struct CardsListView: View {
         withFlipAnimation(
             viewModel.flippedCardID = nil
         )
-        viewModel.scrollToItem = viewModel.countdowns.first?.id
+        viewModel.scrollToItem = countdowns.first?.id
         pickingImage = true
     }
 }

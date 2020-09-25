@@ -45,6 +45,7 @@
 		E672EAF9251DD02100724B2B /* DankMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */; };
 		E672EAFB251DD07D00724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
 		E672EAFC251DD1A000724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
+		E672EAFD251DD4E700724B2B /* DankMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */; };
 		E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B6251C591100D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
@@ -654,6 +655,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E680AD6425175C4E001B5333 /* Assets.xcassets in Resources */,
+				E672EAFD251DD4E700724B2B /* DankMono-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
