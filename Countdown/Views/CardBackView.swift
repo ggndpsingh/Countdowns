@@ -143,7 +143,7 @@ extension CardBackView {
                         .foregroundColor(.secondaryLabel)
                 }
                 .padding([.bottom], 8)
-                .font(Font.system(size: 11, weight: .medium, design: .monospaced))
+                .font(Font.dank(size: 11))
             }
             .padding(.horizontal, 8)
             .foregroundColor(Color.label)
@@ -172,9 +172,9 @@ extension CardBackView {
                         .labelsHidden()
 
                     if date <= Date() {
-                        Text("Must be in future")
-                            .font(Font.system(size: 11, weight: .regular, design: .default))
-                            .foregroundColor(.secondaryLabel)
+                        Text("set a future date")
+                            .font(Font.dank(size: 11))
+                            .foregroundColor(.red)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

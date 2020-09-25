@@ -42,6 +42,9 @@
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
+		E672EAF9251DD02100724B2B /* DankMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */; };
+		E672EAFB251DD07D00724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
+		E672EAFC251DD1A000724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
 		E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B6251C591100D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
@@ -171,6 +174,8 @@
 		E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DankMono-Regular.otf"; sourceTree = "<group>"; };
+		E672EAFA251DD07D00724B2B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+CountdownsManagerKey.swift"; sourceTree = "<group>"; };
 		E67C537725183E4B00402D27 /* CountdownStatusExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountdownStatusExtension.entitlements; sourceTree = "<group>"; };
 		E67C5378251873D600402D27 /* WidgetCountdowntLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdowntLarge.swift; sourceTree = "<group>"; };
@@ -303,6 +308,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		E672EAF3251DCFB600724B2B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		E680AD5F25175C4D001B5333 /* CountdownStatus */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +367,7 @@
 		E6E314092504DF87005C8B61 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E672EAF3251DCFB600724B2B /* Fonts */,
 				E658E8BB2510FEE3007E9AFD /* Helpers */,
 				E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */,
 				E658E8AF2510E86B007E9AFD /* Color.swift */,
@@ -414,6 +428,7 @@
 			children = (
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
+				E672EAFA251DD07D00724B2B /* Font.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -648,6 +663,7 @@
 			files = (
 				E6E314122504DF87005C8B61 /* Preview Assets.xcassets in Resources */,
 				E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */,
+				E672EAF9251DD02100724B2B /* DankMono-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +735,7 @@
 				E67C538625188A1E00402D27 /* WidgetEmptyStateSmall.swift in Sources */,
 				E67C536B2518317B00402D27 /* Countdown.xcdatamodeld in Sources */,
 				E67C5376251839AD00402D27 /* ComponentView.swift in Sources */,
+				E672EAFC251DD1A000724B2B /* Font.swift in Sources */,
 				E67C537E251885AA00402D27 /* WidgetCountdownSmall.swift in Sources */,
 				E67C5384251889F500402D27 /* WidgetEmptyStateProvider.swift in Sources */,
 				E67C536A2518317100402D27 /* Countdown.swift in Sources */,
@@ -759,6 +776,7 @@
 				E6E314512504E0A2005C8B61 /* Countdown.swift in Sources */,
 				E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */,
 				E6CAB07225172F51003848F9 /* ImageLoader.swift in Sources */,
+				E672EAFB251DD07D00724B2B /* Font.swift in Sources */,
 				E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */,
 				E6CAB06425172720003848F9 /* ImageCache.swift in Sources */,
 				E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */,

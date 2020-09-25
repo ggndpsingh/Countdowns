@@ -7,16 +7,16 @@ struct WidgetEmptyStateSmall: View {
     var body: some View {
         ZStack {
             Image(systemName: "info.circle.fill")
-                .font(Font.system(size: 12, weight: .regular, design: .default))
+                .font(Font.dank(size: 12))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .foregroundColor(Color.secondaryLabel)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("Select a countdown")
-                    .font(Font.system(size: 16, weight: .regular, design: .default))
+                    .font(Font.dank(size: 16))
 
                 Text("Long press & select `Edit Widget`")
-                    .font(Font.system(size: 11, weight: .regular, design: .default))
+                    .font(Font.dank(size: 11))
             }
             .offset(y: 8)
         }

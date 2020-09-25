@@ -8,9 +8,9 @@ struct ComponentView: View {
     var body: some View {
         VStack {
             Text(component.valueString)
-                .font(Font.system(size: 36, weight: .medium, design: .monospaced))
+                .font(Font.dank(size: 36))
             Text(component.label)
-                .font(Font.system(size: 12, weight: .medium, design: .default))
+                .font(Font.dank(size: 12))
         }
         .padding(.horizontal, 4)
         .padding(.vertical, 12)
