@@ -17,7 +17,9 @@ class FetchedObjectsViewModel: NSObject, ObservableObject {
         request.sortDescriptors = [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)]
         fetchedResultsController = .init(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         super.init()
-        try? fetchedResultsController.performFetch()
+        withAnimation(.spring()) {
+            try? fetchedResultsController.performFetch()
+        }
     }
 
     var fetchedObjects: [CountdownObject] {
@@ -28,8 +30,8 @@ class FetchedObjectsViewModel: NSObject, ObservableObject {
 final class CardsListViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     private let manager: CountdownsManager
     private let controller: FetchedObjectsViewModel
-    private var flippedCardID: UUID?
     private var temporaryItemID: UUID?
+    @Published var flippedCardID: UUID?
 
     @Published var scrollToItem: UUID?
 
@@ -56,17 +58,16 @@ final class CardsListViewModel: NSObject, ObservableObject, NSFetchedResultsCont
         objectWillChange.send()
     }
 
-    func addItem(imageURL: URL?) {
-        guard let url = imageURL else { return }
-        flippedCardID = nil
-        temporaryItemID = manager.createNewObject(with: url)
-    }
+    func didSelectImage(url: URL?) {
+        guard let url = url else { return }
 
-    func updateImage(_ imageURL: URL?) {
-        guard let id = flippedCardID, let object = manager.getObject(by: id) else { return }
-        var countdown = Countdown(object: object)
-        countdown.image = imageURL?.absoluteString
-        manager.updateObject(for: countdown)
+        if let id = flippedCardID, let object = manager.getObject(by: id) {
+            var countdown = Countdown(object: object)
+            countdown.image = url.absoluteString
+            manager.updateObject(for: countdown)
+        } else {
+            temporaryItemID = manager.createNewObject(with: url)
+        }
     }
 
     func handleDone(countdown: Countdown, shouldSave: Bool) {

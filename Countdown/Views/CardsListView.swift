@@ -26,8 +26,7 @@ class ListPositionModel: ObservableObject {
 struct CardsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var viewModel: CardsListViewModel
-    @State private var createNewItem: Bool = false
-    @State private var changeImageForItem: Bool = false
+    @State private var pickingImage: Bool = false
 
     var body: some View {
         NavigationView {
@@ -42,8 +41,8 @@ struct CardsListView: View {
                                 tapHandler: { id in
                                     withFlipAnimation(viewModel.flipCard(id: id))
                                 },
-                                imageHandler: { id in
-                                    changeImageForItem = true
+                                imageHandler: {
+                                    pickingImage = true
                                 },
                                 doneHandler: { updatedCountdown, shouldSave  in
                                     withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
@@ -59,11 +58,8 @@ struct CardsListView: View {
                     }
                 }
             }
-            .sheet(isPresented: $createNewItem) {
-                PhotoPicker(selectionHandler: viewModel.addItem)
-            }
-            .sheet(isPresented: $changeImageForItem) {
-                PhotoPicker(selectionHandler: viewModel.updateImage)
+            .sheet(isPresented: $pickingImage) {
+                PhotoPicker(selectionHandler: viewModel.didSelectImage)
             }
             .toolbar {
                 Button(action: addItem) {
@@ -79,8 +75,11 @@ struct CardsListView: View {
     }
 
     private func addItem() {
+        withFlipAnimation(
+            viewModel.flippedCardID = nil
+        )
         viewModel.scrollToItem = viewModel.countdowns.first?.id
-        createNewItem = true
+        pickingImage = true
     }
 }
 

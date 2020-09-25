@@ -9,7 +9,7 @@ struct CardView: View {
     let isFlipped: Bool
     let isNew: Bool
     let tapHandler: (UUID) -> Void
-    let imageHandler: (UUID) -> Void
+    let imageHandler: () -> Void
     let doneHandler:  (Countdown, Bool) -> Void
     let deleteHandler: () -> Void
 
@@ -18,7 +18,7 @@ struct CardView: View {
         isFlipped: Bool,
         isNew: Bool,
         tapHandler: @escaping (UUID) -> Void,
-        imageHandler: @escaping (UUID) -> Void,
+        imageHandler: @escaping () -> Void,
         doneHandler: @escaping (Countdown, Bool) -> Void,
         deleteHandler: @escaping () -> Void) {
 
