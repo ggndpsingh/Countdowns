@@ -6,14 +6,17 @@ struct CardBackView: View {
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
+    let imageHandler: (UUID) -> Void
     let doneHandler: (Countdown, Bool) -> Void
     let deleteHandler: () -> Void
 
     init(
         viewModel: CardBackViewModel,
+        imageHandler: @escaping (UUID) -> Void,
         doneHandler: @escaping (Countdown, Bool) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.imageHandler = imageHandler
         self.doneHandler = doneHandler
         self.deleteHandler = deleteHandler
     }
@@ -31,6 +34,7 @@ struct CardBackView: View {
                     hasReminder: viewModel.hasReminder,
                     reminderHandler: { viewModel.hasReminder.toggle() },
                     deleteHandler: deleteHandler,
+                    imageHandler: { imageHandler(viewModel.countdown.id) },
                     doneHandler: {
                         doneHandler(viewModel.countdown, viewModel.canSave)
                     })
@@ -59,6 +63,7 @@ extension CardBackView {
         let hasReminder: Bool
         let reminderHandler: () -> Void
         let deleteHandler: () -> Void
+        let imageHandler: () -> Void
         let doneHandler: () -> Void
 
         var body: some View {
@@ -69,6 +74,12 @@ extension CardBackView {
                         image: "trash",
                         color: .red)
                 }
+
+
+                RoundButton(
+                    action: imageHandler,
+                    image: "photo.fill",
+                    color: Color.Pastel.blue)
 
                 Spacer()
 
@@ -101,7 +112,7 @@ extension CardBackView {
                     Image(systemName: image)
                         .font(Font.system(size: 14, weight: .medium, design: .monospaced))
                         .frame(width: 40, height: 40)
-                        .background(Blur(style: .systemThinMaterial))
+                        .background(Blur(style: .systemThickMaterial))
                         .clipShape(Circle())
                         .foregroundColor(color)
                 }
@@ -137,7 +148,7 @@ extension CardBackView {
             }
             .padding(.horizontal, 8)
             .foregroundColor(Color.label)
-            .background(Color.systemBackground.opacity(0.8))
+            .background(Blur(style: .systemThickMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .frame(maxWidth: .infinity)
             .onChange(of: title, perform: { value in
@@ -184,7 +195,7 @@ extension CardBackView {
             .padding(.vertical, 12)
             .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.systemBackground.opacity(0.8))
+            .background(Blur(style: .systemThickMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
@@ -193,13 +204,14 @@ extension CardBackView {
 #if DEBUG
 struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackView(viewModel: .init(countdown: .preview, isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
-            .frame(width: 400, height: 300)
+        CardBackView(viewModel: .init(countdown: .preview, isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {_ in}, doneHandler: {_,_  in }, deleteHandler: {})
+            .frame(width: 400, height: 320)
             .previewLayout(.sizeThatFits)
 
-        CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), doneHandler: {_,_  in }, deleteHandler: {})
+        CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {_ in}, doneHandler: {_,_  in }, deleteHandler: {})
+            .frame(width: 400, height: 320)
+            .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
-            .previewDevice(.init(rawValue: "iPhone SE"))
     }
 }
 #endif

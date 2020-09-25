@@ -9,6 +9,7 @@ struct CardView: View {
     let isFlipped: Bool
     let isNew: Bool
     let tapHandler: (UUID) -> Void
+    let imageHandler: (UUID) -> Void
     let doneHandler:  (Countdown, Bool) -> Void
     let deleteHandler: () -> Void
 
@@ -17,6 +18,7 @@ struct CardView: View {
         isFlipped: Bool,
         isNew: Bool,
         tapHandler: @escaping (UUID) -> Void,
+        imageHandler: @escaping (UUID) -> Void,
         doneHandler: @escaping (Countdown, Bool) -> Void,
         deleteHandler: @escaping () -> Void) {
 
@@ -24,6 +26,7 @@ struct CardView: View {
         self.isFlipped = isFlipped
         self.isNew = isNew
         self.tapHandler = tapHandler
+        self.imageHandler = imageHandler
         self.doneHandler = doneHandler
         self.deleteHandler = deleteHandler
     }
@@ -38,7 +41,7 @@ struct CardView: View {
                     .frame(height: 320)
             }, back: {
                 CardBackView(
-                    viewModel: .init(countdown: countdown, isNew: isNew, countdownsManager: countdownsManager),
+                    viewModel: .init(countdown: countdown, isNew: isNew, countdownsManager: countdownsManager), imageHandler: imageHandler,
                     doneHandler: {
                         if flipped {
                             withFlipAnimation(flipped.toggle())

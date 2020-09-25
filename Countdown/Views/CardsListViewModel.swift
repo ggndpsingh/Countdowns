@@ -62,6 +62,13 @@ final class CardsListViewModel: NSObject, ObservableObject, NSFetchedResultsCont
         temporaryItemID = manager.createNewObject(with: url)
     }
 
+    func updateImage(_ imageURL: URL?) {
+        guard let id = flippedCardID, let object = manager.getObject(by: id) else { return }
+        var countdown = Countdown(object: object)
+        countdown.image = imageURL?.absoluteString
+        manager.updateObject(for: countdown)
+    }
+
     func handleDone(countdown: Countdown, shouldSave: Bool) {
         flippedCardID = nil
 
