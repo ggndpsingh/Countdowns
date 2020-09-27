@@ -19,7 +19,9 @@ final class PersistenceController {
             container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
 
             let cloud = NSPersistentStoreDescription(url: .storeURL(for: "group.com.deepgagan.CountdownGroup", databaseName: "Cloud"))
-            cloud.cloudKitContainerOptions = .init(containerIdentifier: "iCloud.com.deepgagan.Countdown")
+            let options = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.com.deepgagan.Countdown")
+//            options.databaseScope = .public
+            cloud.cloudKitContainerOptions = options
             container.persistentStoreDescriptions = [cloud]
         }
 

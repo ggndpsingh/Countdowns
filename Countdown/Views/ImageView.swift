@@ -3,11 +3,10 @@
 import SwiftUI
 
 struct ImageView: View {
-    @ObservedObject var imageLoader: ImageLoader
+    @ObservedObject var imageLoader: ImageLoader = .shared
 
-    init(path: String?) {
-        imageLoader = ImageLoader(urlString: path)
-        imageLoader.load()
+    init(url: URL?) {
+        imageLoader.load(at: url)
     }
 
     var body: some View {

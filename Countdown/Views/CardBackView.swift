@@ -23,7 +23,7 @@ struct CardBackView: View {
 
     var body: some View {
         ZStack {
-            CardBackground(imageURL: viewModel.countdown.image)
+            CardBackground(image: viewModel.countdown.image)
                 .overlay(Rectangle().fill(Color.systemBackground.opacity(0.6)))
                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 

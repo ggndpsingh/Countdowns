@@ -3,17 +3,22 @@
 import SwiftUI
 
 struct CardBackground: View {
-    let imageURL: String?
+    let image: UIImage?
 
     var body: some View {
         Group {
-            if let url = imageURL {
-                ImageView(path: url)
-                    .cornerRadius(24)
-                    .contentShape(
-                        RoundedRectangle(cornerRadius: 24)
-                    )
-                    .clipped(antialiased: false)
+            if let image = self.image {
+                GeometryReader { geometry in
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                        .cornerRadius(24)
+                        .contentShape(
+                            RoundedRectangle(cornerRadius: 24)
+                        )
+                        .clipped(antialiased: false)
+                }
             } else {
                 Color.pastels.randomElement()!
                     .cornerRadius(24)
@@ -27,8 +32,8 @@ struct CardBackground: View {
 
 struct CardBackground_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackground(imageURL: nil)
-            .frame(width: 400, height: 400, alignment: .center)
-            .previewLayout(.sizeThatFits)
+        CardBackground(image: UIImage(named: "test"))
+//            .frame(width: 400, height: 400, alignment: .center)
+//            .previewLayout(.sizeThatFits)
     }
 }

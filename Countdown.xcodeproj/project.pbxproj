@@ -46,6 +46,10 @@
 		E672EAFB251DD07D00724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
 		E672EAFC251DD1A000724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
 		E672EAFD251DD4E700724B2B /* DankMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */; };
+		E672EB02251DE16800724B2B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E672EB00251DE16800724B2B /* Localizable.stringsdict */; };
+		E672EB03251DE16800724B2B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E672EB01251DE16800724B2B /* Localizable.strings */; };
+		E672EB04251DE19A00724B2B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E672EB01251DE16800724B2B /* Localizable.strings */; };
+		E672EB05251DE19C00724B2B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E672EB00251DE16800724B2B /* Localizable.stringsdict */; };
 		E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
 		E67AB3B6251C591100D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */; };
@@ -177,6 +181,8 @@
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DankMono-Regular.otf"; sourceTree = "<group>"; };
 		E672EAFA251DD07D00724B2B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		E672EB00251DE16800724B2B /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		E672EB01251DE16800724B2B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+CountdownsManagerKey.swift"; sourceTree = "<group>"; };
 		E67C537725183E4B00402D27 /* CountdownStatusExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountdownStatusExtension.entitlements; sourceTree = "<group>"; };
 		E67C5378251873D600402D27 /* WidgetCountdowntLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCountdowntLarge.swift; sourceTree = "<group>"; };
@@ -368,6 +374,8 @@
 		E6E314092504DF87005C8B61 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E672EB01251DE16800724B2B /* Localizable.strings */,
+				E672EB00251DE16800724B2B /* Localizable.stringsdict */,
 				E672EAF3251DCFB600724B2B /* Fonts */,
 				E658E8BB2510FEE3007E9AFD /* Helpers */,
 				E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */,
@@ -656,6 +664,8 @@
 			files = (
 				E680AD6425175C4E001B5333 /* Assets.xcassets in Resources */,
 				E672EAFD251DD4E700724B2B /* DankMono-Regular.otf in Resources */,
+				E672EB04251DE19A00724B2B /* Localizable.strings in Resources */,
+				E672EB05251DE19C00724B2B /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,7 +673,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E672EB03251DE16800724B2B /* Localizable.strings in Resources */,
 				E6E314122504DF87005C8B61 /* Preview Assets.xcassets in Resources */,
+				E672EB02251DE16800724B2B /* Localizable.stringsdict in Resources */,
 				E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */,
 				E672EAF9251DD02100724B2B /* DankMono-Regular.otf in Resources */,
 			);

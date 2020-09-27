@@ -8,7 +8,7 @@ struct WidgetCountdownProvider: View {
     let title: String
     let date: Date
     let entryDate: Date
-    let image: String?
+    let image: UIImage?
 
     var components: [DateComponent] {
         CountdownCalculator.dateComponents(for: date, comparisonDate: entryDate, trimmed: true)

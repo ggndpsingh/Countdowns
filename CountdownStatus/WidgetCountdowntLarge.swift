@@ -34,15 +34,11 @@ struct CountdownWidgetLarge_Previews: PreviewProvider {
 }
 
 struct WidgetBackground: View {
-    let imageLoader: ImageLoader?
-
-    init(image: String?) {
-        imageLoader = ImageLoader(urlString: image)
-    }
+    let image: UIImage?
 
     var body: some View {
         Group {
-            if let image = imageLoader?.loadSynchronously() {
+            if let image = self.image {
                 GeometryReader { geometry in
                     Image(uiImage: image)
                         .resizable()

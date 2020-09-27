@@ -36,15 +36,13 @@ final class CardsListViewModel: NSObject, ObservableObject {
         objectWillChange.send()
     }
 
-    func didSelectImage(url: URL?) {
-        guard let url = url else { return }
+    func didSelectImage(_ image: UIImage?) {
+        guard temporaryItemID == nil, let image = image else { return }
 
-        if let id = flippedCardID, let object = manager.getObject(by: id) {
-            var countdown = Countdown(object: object)
-            countdown.image = url.absoluteString
-            manager.updateObject(for: countdown)
+        if let id = flippedCardID {
+            manager.updateImage(image, for: id)
         } else {
-            temporaryItemID = manager.createNewObject(with: url)
+            temporaryItemID = manager.createNewObject(with: image)
         }
     }
 

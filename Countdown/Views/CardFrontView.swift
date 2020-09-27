@@ -7,7 +7,7 @@ struct CardFrontView: View {
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            CardBackground(imageURL: countdown.image)
+            CardBackground(image: countdown.image)
                 .overlay(Rectangle().fill(Color.black.opacity(0.3)))
             TitleView(title: countdown.title, date: countdown.dateString)
             CountdownView(date: countdown.date, size: .medium)

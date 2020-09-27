@@ -4,7 +4,12 @@ import SwiftUI
 import  UnsplashPhotoPicker
 
 struct PhotoPicker: UIViewControllerRepresentable {
-    let selectionHandler: (URL?) -> Void
+    typealias SelectionHandler = (UIImage?) -> Void
+    let selectionHandler: SelectionHandler
+
+    init(selectionHandler: @escaping SelectionHandler) {
+        self.selectionHandler = selectionHandler
+    }
 
     func makeUIViewController(context: Context) -> UnsplashPhotoPicker {
         let picker = UnsplashPhotoPicker(
@@ -22,14 +27,21 @@ struct PhotoPicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UnsplashPhotoPicker, context: Context) {}
 
+    private func downloadImage(at url: URL) {
+        ImageLoader.shared.getImage(at: url) { image in
+            selectionHandler(image)
+        }
+    }
+
     class Coordinator: NSObject, UnsplashPhotoPickerDelegate {
         func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
-            parent.selectionHandler(photos.first?.urls[.regular])
+            guard let url = photos.first?.urls[.regular] else { return }
+            parent.downloadImage(at: url)
         }
 
         func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) { }
 
-        let parent: PhotoPicker
+        var parent: PhotoPicker
 
         init(_ parent: PhotoPicker) {
             self.parent = parent

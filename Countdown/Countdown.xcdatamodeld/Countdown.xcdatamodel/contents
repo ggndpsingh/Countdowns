@@ -3,10 +3,10 @@
     <entity name="CountdownObject" representedClassName="CountdownObject" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CountdownObject" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="CountdownObject" positionX="-91.63128662109375" positionY="-81.38446044921875" width="148.72119140625" height="89"/>
     </elements>
 </model>

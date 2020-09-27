@@ -11,11 +11,12 @@ struct CountdownsManager {
         self.context = context
     }
 
-    func createNewObject(with imageURL: URL) -> UUID? {
+    func createNewObject(with image: UIImage) -> UUID? {
         let countdown = CountdownObject(context: context)
         countdown.id = UUID()
         countdown.date = Date()
-        countdown.imageURL = imageURL.absoluteString
+        countdown.image = image.pngData()
+
         try? context.save()
         return countdown.id
     }
@@ -39,10 +40,21 @@ struct CountdownsManager {
 
     func updateObject(for countdown: Countdown) {
         guard let object = getObject(by: countdown.id) else { return }
-        object.date = countdown.date
-        object.title = countdown.title
-        object.imageURL = countdown.image
-        try? context.save()
+        context.perform {
+            object.date = countdown.date
+            object.title = countdown.title
+            object.image = countdown.image?.pngData()
+            try? context.save()
+        }
+        reloadWidgets()
+    }
+
+    func updateImage(_ image: UIImage, for id: UUID) {
+        context.perform {
+            guard let object = getObject(by : id) else { return }
+            object.image = image.pngData()
+            try? context.save()
+        }
         reloadWidgets()
     }
 
@@ -55,7 +67,9 @@ struct CountdownsManager {
 
     func objectHasChange(countdown: Countdown) -> Bool {
         guard let object = getObject(by: countdown.id) else { return false }
-        return countdown != Countdown(object: object)
+        let original = Countdown(object: object)
+        return countdown.title != original.title ||
+            countdown.date != original.date
     }
 
     private func reloadWidgets() {
