@@ -9,7 +9,7 @@ struct CardView: View {
     let isFlipped: Bool
     let isNew: Bool
     let tapHandler: (UUID) -> Void
-    let imageHandler: () -> Void
+    let imageHandler: (PhotoSource) -> Void
     let doneHandler:  (Countdown, Bool) -> Void
     let deleteHandler: () -> Void
 
@@ -18,7 +18,7 @@ struct CardView: View {
         isFlipped: Bool,
         isNew: Bool,
         tapHandler: @escaping (UUID) -> Void,
-        imageHandler: @escaping () -> Void,
+        imageHandler: @escaping (PhotoSource) -> Void,
         doneHandler: @escaping (Countdown, Bool) -> Void,
         deleteHandler: @escaping () -> Void) {
 
@@ -68,11 +68,11 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {}, doneHandler: {_, _ in}, deleteHandler: {})
+            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
                 .frame(width: 400, height: 400, alignment: .center)
                 .previewLayout(.sizeThatFits)
 
-            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {}, doneHandler: {_, _ in}, deleteHandler: {})
+            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
                 .frame(width: 400, height: 400, alignment: .center)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)

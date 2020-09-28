@@ -13,7 +13,7 @@ struct CardFrontView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .offset(y: 8)
         }
-        .cornerRadius(24)
+        .cornerRadius(16)
     }
 }
 

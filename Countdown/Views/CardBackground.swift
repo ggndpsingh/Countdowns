@@ -13,7 +13,7 @@ struct CardBackground: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                        .cornerRadius(24)
+                        .cornerRadius(16)
                         .contentShape(
                             RoundedRectangle(cornerRadius: 24)
                         )
@@ -22,7 +22,7 @@ struct CardBackground: View {
                 }
             } else {
                 Color.pastels.randomElement()!
-                    .cornerRadius(24)
+                    .cornerRadius(16)
                     .contentShape(
                         RoundedRectangle(cornerRadius: 24)
                     )

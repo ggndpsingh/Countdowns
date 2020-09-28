@@ -23,6 +23,36 @@ class ListPositionModel: ObservableObject {
     @Published var position: Position?
 }
 
+struct ContentView: View {
+    var body: some View {
+        NavigationView {
+            ScrollView {
+
+            }
+            .toolbar {
+                Menu {
+                    Button(action: {}) {
+                        Text("Camera")
+                        Image(systemName: "camera.fill")
+                            .foregroundColor(.primary)
+                    }
+                    Button(action: {}) {
+                        Text("Unsplash")
+                        Image("unsplashIcon")
+                            .foregroundColor(.primary)
+                    }
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                }
+//                .disabled(viewModel.hasTemporaryItem)
+            }
+            .navigationTitle("Upcoming")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
 struct CardsListView: View {
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
@@ -32,7 +62,6 @@ struct CardsListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var viewModel: CardsListViewModel
-    @State private var selectingSource: Bool = false
     @State private var pickingImage: Bool = false
     @State private var photoSource: PhotoSource?
 
@@ -61,7 +90,7 @@ struct CardsListView: View {
                                     withFlipAnimation(viewModel.flipCard(id: id))
                                 },
                                 imageHandler: {
-                                    selectingSource = true
+                                    photoSource = $0
                                 },
                                 doneHandler: { updatedCountdown, shouldSave  in
                                     withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
@@ -80,13 +109,6 @@ struct CardsListView: View {
                     }
                 }
             }
-            .actionSheet(isPresented: $selectingSource) {
-                ActionSheet(title: Text("Change background"), message: Text("Select a new color"), buttons: [
-                    .default(Text("Photo Library")) { self.photoSource = .library },
-                    .default(Text("Unsplash")) { self.photoSource = .unsplash },
-                    .cancel()
-                ])
-            }
             .fullScreenCover(isPresented: $pickingImage) {
                 PhotoPicker(source: photoSource!) { image in
                     photoSource = nil
@@ -94,25 +116,22 @@ struct CardsListView: View {
                 }
             }
             .toolbar {
-                Button(action: addItem) {
-                    Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.primary)
-                }
-                .disabled(viewModel.hasTemporaryItem)
+                PhotoSourceMenu(label: { Image(systemName: "plus.circle.fill") }, action: addItem)
+                    .disabled(viewModel.hasTemporaryItem)
             }
-            .foregroundColor(.white)
+            .foregroundColor(.primary)
             .navigationTitle("Upcoming")
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    private func addItem() {
+    private func addItem(photoSource: PhotoSource) {
         withFlipAnimation(
             viewModel.flippedCardID = nil
         )
         viewModel.scrollToItem = countdowns.first?.id
-        selectingSource = true
+        self.photoSource = photoSource
     }
 }
 
@@ -125,8 +144,27 @@ private let itemFormatter: DateFormatter = {
 
 struct CardsListView_Previews: PreviewProvider {
     static var previews: some View {
-        CardsListView(viewModel: .init(context: PersistenceController.inMemory.container.viewContext))
-            .environment(\.managedObjectContext, PersistenceController.inMemory.container.viewContext)
-            .environment(\.countdownsManager, CountdownsManager(context: PersistenceController.inMemory.container.viewContext))
+        ContentView()
+    }
+}
+
+struct PhotoSourceMenu<Label: View>: View {
+    let label: () -> Label
+    let action: (PhotoSource) -> Void
+
+    var body: some View {
+        Menu {
+            Button(action: { action(.library) }) {
+                Text("Photo Library")
+                Image(systemName: "photo.on.rectangle")
+            }
+            Button(action: { action(.unsplash) }) {
+                Text("Unsplash")
+                Image("unsplashIcon")
+                    .frame(width: 16, height: 16, alignment: .center)
+            }
+        } label: {
+            label()
+        }
     }
 }

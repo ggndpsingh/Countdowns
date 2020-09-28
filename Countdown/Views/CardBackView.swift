@@ -7,13 +7,13 @@ struct CardBackView: View {
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
-    let imageHandler: () -> Void
+    let imageHandler: (PhotoSource) -> Void
     let doneHandler: (Countdown, Bool) -> Void
     let deleteHandler: () -> Void
 
     init(
         viewModel: CardBackViewModel,
-        imageHandler: @escaping () -> Void,
+        imageHandler: @escaping (PhotoSource) -> Void,
         doneHandler: @escaping (Countdown, Bool) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
@@ -51,7 +51,7 @@ struct CardBackView: View {
             .padding()
         }
         .animation(.easeIn)
-        .cornerRadius(24)
+        .cornerRadius(16)
     }
 }
 
@@ -63,7 +63,7 @@ extension CardBackView {
         let hasReminder: Bool
         let reminderHandler: () -> Void
         let deleteHandler: () -> Void
-        let imageHandler: () -> Void
+        let imageHandler: (PhotoSource) -> Void
         let doneHandler: () -> Void
 
         var body: some View {
@@ -74,10 +74,11 @@ extension CardBackView {
                         image: "trash",
                         color: .red)
 
-                    RoundButton(
-                        action: imageHandler,
-                        image: "photo.fill",
-                        color: Color.Pastel.blue)
+                    PhotoSourceMenu(
+                        label: {
+                            RoundButton.ButtonImage("photo.fill", color: Color.Pastel.blue)
+                        },
+                        action: imageHandler)
                 }
 
                 Spacer()
@@ -89,8 +90,8 @@ extension CardBackView {
 
                 RoundButton(
                     action: doneHandler,
-                    image: canSave ? "checkmark" : isNew ? "trash" : "arrow.backward",
-                    color: canSave ? .green : isNew ? .red : .secondaryLabel)
+                    image: canSave ? "checkmark" : isNew ? "xmark" : "arrow.backward",
+                    color: canSave ? .green : .secondaryLabel)
                 }
                 .alert(isPresented: $deleteAlertPresented) {
                     Alert(
@@ -108,6 +109,20 @@ extension CardBackView {
 
             var body: some View {
                 Button(action: action) {
+                    ButtonImage(image, color: color)
+                }
+            }
+
+            struct ButtonImage: View {
+                private let image: String
+                private let color: Color
+
+                init(_ image: String, color: Color) {
+                    self.image = image
+                    self.color = color
+                }
+
+                var body: some View {
                     Image(systemName: image)
                         .font(Font.system(size: 14, weight: .medium, design: .monospaced))
                         .frame(width: 40, height: 40)
@@ -203,11 +218,11 @@ extension CardBackView {
 #if DEBUG
 struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackView(viewModel: .init(countdown: .preview, isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {}, doneHandler: {_,_  in }, deleteHandler: {})
+        CardBackView(viewModel: .init(countdown: .preview, isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {_ in }, doneHandler: {_,_  in }, deleteHandler: {})
             .frame(width: 400, height: 320)
             .previewLayout(.sizeThatFits)
 
-        CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {}, doneHandler: {_,_  in }, deleteHandler: {})
+        CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {_ in }, doneHandler: {_,_  in }, deleteHandler: {})
             .frame(width: 400, height: 320)
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)

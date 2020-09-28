@@ -44,7 +44,7 @@ struct CountdownView: View {
 //                CardFrontView(countdown: .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "Test 🍎", image: URL(string: "https://images.unsplash.com/photo-1600017751108-6df9a5a7334e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE2NjI1MX0")!))
 //            }
 //            .frame(maxWidth: .infinity, minHeight: 320, idealHeight: 320, maxHeight: 320)
-//            .cornerRadius(24)
+//            .cornerRadius(16)
 //        }
 //        .padding()
 //
