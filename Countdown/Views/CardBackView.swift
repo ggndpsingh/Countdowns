@@ -3,6 +3,7 @@
 import SwiftUI
 
 struct CardBackView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
@@ -24,7 +25,6 @@ struct CardBackView: View {
     var body: some View {
         ZStack {
             CardBackground(image: viewModel.countdown.image)
-                .overlay(Rectangle().fill(Color.systemBackground.opacity(0.6)))
                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
             VStack(alignment: .leading, spacing:24) {

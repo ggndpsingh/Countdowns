@@ -51,6 +51,7 @@ struct CardView: View {
                     deleteHandler: deleteHandler)
             }
         )
+        .shadow(radius: 20)
         .onAppear {
             if isNew {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -61,5 +62,20 @@ struct CardView: View {
             }
         }
         .padding()
+    }
+}
+
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {}, doneHandler: {_, _ in}, deleteHandler: {})
+                .frame(width: 400, height: 400, alignment: .center)
+                .previewLayout(.sizeThatFits)
+
+            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {}, doneHandler: {_, _ in}, deleteHandler: {})
+                .frame(width: 400, height: 400, alignment: .center)
+                .previewLayout(.sizeThatFits)
+                .preferredColorScheme(.dark)
+        }
     }
 }

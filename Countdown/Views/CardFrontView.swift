@@ -8,7 +8,6 @@ struct CardFrontView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             CardBackground(image: countdown.image)
-                .overlay(Rectangle().fill(Color.black.opacity(0.3)))
             TitleView(title: countdown.title, date: countdown.dateString)
             CountdownView(date: countdown.date, size: .medium)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -25,7 +24,7 @@ struct CardFrontView_Previews: PreviewProvider {
             CardFrontView(countdown: .preview)
 
             CardFrontView(countdown: .preview)
-                .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 300, height: 300, alignment: .center)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }.padding()

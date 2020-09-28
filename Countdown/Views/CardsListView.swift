@@ -32,7 +32,9 @@ struct CardsListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var viewModel: CardsListViewModel
+    @State private var selectingSource: Bool = false
     @State private var pickingImage: Bool = false
+    @State private var photoSource: PhotoSource?
 
     var countdowns: [Countdown] {
         return fetchedObjects.map(Countdown.init).sorted {
@@ -59,7 +61,7 @@ struct CardsListView: View {
                                     withFlipAnimation(viewModel.flipCard(id: id))
                                 },
                                 imageHandler: {
-                                    pickingImage = true
+                                    selectingSource = true
                                 },
                                 doneHandler: { updatedCountdown, shouldSave  in
                                     withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
@@ -70,13 +72,26 @@ struct CardsListView: View {
                                 .id(countdown.id)
                         }
                     }
+                    .onChange(of: photoSource, perform: { value in
+                        pickingImage = value != nil
+                    })
                     .onReceive(viewModel.$scrollToItem) { item in
                         withAnimation(.easeOut) { proxy.scrollTo(item) }
                     }
                 }
             }
-            .sheet(isPresented: $pickingImage) {
-                PhotoPicker(selectionHandler: viewModel.didSelectImage)
+            .actionSheet(isPresented: $selectingSource) {
+                ActionSheet(title: Text("Change background"), message: Text("Select a new color"), buttons: [
+                    .default(Text("Photo Library")) { self.photoSource = .library },
+                    .default(Text("Unsplash")) { self.photoSource = .unsplash },
+                    .cancel()
+                ])
+            }
+            .fullScreenCover(isPresented: $pickingImage) {
+                PhotoPicker(source: photoSource!) { image in
+                    photoSource = nil
+                    viewModel.didSelectImage(image)
+                }
             }
             .toolbar {
                 Button(action: addItem) {
@@ -97,7 +112,7 @@ struct CardsListView: View {
             viewModel.flippedCardID = nil
         )
         viewModel.scrollToItem = countdowns.first?.id
-        pickingImage = true
+        selectingSource = true
     }
 }
 

@@ -18,6 +18,7 @@ struct CardBackground: View {
                             RoundedRectangle(cornerRadius: 24)
                         )
                         .clipped(antialiased: false)
+                        .overlay(Rectangle().fill(Color.black.opacity(0.3)))
                 }
             } else {
                 Color.pastels.randomElement()!
