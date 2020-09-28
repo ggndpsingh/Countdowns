@@ -54,8 +54,8 @@ struct CountdownsManager {
             guard let object = getObject(by : id) else { return }
             object.image = image.pngData()
             try? context.save()
+            reloadWidgets()
         }
-        reloadWidgets()
     }
 
     func deleteObject(with id: UUID) {

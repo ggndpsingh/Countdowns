@@ -11,6 +11,7 @@ struct WidgetCountdownLarge: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(Font.system(size: 24, weight: .regular, design: .default))
+                .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .foregroundColor(.white)
@@ -22,14 +23,6 @@ struct WidgetCountdownLarge: View {
                     .foregroundColor(.white)
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-struct CountdownWidgetLarge_Previews: PreviewProvider {
-    static var previews: some View {
-        let countdown = Countdown.placeholder
-        WidgetCountdownLarge(title: countdown.title, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
-            .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }
 
@@ -52,3 +45,14 @@ struct WidgetBackground: View {
         }
     }
 }
+
+#if DEBUG
+struct CountdownWidgetLarge_Previews: PreviewProvider {
+    static var previews: some View {
+        let countdown = Countdown.placeholder
+        WidgetCountdownLarge(title: countdown.title, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
+            .previewContext(WidgetPreviewContext(family: .systemLarge))
+    }
+}
+
+#endif

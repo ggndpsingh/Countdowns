@@ -11,6 +11,7 @@ struct WidgetCountdownMedium: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(Font.system(size: 20, weight: .regular, design: .default))
+                .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .foregroundColor(.white)
@@ -27,6 +28,7 @@ struct WidgetCountdownMedium: View {
     }
 }
 
+#if DEBUG
 struct CountdownWidgetMedium_Previews: PreviewProvider {
     static var previews: some View {
         let countdown = Countdown.placeholder
@@ -34,3 +36,4 @@ struct CountdownWidgetMedium_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+#endif

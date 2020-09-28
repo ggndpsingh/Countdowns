@@ -26,9 +26,11 @@ struct WidgetEmptyStateSmall: View {
     }
 }
 
+#if DEBUG
 struct WidgetEmptyStateSmall_Previews: PreviewProvider {
     static var previews: some View {
         WidgetEmptyStateSmall()
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
+#endif

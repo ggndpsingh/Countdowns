@@ -32,6 +32,7 @@ struct CountdonWidget : View {
     }
 }
 
+#if DEBUG
 struct CountdownStatus_Previews: PreviewProvider {
     static var previews: some View {
         CountdonWidget(entry: CountdownEntry(date: Date(), countdown: .placeholder, configuration: SelectCountdownIntent()))
@@ -49,3 +50,4 @@ struct CountdownStatus_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }
+#endif

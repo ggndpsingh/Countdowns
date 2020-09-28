@@ -20,7 +20,6 @@ final class PersistenceController {
 
             let cloud = NSPersistentStoreDescription(url: .storeURL(for: "group.com.deepgagan.CountdownGroup", databaseName: "Cloud"))
             let options = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.com.deepgagan.Countdown")
-//            options.databaseScope = .public
             cloud.cloudKitContainerOptions = options
             container.persistentStoreDescriptions = [cloud]
         }

@@ -12,6 +12,7 @@ struct TitleView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(Font.system(size: 24, weight: .medium, design: .rounded))
+                        .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
@@ -23,6 +24,7 @@ struct TitleView: View {
     }
 }
 
+#if DEBUG
 struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
         CardFrontView(countdown: .preview)
@@ -30,3 +32,4 @@ struct TitleView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
+#endif

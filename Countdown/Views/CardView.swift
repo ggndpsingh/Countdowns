@@ -65,17 +65,19 @@ struct CardView: View {
     }
 }
 
+#if DEBUG
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
+            CardView(countdown: .preview, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
                 .frame(width: 400, height: 400, alignment: .center)
                 .previewLayout(.sizeThatFits)
 
-            CardView(countdown: .placeholder, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
+            CardView(countdown: .preview, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
                 .frame(width: 400, height: 400, alignment: .center)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }
     }
 }
+#endif

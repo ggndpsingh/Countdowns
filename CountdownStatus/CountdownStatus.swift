@@ -4,6 +4,12 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+extension Countdown {
+    static let placeholder: Countdown = {
+        .init(id: .init(), date: .christmas, title: "Christmas 🎄", image: UIImage(named: "christmas"))
+    }()
+}
+
 struct Provider: IntentTimelineProvider {
     private let manager = CountdownsManagerKey.defaultValue
 

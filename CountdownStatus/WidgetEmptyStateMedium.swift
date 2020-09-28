@@ -26,9 +26,11 @@ struct WidgetEmptyStateMedium: View {
     }
 }
 
+#if DEBUG
 struct WidgetEmptyStateMedium_Previews: PreviewProvider {
     static var previews: some View {
         WidgetEmptyStateMedium()
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+#endif

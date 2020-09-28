@@ -37,14 +37,8 @@ extension Countdown {
     }
 }
 
-extension Countdown {
-    static let placeholder: Countdown = {
-        .init(id: .init(), date: .christmas, title: "Christmas 🎄", image: UIImage(named: "test"))
-    }()
-}
-
 #if DEBUG
 extension Countdown {
-    static let preview: Countdown = .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "This is a test title for", image: UIImage(named: "test"))
+    static let preview: Countdown = .init(date: Date().addingTimeInterval(3600 * 3600).bySettingTimeToZero(), title: "This is a test title for", image: UIImage(named: "christmas"))
 }
 #endif

@@ -142,12 +142,6 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct CardsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
 struct PhotoSourceMenu<Label: View>: View {
     let label: () -> Label
     let action: (PhotoSource) -> Void

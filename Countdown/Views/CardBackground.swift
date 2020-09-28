@@ -31,10 +31,10 @@ struct CardBackground: View {
     }
 }
 
+#if DEBUG
 struct CardBackground_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackground(image: UIImage(named: "test"))
-//            .frame(width: 400, height: 400, alignment: .center)
-//            .previewLayout(.sizeThatFits)
+        CardBackground(image: UIImage(named: "christmas"))
     }
 }
+#endif
