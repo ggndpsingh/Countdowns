@@ -91,7 +91,7 @@ struct CardsListView: View {
                 PhotoSourceMenu(label: { Image(systemName: "plus.circle.fill") }, action: addItem)
                     .disabled(viewModel.hasTemporaryItem)
             }
-            .foregroundColor(.primary)
+            .foregroundColor(.brand)
             .navigationTitle("Upcoming")
             .navigationBarTitleDisplayMode(.inline)
         }

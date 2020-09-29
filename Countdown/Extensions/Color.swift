@@ -3,6 +3,7 @@
 import SwiftUI
 
 extension Color {
+    static let brand = Color(UIColor(hex: 0xF17171))
     static let systemBackground = Color(UIColor.systemBackground)
     static let secondarySystemBackground = Color(UIColor.secondarySystemBackground)
     static let label = Color(UIColor.label)

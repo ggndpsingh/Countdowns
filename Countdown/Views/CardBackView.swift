@@ -81,7 +81,7 @@ extension CardBackView {
                     if !hasEnded {
                         PhotoSourceMenu(
                             label: {
-                                RoundButton.ButtonImage("photo.fill", color: Color.Pastel.blue)
+                                RoundButton.ButtonImage("photo.fill", color: .brand)
                             },
                             action: imageHandler)
                     }
@@ -202,6 +202,7 @@ extension CardBackView {
                     .foregroundColor(disabled ? .secondaryLabel : .label)
                     .font(Font.system(size: 16, weight: .regular, design: .default))
                 }
+                .toggleStyle(SwitchToggleStyle(tint: .brand))
                 .disabled(disabled)
             }
             .padding(.vertical, 12)
