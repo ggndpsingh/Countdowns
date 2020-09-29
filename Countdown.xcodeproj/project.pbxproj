@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E616171025230EF800D58D19 /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E616170F25230EF800D58D19 /* UnsplashPhotoPicker */; };
 		E6226793251B210700C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226794251B231A00C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226795251B235400C726C4 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
@@ -164,6 +165,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E613C6E0252308320008C0AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CountdownStatus.strings; sourceTree = "<group>"; };
 		E6226797251B26E000C726C4 /* CountdownsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownsManager.swift; sourceTree = "<group>"; };
 		E622679B251B4ACC00C726C4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		E63542F62522ED59008E6D8E /* CountdownContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownContainer.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E616171025230EF800D58D19 /* UnsplashPhotoPicker in Frameworks */,
 				E6E3143D2504E007005C8B61 /* CloudKit.framework in Frameworks */,
 				E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */,
 			);
@@ -316,6 +319,8 @@
 		E658E8BB2510FEE3007E9AFD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E6E314132504DF87005C8B61 /* Persistence.swift */,
+				E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */,
 				E658E8AD25105E93007E9AFD /* FlipView.swift */,
 				E658E8BC2510FEEA007E9AFD /* Blur.swift */,
 				E658E8C625110753007E9AFD /* UNUserNotificationCenter.swift */,
@@ -389,19 +394,15 @@
 				E672EB00251DE16800724B2B /* Localizable.stringsdict */,
 				E672EAF3251DCFB600724B2B /* Fonts */,
 				E658E8BB2510FEE3007E9AFD /* Helpers */,
-				E6E314442504E0A2005C8B61 /* CountdownCalculator.swift */,
-				E658E8AF2510E86B007E9AFD /* Color.swift */,
 				E6E3143E2504E0A2005C8B61 /* Extensions */,
 				E6E314452504E0A2005C8B61 /* Models */,
 				E6E314482504E0A2005C8B61 /* Views */,
 				E6E3143A2504E005005C8B61 /* Countdown.entitlements */,
 				E6E3140A2504DF87005C8B61 /* CountdownApp.swift */,
 				E6E3140E2504DF87005C8B61 /* Assets.xcassets */,
-				E6E314132504DF87005C8B61 /* Persistence.swift */,
 				E6E314182504DF87005C8B61 /* Info.plist */,
 				E6E314152504DF87005C8B61 /* Countdown.xcdatamodeld */,
 				E6E314102504DF87005C8B61 /* Preview Content */,
-				E66169A1251119AF00E5C15C /* PhotoPicker.swift */,
 			);
 			path = Countdown;
 			sourceTree = "<group>";
@@ -446,6 +447,8 @@
 		E6E3143E2504E0A2005C8B61 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E66169A1251119AF00E5C15C /* PhotoPicker.swift */,
+				E658E8AF2510E86B007E9AFD /* Color.swift */,
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
 				E672EAFA251DD07D00724B2B /* Font.swift */,
@@ -559,6 +562,7 @@
 			name = Countdown;
 			packageProductDependencies = (
 				E661699F2511195400E5C15C /* UnsplashPhotoPicker */,
+				E616170F25230EF800D58D19 /* UnsplashPhotoPicker */,
 			);
 			productName = Countdown;
 			productReference = E6E314072504DF87005C8B61 /* Countdown.app */;
@@ -641,6 +645,7 @@
 			);
 			mainGroup = E6E313FE2504DF87005C8B61;
 			packageReferences = (
+				E616170E25230EF800D58D19 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */,
 			);
 			productRefGroup = E6E314082504DF87005C8B61 /* Products */;
 			projectDirPath = "";
@@ -878,6 +883,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E6874A6C2521CBFB00B05377 /* Base */,
+				E613C6E0252308320008C0AF /* en */,
 			);
 			name = CountdownStatus.intentdefinition;
 			sourceTree = "<group>";
@@ -889,7 +895,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -909,7 +915,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -930,7 +936,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -951,7 +957,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -974,7 +980,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -997,7 +1003,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1137,7 +1143,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;
@@ -1162,7 +1168,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;
@@ -1331,7 +1337,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		E616170E25230EF800D58D19 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:ggndpsingh/unsplash-photopicker-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		E616170F25230EF800D58D19 /* UnsplashPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E616170E25230EF800D58D19 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */;
+			productName = UnsplashPhotoPicker;
+		};
 		E661699F2511195400E5C15C /* UnsplashPhotoPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UnsplashPhotoPicker;
