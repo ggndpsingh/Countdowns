@@ -6,7 +6,7 @@ import CoreData
 import UserNotifications
 
 func withFlipAnimation<Result>(_ body: @autoclosure () throws -> Result) rethrows -> Result {
-    try withAnimation(.spring(response: 0.7, dampingFraction: 0.9), body)
+    try withAnimation(.spring(response: 0.6, dampingFraction: 0.9), body)
 }
 
 extension Animation {

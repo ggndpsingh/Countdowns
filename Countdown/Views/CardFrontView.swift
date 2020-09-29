@@ -8,10 +8,9 @@ struct CardFrontView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             CardBackground(image: countdown.image)
-            TitleView(title: countdown.title, date: countdown.dateString)
+            TitleView(title: countdown.title, date: countdown.dateString, hasEnded: countdown.hasEnded)
             CountdownView(date: countdown.date, size: .medium)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .offset(y: 8)
         }
         .cornerRadius(16)
     }

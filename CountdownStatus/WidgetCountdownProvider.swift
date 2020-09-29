@@ -6,17 +6,18 @@ import SwiftUI
 struct WidgetCountdownProvider: View {
     let family: WidgetFamily
     let title: String
+    let hasEnded: Bool
     let date: Date
     let entryDate: Date
     let image: UIImage?
 
     var components: [DateComponent] {
-        CountdownCalculator.dateComponents(for: date, comparisonDate: entryDate, trimmed: true)
+        CountdownCalculator.components(for: family, countdownDate: date, comparisonDate: entryDate)
     }
 
     var body: some View {
         ZStack {
-            WidgetBackground(image: image)
+            CardBackground(image: image)
             countdown
         }
     }
@@ -24,13 +25,13 @@ struct WidgetCountdownProvider: View {
     private var countdown: AnyView {
         switch family {
         case .systemLarge:
-            return AnyView(WidgetCountdownLarge(title: title, components: components.filtered(for: .systemLarge)))
+            return AnyView(WidgetCountdownLarge(title: title, hasEnded: hasEnded, components: components))
         case .systemMedium:
-            return AnyView(WidgetCountdownMedium(title: title, components: components.filtered(for: .systemMedium)))
+            return AnyView(WidgetCountdownMedium(title: title, hasEnded: hasEnded, components: components))
         case .systemSmall:
-            return AnyView(WidgetCountdownSmall(title: title, components: components.filtered(for: .systemSmall)))
+            return AnyView(WidgetCountdownSmall(title: title, hasEnded: hasEnded, components: components))
         @unknown default:
-            return AnyView(WidgetCountdownLarge(title: title, components: components.filtered(for: .systemLarge)))
+            return AnyView(WidgetCountdownLarge(title: title, hasEnded: hasEnded, components: components))
         }
     }
 }

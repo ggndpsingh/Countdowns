@@ -15,7 +15,14 @@ struct ComponentView: View {
                 .shadow(color: Color.black.opacity(0.4), radius: 1, x: 0.5, y: 0.5)
         }
         .padding(.horizontal, 4)
-        .padding(.vertical, 12)
         .cornerRadius(8)
     }
 }
+
+#if DEBUG
+struct ComponentView_Previews: PreviewProvider {
+    static var previews: some View {
+        CardFrontView(countdown: .preview)
+    }
+}
+#endif

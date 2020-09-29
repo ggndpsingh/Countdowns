@@ -14,7 +14,7 @@ extension Color {
     enum Pastel {
         static let purple = Color(UIColor(hex: 0x5D3E56))
         static let hotPink = Color(UIColor(hex: 0xFFAEBC))
-        static let blue = Color(UIColor(hex: 0x83BDC0))
+        static let blue = Color(UIColor(hex: 0x32afa9))
         static let red = Color(UIColor(hex: 0xF65156))
         static let yellow = Color(UIColor(hex: 0xFFF4BD))
     }

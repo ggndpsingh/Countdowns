@@ -5,6 +5,7 @@ import SwiftUI
 
 struct WidgetCountdownMedium: View {
     let title: String
+    let hasEnded: Bool
     let components: [DateComponent]
 
     var body: some View {
@@ -17,13 +18,14 @@ struct WidgetCountdownMedium: View {
         .foregroundColor(.white)
         .padding()
 
-        HStack(spacing: 8) {
-            ForEach(components, id: \.self) {
-                ComponentView(component: $0)
-                    .foregroundColor(.white)
+        CountdownContainer(hasEnded: hasEnded) {
+            HStack(spacing: 8) {
+                ForEach(components, id: \.self) {
+                    ComponentView(component: $0)
+                        .foregroundColor(.white)
+                }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .offset(y: 8)
     }
 }
@@ -32,8 +34,11 @@ struct WidgetCountdownMedium: View {
 struct CountdownWidgetMedium_Previews: PreviewProvider {
     static var previews: some View {
         let countdown = Countdown.placeholder
-        WidgetCountdownMedium(title: countdown.title, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
+        ZStack {
+            CardBackground(image: countdown.image)
+            WidgetCountdownMedium(title: countdown.title, hasEnded: true, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
+        }
+        .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
 #endif

@@ -5,6 +5,7 @@ import SwiftUI
 
 struct WidgetCountdownLarge: View {
     let title: String
+    let hasEnded: Bool
     let components: [DateComponent]
 
     var body: some View {
@@ -17,30 +18,12 @@ struct WidgetCountdownLarge: View {
         .foregroundColor(.white)
         .padding()
 
-        HStack(spacing: 8) {
-            ForEach(components, id: \.self) {
-                ComponentView(component: $0)
-                    .foregroundColor(.white)
-            }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-struct WidgetBackground: View {
-    let image: UIImage?
-
-    var body: some View {
-        Group {
-            if let image = self.image {
-                GeometryReader { geometry in
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                        .overlay(Rectangle().fill(Color.black.opacity(0.4)))
+        CountdownContainer(hasEnded: hasEnded) {
+            HStack(spacing: 8) {
+                ForEach(components, id: \.self) {
+                    ComponentView(component: $0)
+                        .foregroundColor(.white)
                 }
-            } else {
-                Color.pastels.randomElement()
             }
         }
     }
@@ -50,7 +33,7 @@ struct WidgetBackground: View {
 struct CountdownWidgetLarge_Previews: PreviewProvider {
     static var previews: some View {
         let countdown = Countdown.placeholder
-        WidgetCountdownLarge(title: countdown.title, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
+        WidgetCountdownLarge(title: countdown.title, hasEnded: true, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }

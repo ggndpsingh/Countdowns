@@ -27,6 +27,23 @@ enum DateComponent: Hashable {
         }
     }
 
+    var type: DateComponentType {
+        switch self {
+        case .day:
+            return .day
+        case .month:
+            return .month
+        case .year:
+            return .year
+        case .hour:
+            return .hour
+        case .minute:
+            return .minute
+        case .second:
+            return .second
+        }
+    }
+
     private var isSingular: Bool {
         return value == 1
     }
@@ -35,7 +52,7 @@ enum DateComponent: Hashable {
         switch self {
         case .day(let value), .month(let value), .year(let value),
         .hour(let value), .minute(let value), .second(let value):
-            return value
+            return abs(value)
         }
     }
 
@@ -59,4 +76,13 @@ enum DateComponent: Hashable {
             return isSingular ? "second" : "seconds"
         }
     }
+}
+
+enum DateComponentType {
+    case year
+    case month
+    case day
+    case hour
+    case minute
+    case second
 }

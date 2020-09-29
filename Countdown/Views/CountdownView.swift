@@ -12,26 +12,33 @@ struct CountdownView: View {
     @State private var components: [DateComponent] = []
 
     var body: some View {
-        Group {
-            if hasEnded {
-                Text("Countdow Ended")
-                    .font(.title)
-            } else {
-                HStack(spacing: 8) {
-                    ForEach(components, id: \.self) {
-                        ComponentView(component: $0)
-                    }
-                }
-                .onAppear(perform: countdown)
-                .onReceive(timer) { _ in
-                    countdown()
-                }
+        CountdownContainer(hasEnded: hasEnded) {
+            ForEach(components, id: \.self) {
+                ComponentView(component: $0)
             }
         }
-        .foregroundColor(.white)
+        .onAppear(perform: countdown)
+        .onReceive(timer) { _ in
+            countdown()
+        }
     }
 
     private func countdown() {
-        components = CountdownCalculator.countdown(for: date, size: .medium)
+        components = CountdownCalculator.countdown(for: date)
     }
 }
+
+#if DEBUG
+struct CountdownView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(-3600), title: "Past", image: UIImage(named: "christmas")))
+                .frame(width: 400, height: 320, alignment: .center)
+                .previewLayout(.sizeThatFits)
+            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600), title: "Past", image: UIImage(named: "christmas")))
+                .frame(width: 400, height: 320, alignment: .center)
+                .previewLayout(.sizeThatFits)
+        }
+    }
+}
+#endif

@@ -4,23 +4,11 @@ import Foundation
 import WidgetKit
 
 struct CountdownCalculator {
-    static func countdown(for date: Date, size: CountdownSize, trimmed: Bool = true) -> [DateComponent] {
-        let components = dateComponents(for: date, trimmed: trimmed)
-
-        switch size {
-        case .full:
-            return components
-        case .medium:
-            return Array(components.prefix(4))
-        case .small:
-            return Array(components.prefix(2))
-        case .widget:
-            return Array(components.prefix(1))
-        }
+    static func countdown(for date: Date, trimmed: Bool = true) -> [DateComponent] {
+        return Array(dateComponents(for: date, trimmed: trimmed).prefix(4))
     }
 
     static func dateComponents(for countdownDate: Date, comparisonDate: Date = Date(), trimmed: Bool = true) -> [DateComponent] {
-        guard countdownDate > comparisonDate else { return [] }
         let years = comparisonDate.diff(until: countdownDate).year!
         let months = comparisonDate.diff(until: countdownDate).month!
         let days = comparisonDate.diff(until: countdownDate).day!
@@ -39,6 +27,28 @@ struct CountdownCalculator {
 
         return trimmed ? components.byTrimmingLeadingZeros() : components
     }
+
+    static func components(for widgetFamily: WidgetFamily, countdownDate: Date, comparisonDate: Date) -> [DateComponent] {
+        let components = dateComponents(for: countdownDate, comparisonDate: comparisonDate, trimmed: false)
+        let noSeconds = components.filter {
+            if case .second = $0 { return false}
+            return true
+        }
+
+        let interval = comparisonDate.timeIntervalSince(countdownDate)
+        if (0...60).contains(interval) {
+            return [noSeconds.last!]
+        }
+
+        switch widgetFamily {
+        case .systemLarge, .systemMedium:
+            return Array(noSeconds.byTrimmingLeadingZeros().prefix(4))
+        case .systemSmall:
+            return Array(noSeconds.byTrimmingLeadingZeros().prefix(2))
+        @unknown default:
+            return Array(noSeconds.byTrimmingLeadingZeros().prefix(2))
+        }
+    }
 }
 
 extension Array where Element == DateComponent {
@@ -48,22 +58,6 @@ extension Array where Element == DateComponent {
             mutable.remove(at: 0)
         }
         return mutable
-    }
-
-    func filtered(for family: WidgetFamily) -> Self {
-        let noSeconds = self.filter {
-            if case .second = $0 { return false}
-            return true
-        }
-
-        switch family {
-        case .systemLarge, .systemMedium:
-            return Array(noSeconds.prefix(4))
-        case .systemSmall:
-            return Array(noSeconds.prefix(2))
-        @unknown default:
-            return Array(noSeconds.prefix(2))
-        }
     }
 }
 

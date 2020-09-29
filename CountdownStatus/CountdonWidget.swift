@@ -7,21 +7,13 @@ struct CountdonWidget : View {
     @Environment(\.widgetFamily) var family
     var entry: Provider.Entry
 
-    var components: [DateComponent] {
-        guard let countdown = entry.countdown else { return [] }
-        return CountdownCalculator.dateComponents(
-            for: countdown.date,
-            comparisonDate: entry.date,
-            trimmed: true)
-            .filtered(for: family)
-    }
-
     var body: some View {
         Group {
             if let countdown = entry.countdown {
                 WidgetCountdownProvider(
                     family: family,
                     title: countdown.title,
+                    hasEnded: countdown.hasEnded,
                     date: countdown.date,
                     entryDate: entry.date,
                     image: countdown.image)

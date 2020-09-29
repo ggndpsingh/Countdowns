@@ -5,6 +5,7 @@ import SwiftUI
 
 struct WidgetCountdownSmall: View {
     let title: String
+    let hasEnded: Bool
     let components: [DateComponent]
 
     var body: some View {
@@ -17,12 +18,13 @@ struct WidgetCountdownSmall: View {
         .foregroundColor(.white)
         .padding()
 
-        HStack(spacing: 8) {
-            ForEach(components, id: \.self) {
-                ComponentView(component: $0).foregroundColor(.white)
+        CountdownContainer(hasEnded: hasEnded) {
+            HStack(spacing: 4) {
+                ForEach(components, id: \.self) {
+                    ComponentView(component: $0).foregroundColor(.white)
+                }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .offset(y: 8)
     }
 }
@@ -31,8 +33,18 @@ struct WidgetCountdownSmall: View {
 struct CountdownWidgetSmall_Previews: PreviewProvider {
     static var previews: some View {
         let countdown = Countdown.placeholder
-        WidgetCountdownSmall(title: countdown.title, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true).filtered(for: .systemSmall))
+        Group {
+            ZStack {
+                CardBackground(image: countdown.image)
+                WidgetCountdownSmall(title: countdown.title, hasEnded: true, components: CountdownCalculator.components(for: .systemSmall, countdownDate: countdown.date, comparisonDate: Date()))
+            }
             .previewContext(WidgetPreviewContext(family: .systemSmall))
+            ZStack {
+                CardBackground(image: countdown.image)
+                WidgetCountdownSmall(title: countdown.title, hasEnded: false, components: CountdownCalculator.components(for: .systemSmall, countdownDate: countdown.date, comparisonDate: Date()))
+            }
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        }
     }
 }
 #endif
