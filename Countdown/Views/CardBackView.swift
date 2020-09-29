@@ -30,6 +30,7 @@ struct CardBackView: View {
             VStack(alignment: .leading, spacing:24) {
                 ButtonsView(
                     isNew: viewModel.isNew,
+                    hasEnded: viewModel.countdown.hasEnded,
                     canSave: viewModel.canSave,
                     hasReminder: viewModel.hasReminder,
                     reminderHandler: { viewModel.hasReminder.toggle() },
@@ -40,10 +41,13 @@ struct CardBackView: View {
                     })
 
                 VStack(spacing: 8) {
-                    TitleInput(title: $viewModel.title)
+                    TitleInput(
+                        title: $viewModel.title,
+                        disabled: !viewModel.isNew && viewModel.countdown.hasEnded)
                     DateInput(
                         date: $viewModel.date,
-                        allDay: $viewModel.allDay)
+                        allDay: $viewModel.allDay,
+                        disabled: !viewModel.isNew && viewModel.countdown.hasEnded)
                 }
 
                 Spacer()
@@ -57,8 +61,8 @@ struct CardBackView: View {
 
 extension CardBackView {
     struct ButtonsView: View {
-        @State private var deleteAlertPresented: Bool = false
         let isNew: Bool
+        let hasEnded: Bool
         let canSave: Bool
         let hasReminder: Bool
         let reminderHandler: () -> Void
@@ -70,35 +74,25 @@ extension CardBackView {
             HStack(spacing: 16) {
                 if !isNew {
                     RoundButton(
-                        action: { deleteAlertPresented = true },
+                        action: deleteHandler,
                         image: "trash",
                         color: .red)
 
-                    PhotoSourceMenu(
-                        label: {
-                            RoundButton.ButtonImage("photo.fill", color: Color.Pastel.blue)
-                        },
-                        action: imageHandler)
+                    if !hasEnded {
+                        PhotoSourceMenu(
+                            label: {
+                                RoundButton.ButtonImage("photo.fill", color: Color.Pastel.blue)
+                            },
+                            action: imageHandler)
+                    }
                 }
 
                 Spacer()
 
                 RoundButton(
-                    action: reminderHandler,
-                    image: hasReminder ? "bell.fill" : "bell",
-                    color: hasReminder ? .orange : .secondaryLabel)
-
-                RoundButton(
                     action: doneHandler,
                     image: canSave ? "checkmark" : isNew ? "xmark" : "arrow.backward",
                     color: canSave ? .green : .secondaryLabel)
-                }
-                .alert(isPresented: $deleteAlertPresented) {
-                    Alert(
-                        title: Text("Delete Countdown"),
-                        message: Text("Are you sure you want to delete this countdown?"),
-                        primaryButton: .destructive(Text("Delete"), action: deleteHandler),
-                        secondaryButton: .cancel(Text("Cancel")))
             }
         }
 
@@ -140,6 +134,7 @@ extension CardBackView {
         private let minLength = 3
         private let maxLength = 24
         @Binding var title: String
+        let disabled: Bool
 
         private var remainingLimit: Int { maxLength - title.count }
 
@@ -149,6 +144,7 @@ extension CardBackView {
                     .font(Font.system(size: 16, weight: .regular, design: .default))
                     .autocapitalization(.words)
                     .padding(.vertical, 12)
+                    .disabled(disabled)
 
                 HStack(spacing: 0) {
                     Spacer()
@@ -161,8 +157,8 @@ extension CardBackView {
                 .font(Font.dank(size: 11))
             }
             .padding(.horizontal, 8)
-            .foregroundColor(Color.label)
-            .background(Blur(style: .systemThickMaterial))
+            .foregroundColor(disabled ? .secondaryLabel : .label)
+            .background(Blur(style: disabled ? .systemThinMaterial : .systemThickMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .frame(maxWidth: .infinity)
             .onChange(of: title, perform: { value in
@@ -176,6 +172,7 @@ extension CardBackView {
     struct DateInput: View {
         @Binding var date: Date
         @Binding var allDay: Bool
+        let disabled: Bool
         
         var body: some View {
             VStack(alignment: .leading, spacing: 8) {
@@ -184,9 +181,10 @@ extension CardBackView {
                         "",
                         selection: $date,
                         in: .now...)
+                        .disabled(disabled)
                         .labelsHidden()
 
-                    if date <= Date() {
+                    if !disabled && date <= Date() {
                         Text("set a future date")
                             .font(Font.dank(size: 11))
                             .foregroundColor(.red)
@@ -202,14 +200,15 @@ extension CardBackView {
                             .frame(width: 24, height: 24)
                         Text("All day event")
                     }
-                    .foregroundColor(.label)
+                    .foregroundColor(disabled ? .secondaryLabel : .label)
                     .font(Font.system(size: 16, weight: .regular, design: .default))
                 }
+                .disabled(disabled)
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Blur(style: .systemThickMaterial))
+            .background(Blur(style: disabled ? .systemThinMaterial : .systemThickMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }

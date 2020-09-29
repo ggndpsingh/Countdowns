@@ -3,14 +3,23 @@
 import SwiftUI
 
 struct CardFrontView: View {
-    let countdown: Countdown
+    private let countdown: Countdown
+    private let isNew: Bool
+
+    init(countdown: Countdown, isNew: Bool = false) {
+        self.countdown = countdown
+        self.isNew = isNew
+    }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             CardBackground(image: countdown.image)
             TitleView(title: countdown.title, date: countdown.dateString, hasEnded: countdown.hasEnded)
-            CountdownView(date: countdown.date, size: .medium)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            if !isNew {
+                CountdownView(date: countdown.date, size: .medium)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
         .cornerRadius(16)
     }
@@ -20,9 +29,9 @@ struct CardFrontView: View {
 struct CardFrontView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardFrontView(countdown: .preview)
+            CardFrontView(countdown: .preview, isNew: true)
 
-            CardFrontView(countdown: .preview)
+            CardFrontView(countdown: .preview, isNew: false)
                 .frame(width: 300, height: 300, alignment: .center)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)

@@ -36,7 +36,8 @@ struct CardView: View {
             isFlipped: flipped || isFlipped,
             front:{
                 CardFrontView(
-                    countdown: countdown)
+                    countdown: countdown,
+                    isNew: isNew)
                     .onTapGesture { tapHandler(countdown.id) }
                     .frame(height: 320)
             }, back: {

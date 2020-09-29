@@ -64,12 +64,13 @@ struct CardsListView: View {
     @ObservedObject var viewModel: CardsListViewModel
     @State private var pickingImage: Bool = false
     @State private var photoSource: PhotoSource?
+    @State private var deleteAlertPresented: Bool = false
 
     var countdowns: [Countdown] {
-        return fetchedObjects.map(Countdown.init).sorted {
-
-            if viewModel.isTemporaryItem(id: $0.id) {
-                return true
+        let countdowns = fetchedObjects.map(Countdown.init)
+        return countdowns.sorted {
+            if $0.hasEnded {
+                return viewModel.isTemporaryItem(id: $0.id)
             }
 
             return $0.date < $1.date
@@ -96,7 +97,7 @@ struct CardsListView: View {
                                     withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
                                 },
                                 deleteHandler: {
-                                    withFlipAnimation(viewModel.deleteItem(id: countdown.id))
+                                    deleteAlertPresented = true
                                 })
                                 .id(countdown.id)
                         }
@@ -108,6 +109,15 @@ struct CardsListView: View {
                         withAnimation(.easeOut) { proxy.scrollTo(item) }
                     }
                 }
+            }
+            .alert(isPresented: $deleteAlertPresented) {
+                Alert(
+                    title: Text("Delete Countdown"),
+                    message: Text("Are you sure you want to delete this countdown?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        viewModel.deleteItem()
+                    },
+                    secondaryButton: .cancel(Text("Cancel")))
             }
             .fullScreenCover(isPresented: $pickingImage) {
                 PhotoPicker(source: photoSource!) { image in

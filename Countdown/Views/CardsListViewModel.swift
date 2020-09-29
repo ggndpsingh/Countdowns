@@ -13,11 +13,6 @@ final class CardsListViewModel: NSObject, ObservableObject {
     init(context: NSManagedObjectContext) {
         manager = .init(context: context)
         super.init()
-
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
     }
 
     var hasTemporaryItem: Bool { temporaryItemID != nil }
@@ -49,10 +44,8 @@ final class CardsListViewModel: NSObject, ObservableObject {
     func handleDone(countdown: Countdown, shouldSave: Bool) {
         flippedCardID = nil
 
-        if
-            countdown.id == temporaryItemID,
-            (!shouldSave || !manager.objectHasChange(countdown: countdown))
-        {
+        if countdown.id == temporaryItemID,
+           (!shouldSave || !manager.objectHasChange(countdown: countdown)) {
             temporaryItemID = nil
             return deleteItem(id: countdown.id)
         }
@@ -63,6 +56,11 @@ final class CardsListViewModel: NSObject, ObservableObject {
             return objectWillChange.send()
         }
         manager.updateObject(for: countdown)
+    }
+
+    func deleteItem() {
+        guard let id = flippedCardID else { return }
+        deleteItem(id: id)
     }
 
     func deleteItem(id: UUID) {
