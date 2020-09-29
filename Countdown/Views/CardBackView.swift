@@ -142,7 +142,6 @@ extension CardBackView {
             VStack(alignment: .leading, spacing: 0) {
                 TextField("New Countdown", text: $title)
                     .font(Font.system(size: 16, weight: .regular, design: .default))
-                    .autocapitalization(.words)
                     .padding(.vertical, 12)
                     .disabled(disabled)
 

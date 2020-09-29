@@ -16,6 +16,8 @@
 		E622679C251B4ACC00C726C4 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622679B251B4ACC00C726C4 /* RemindersManager.swift */; };
 		E63542F72522ED59008E6D8E /* CountdownContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63542F62522ED59008E6D8E /* CountdownContainer.swift */; };
 		E63542FE2522ED6A008E6D8E /* CountdownContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63542F62522ED59008E6D8E /* CountdownContainer.swift */; };
+		E63543062522FCE4008E6D8E /* PhotoSourceMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */; };
+		E635430E252301CC008E6D8E /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E635430D252301CC008E6D8E /* EmptyListView.swift */; };
 		E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B772517643800F2DD13 /* IntentHandler.swift */; };
 		E6517B7F2517643800F2DD13 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD7D25175EF3001B5333 /* IntentsUI.framework */; };
 		E6517B822517643800F2DD13 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B812517643800F2DD13 /* IntentViewController.swift */; };
@@ -165,6 +167,8 @@
 		E6226797251B26E000C726C4 /* CountdownsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownsManager.swift; sourceTree = "<group>"; };
 		E622679B251B4ACC00C726C4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		E63542F62522ED59008E6D8E /* CountdownContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownContainer.swift; sourceTree = "<group>"; };
+		E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSourceMenu.swift; sourceTree = "<group>"; };
+		E635430D252301CC008E6D8E /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		E6517B752517643800F2DD13 /* CountdownSelection.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CountdownSelection.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6517B772517643800F2DD13 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		E6517B792517643800F2DD13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 			children = (
 				E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */,
 				E6E3140C2504DF87005C8B61 /* CardsListView.swift */,
+				E635430D252301CC008E6D8E /* EmptyListView.swift */,
+				E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */,
 				E6226797251B26E000C726C4 /* CountdownsManager.swift */,
 				E622679B251B4ACC00C726C4 /* RemindersManager.swift */,
 				E658E8B52510FD7C007E9AFD /* CardView.swift */,
@@ -784,6 +790,7 @@
 				E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
+				E635430E252301CC008E6D8E /* EmptyListView.swift in Sources */,
 				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,
 				E6874A552521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */,
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
@@ -805,6 +812,7 @@
 				E6CAB07225172F51003848F9 /* ImageLoader.swift in Sources */,
 				E672EAFB251DD07D00724B2B /* Font.swift in Sources */,
 				E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */,
+				E63543062522FCE4008E6D8E /* PhotoSourceMenu.swift in Sources */,
 				E63542F72522ED59008E6D8E /* CountdownContainer.swift in Sources */,
 				E6CAB06425172720003848F9 /* ImageCache.swift in Sources */,
 				E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */,

@@ -29,7 +29,7 @@ struct CardFrontView: View {
 struct CardFrontView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardFrontView(countdown: .preview, isNew: true)
+            CardFrontView(countdown: .preview, isNew: false)
 
             CardFrontView(countdown: .preview, isNew: false)
                 .frame(width: 300, height: 300, alignment: .center)

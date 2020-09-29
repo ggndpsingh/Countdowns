@@ -9,50 +9,6 @@ func withFlipAnimation<Result>(_ body: @autoclosure () throws -> Result) rethrow
     try withAnimation(.spring(response: 0.6, dampingFraction: 0.9), body)
 }
 
-extension Animation {
-    static var flipAnimation: Animation {
-        .spring(response: 1, dampingFraction: 0.8)
-    }
-}
-
-class ListPositionModel: ObservableObject {
-    enum Position {
-        case top, bottom
-    }
-
-    @Published var position: Position?
-}
-
-struct ContentView: View {
-    var body: some View {
-        NavigationView {
-            ScrollView {
-
-            }
-            .toolbar {
-                Menu {
-                    Button(action: {}) {
-                        Text("Camera")
-                        Image(systemName: "camera.fill")
-                            .foregroundColor(.primary)
-                    }
-                    Button(action: {}) {
-                        Text("Unsplash")
-                        Image("unsplashIcon")
-                            .foregroundColor(.primary)
-                    }
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                }
-//                .disabled(viewModel.hasTemporaryItem)
-            }
-            .navigationTitle("Upcoming")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-    }
-}
-
 struct CardsListView: View {
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
@@ -79,37 +35,43 @@ struct CardsListView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                ScrollViewReader { proxy in
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 480, maximum: 600))], spacing: 16) {
-                        ForEach(countdowns) { countdown in
-                            CardView(
-                                countdown: countdown,
-                                isFlipped: viewModel.isCardFlipped(id: countdown.id),
-                                isNew: viewModel.isTemporaryItem(id: countdown.id),
-                                tapHandler: { id in
-                                    withFlipAnimation(viewModel.flipCard(id: id))
-                                },
-                                imageHandler: {
-                                    photoSource = $0
-                                },
-                                doneHandler: { updatedCountdown, shouldSave  in
-                                    withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
-                                },
-                                deleteHandler: {
-                                    deleteAlertPresented = true
-                                })
-                                .id(countdown.id)
+            Group {
+                if countdowns.isEmpty {
+                    EmptyListView()
+                } else {
+                    ScrollView {
+                        ScrollViewReader { proxy in
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 480, maximum: 600))], spacing: 16) {
+                                ForEach(countdowns) { countdown in
+                                    CardView(
+                                        countdown: countdown,
+                                        isFlipped: viewModel.isCardFlipped(id: countdown.id),
+                                        isNew: viewModel.isTemporaryItem(id: countdown.id),
+                                        tapHandler: { id in
+                                            withFlipAnimation(viewModel.flipCard(id: id))
+                                        },
+                                        imageHandler: {
+                                            photoSource = $0
+                                        },
+                                        doneHandler: { updatedCountdown, shouldSave  in
+                                            withFlipAnimation(viewModel.handleDone(countdown: updatedCountdown, shouldSave: shouldSave))
+                                        },
+                                        deleteHandler: {
+                                            deleteAlertPresented = true
+                                        })
+                                        .id(countdown.id)
+                                }
+                            }
+                            .onReceive(viewModel.$scrollToItem) { item in
+                                withAnimation(.easeOut) { proxy.scrollTo(item) }
+                            }
                         }
-                    }
-                    .onChange(of: photoSource, perform: { value in
-                        pickingImage = value != nil
-                    })
-                    .onReceive(viewModel.$scrollToItem) { item in
-                        withAnimation(.easeOut) { proxy.scrollTo(item) }
                     }
                 }
             }
+            .onChange(of: photoSource, perform: { value in
+                pickingImage = value != nil
+            })
             .alert(isPresented: $deleteAlertPresented) {
                 Alert(
                     title: Text("Delete Countdown"),
@@ -142,33 +104,5 @@ struct CardsListView: View {
         )
         viewModel.scrollToItem = countdowns.first?.id
         self.photoSource = photoSource
-    }
-}
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-struct PhotoSourceMenu<Label: View>: View {
-    let label: () -> Label
-    let action: (PhotoSource) -> Void
-
-    var body: some View {
-        Menu {
-            Button(action: { action(.library) }) {
-                Text("Photo Library")
-                Image(systemName: "photo.on.rectangle")
-            }
-            Button(action: { action(.unsplash) }) {
-                Text("Unsplash")
-                Image("unsplashIcon")
-                    .frame(width: 16, height: 16, alignment: .center)
-            }
-        } label: {
-            label()
-        }
     }
 }
