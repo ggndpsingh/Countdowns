@@ -89,7 +89,7 @@ struct CountdownStatus: Widget {
         IntentConfiguration(kind: kind, intent: SelectCountdownIntent.self, provider: Provider()) { entry in
             CountdonWidget(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Countdown")
+        .description("Add one of our countdowns to the home screen.")
     }
 }
