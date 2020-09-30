@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E613683525244E71009FF314 /* LibraryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683425244E71009FF314 /* LibraryPicker.swift */; };
+		E613683D25245154009FF314 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683C25245154009FF314 /* RoundButton.swift */; };
+		E613684425245160009FF314 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683C25245154009FF314 /* RoundButton.swift */; };
+		E613684C25245185009FF314 /* SquishableButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613684B25245185009FF314 /* SquishableButtonStyle.swift */; };
+		E613685325245193009FF314 /* SquishableButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613684B25245185009FF314 /* SquishableButtonStyle.swift */; };
+		E613685A2524519E009FF314 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BC2510FEEA007E9AFD /* Blur.swift */; };
 		E616171025230EF800D58D19 /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E616170F25230EF800D58D19 /* UnsplashPhotoPicker */; };
+		E616173B2523FFD800D58D19 /* GeometryEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61617342523FFAF00D58D19 /* GeometryEffect.swift */; };
 		E6226793251B210700C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226794251B231A00C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226795251B235400C726C4 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
@@ -165,6 +172,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E613683425244E71009FF314 /* LibraryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPicker.swift; sourceTree = "<group>"; };
+		E613683C25245154009FF314 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		E613684B25245185009FF314 /* SquishableButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquishableButtonStyle.swift; sourceTree = "<group>"; };
+		E61617342523FFAF00D58D19 /* GeometryEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryEffect.swift; sourceTree = "<group>"; };
 		E6226797251B26E000C726C4 /* CountdownsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownsManager.swift; sourceTree = "<group>"; };
 		E622679B251B4ACC00C726C4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		E63542F62522ED59008E6D8E /* CountdownContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownContainer.swift; sourceTree = "<group>"; };
@@ -326,6 +337,7 @@
 				E6CAB06325172720003848F9 /* ImageCache.swift */,
 				E6CAB07125172F51003848F9 /* ImageLoader.swift */,
 				E6F81CE0251C81D60029FC93 /* AppDelegate.swift */,
+				E613684B25245185009FF314 /* SquishableButtonStyle.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -389,6 +401,7 @@
 		E6E314092504DF87005C8B61 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E61617342523FFAF00D58D19 /* GeometryEffect.swift */,
 				E672EB01251DE16800724B2B /* Localizable.strings */,
 				E672EB00251DE16800724B2B /* Localizable.stringsdict */,
 				E672EAF3251DCFB600724B2B /* Fonts */,
@@ -447,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				E66169A1251119AF00E5C15C /* PhotoPicker.swift */,
+				E613683425244E71009FF314 /* LibraryPicker.swift */,
 				E658E8AF2510E86B007E9AFD /* Color.swift */,
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
@@ -478,6 +492,7 @@
 				E658E8AB251057D1007E9AFD /* CardFrontView.swift */,
 				E658E8B92510FE80007E9AFD /* CardBackViewModel.swift */,
 				E658E8B72510FE0B007E9AFD /* CardBackView.swift */,
+				E613683C25245154009FF314 /* RoundButton.swift */,
 				E6E314492504E0A2005C8B61 /* ComponentView.swift */,
 				E6E3144A2504E0A2005C8B61 /* CountdownView.swift */,
 				E63542F62522ED59008E6D8E /* CountdownContainer.swift */,
@@ -753,7 +768,9 @@
 				E67C536F2518319B00402D27 /* Color.swift in Sources */,
 				E68A7BEC2522B2CA00D62B74 /* CardFrontView.swift in Sources */,
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
+				E613685A2524519E009FF314 /* Blur.swift in Sources */,
 				E68A7BFA2522B2DB00D62B74 /* CountdownView.swift in Sources */,
+				E613685325245193009FF314 /* SquishableButtonStyle.swift in Sources */,
 				E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */,
 				E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,
@@ -763,6 +780,7 @@
 				E67AB3B8251C5DD200D94B87 /* ImageLoader.swift in Sources */,
 				E67C5380251887C100402D27 /* WidgetCountdownProvider.swift in Sources */,
 				E67C53822518880500402D27 /* CountdonWidget.swift in Sources */,
+				E613684425245160009FF314 /* RoundButton.swift in Sources */,
 				E68A7BF32522B2D300D62B74 /* TitleView.swift in Sources */,
 				E67C537A2518752100402D27 /* WidgetCountdowntLarge.swift in Sources */,
 				E67C53712518319B00402D27 /* UNUserNotificationCenter.swift in Sources */,
@@ -789,6 +807,8 @@
 				E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */,
 				E6226798251B26E000C726C4 /* CountdownsManager.swift in Sources */,
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
+				E613684C25245185009FF314 /* SquishableButtonStyle.swift in Sources */,
+				E613683D25245154009FF314 /* RoundButton.swift in Sources */,
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
 				E66169A4251122B200E5C15C /* ImageView.swift in Sources */,
 				E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
@@ -797,10 +817,12 @@
 				E635430E252301CC008E6D8E /* EmptyListView.swift in Sources */,
 				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,
 				E6874A552521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */,
+				E616173B2523FFD800D58D19 /* GeometryEffect.swift in Sources */,
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
 				E622679C251B4ACC00C726C4 /* RemindersManager.swift in Sources */,
 				E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */,
+				E613683525244E71009FF314 /* LibraryPicker.swift in Sources */,
 				E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
@@ -893,7 +915,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -913,7 +935,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -934,7 +956,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -955,7 +977,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -978,7 +1000,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1001,7 +1023,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1141,7 +1163,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;
@@ -1166,7 +1188,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;

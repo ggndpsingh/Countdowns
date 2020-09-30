@@ -39,6 +39,7 @@ struct CountdownsManager {
     }
 
     func updateObject(for countdown: Countdown) {
+        guard objectHasChange(countdown: countdown) else { return }
         guard let object = getObject(by: countdown.id) else { return }
         context.perform {
             object.date = countdown.date

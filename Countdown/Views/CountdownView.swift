@@ -32,10 +32,10 @@ struct CountdownView: View {
 struct CountdownView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(-3600), title: "Past", image: UIImage(named: "christmas")))
+            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(-3600), title: "Past", image: UIImage(named: "christmas")), style: .thumbnail, flipHandler: {})
                 .frame(width: 400, height: 320, alignment: .center)
                 .previewLayout(.sizeThatFits)
-            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600), title: "Past", image: UIImage(named: "christmas")))
+            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600), title: "Past", image: UIImage(named: "christmas")), style: .thumbnail, flipHandler: {})
                 .frame(width: 400, height: 320, alignment: .center)
                 .previewLayout(.sizeThatFits)
         }

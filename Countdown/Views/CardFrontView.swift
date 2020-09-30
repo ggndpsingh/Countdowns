@@ -3,23 +3,48 @@
 import SwiftUI
 
 struct CardFrontView: View {
-    private let countdown: Countdown
-    private let isNew: Bool
+    let countdown: Countdown
+    let style: Style
+    let flipHandler: () -> Void
+    let closeHandler: () -> Void
 
-    init(countdown: Countdown, isNew: Bool = false) {
+
+    init(
+        countdown: Countdown,
+        style: CardFrontView.Style,
+        flipHandler: @escaping () -> Void = {},
+        closeHandler: @escaping () -> Void = {}) {
         self.countdown = countdown
-        self.isNew = isNew
+        self.style = style
+        self.flipHandler = flipHandler
+        self.closeHandler = closeHandler
+    }
+
+
+    enum Style {
+        case thumbnail
+        case details
     }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             CardBackground(image: countdown.image)
-            TitleView(title: countdown.title, date: countdown.dateString, hasEnded: countdown.hasEnded)
-
-            if !isNew {
-                CountdownView(date: countdown.date, size: .medium)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            switch style {
+            case .thumbnail:
+                TitleView(title: countdown.title, date: countdown.dateString, showDate: style == .details)
+            case .details:
+                VStack(alignment: .trailing) {
+                    HStack(alignment: .top) {
+                        TitleView(title: countdown.title, date: countdown.dateString, showDate: style == .details)
+                        RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
+                            .padding()
+                    }
+                    RoundButton(action: flipHandler, image: "pencil", color: .secondaryLabel)
+                        .padding()
+                }
             }
+            CountdownView(date: countdown.date, size: .medium)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .cornerRadius(16)
     }
@@ -29,13 +54,8 @@ struct CardFrontView: View {
 struct CardFrontView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardFrontView(countdown: .preview, isNew: false)
-
-            CardFrontView(countdown: .preview, isNew: false)
-                .frame(width: 300, height: 300, alignment: .center)
-                .previewLayout(.sizeThatFits)
-                .preferredColorScheme(.dark)
-        }.padding()
+            CardFrontView(countdown: .preview, style: .details, flipHandler: {})
+        }
     }
 }
 #endif

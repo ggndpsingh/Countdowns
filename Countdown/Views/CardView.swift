@@ -6,63 +6,59 @@ struct CardView: View {
     @Environment(\.countdownsManager) private var countdownsManager
     @State private var flipped: Bool = false
     let countdown: Countdown
-    let isFlipped: Bool
-    let isNew: Bool
-    let tapHandler: (UUID) -> Void
     let imageHandler: (PhotoSource) -> Void
-    let doneHandler:  (Countdown, Bool) -> Void
+    let doneHandler:  (Countdown) -> Void
+    let closeHandler:  () -> Void
     let deleteHandler: () -> Void
+
+    @State private var visibleSide = FlipViewSide.front
 
     internal init(
         countdown: Countdown,
-        isFlipped: Bool,
-        isNew: Bool,
-        tapHandler: @escaping (UUID) -> Void,
+        visibleSide: FlipViewSide,
         imageHandler: @escaping (PhotoSource) -> Void,
-        doneHandler: @escaping (Countdown, Bool) -> Void,
+        doneHandler: @escaping (Countdown) -> Void,
+        closeHandler: @escaping () -> Void,
         deleteHandler: @escaping () -> Void) {
 
         self.countdown = countdown
-        self.isFlipped = isFlipped
-        self.isNew = isNew
-        self.tapHandler = tapHandler
         self.imageHandler = imageHandler
         self.doneHandler = doneHandler
+        self.closeHandler = closeHandler
         self.deleteHandler = deleteHandler
     }
 
     var body: some View {
-        FlipView(
-            isFlipped: flipped || isFlipped,
-            front:{
-                CardFrontView(
-                    countdown: countdown,
-                    isNew: isNew)
-                    .onTapGesture { tapHandler(countdown.id) }
-                    .frame(height: 320)
-            }, back: {
-                CardBackView(
-                    viewModel: .init(countdown: countdown, isNew: isNew, countdownsManager: countdownsManager), imageHandler: imageHandler,
-                    doneHandler: {
-                        if flipped {
-                            withFlipAnimation(flipped.toggle())
-                        }
-                        doneHandler($0, $1)
-                    },
-                    deleteHandler: deleteHandler)
-            }
-        )
-        .shadow(radius: 20)
-        .onAppear {
-            if isNew {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-                        flipped = true
-                    }
-                }
-            }
+        FlipView(visibleSide: visibleSide) {
+            CardFrontView(
+                countdown: countdown,
+                style: .details,
+                flipHandler: flipCard,
+                closeHandler: closeHandler)
+        } back: {
+            CardBackView(
+                viewModel: .init(countdown: countdown, isNew: false, countdownsManager: countdownsManager), imageHandler: imageHandler,
+                doneHandler: {
+                    flipCard()
+                    doneHandler($0)
+                },
+                deleteHandler: deleteHandler)
         }
-        .padding()
+//        .contentShape(Rectangle())
+        .animation(.flipCard, value: visibleSide)
+//        .onAppear {
+//            if isNew {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
+//                        flipped = true
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    func flipCard() {
+        visibleSide.toggle()
     }
 }
 
@@ -70,13 +66,13 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardView(countdown: .preview, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
-                .frame(width: 400, height: 400, alignment: .center)
-                .previewLayout(.sizeThatFits)
+            CardView(countdown: .preview, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+                .frame(maxWidth: 520, alignment: .center)
+                .aspectRatio(0.75, contentMode: .fit)
 
-            CardView(countdown: .preview, isFlipped: false, isNew: false, tapHandler: {_ in}, imageHandler: {_ in}, doneHandler: {_, _ in}, deleteHandler: {})
-                .frame(width: 400, height: 400, alignment: .center)
-                .previewLayout(.sizeThatFits)
+            CardView(countdown: .preview, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+                .frame(maxWidth: 520, alignment: .center)
+                .aspectRatio(0.75, contentMode: .fit)
                 .preferredColorScheme(.dark)
         }
     }

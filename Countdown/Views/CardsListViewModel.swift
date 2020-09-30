@@ -6,8 +6,6 @@ import CoreData
 final class CardsListViewModel: NSObject, ObservableObject {
     private let manager: CountdownsManager
     private var temporaryItemID: UUID?
-    @Published var flippedCardID: UUID?
-
     @Published var scrollToItem: UUID?
 
     init(context: NSManagedObjectContext) {
@@ -17,38 +15,27 @@ final class CardsListViewModel: NSObject, ObservableObject {
 
     var hasTemporaryItem: Bool { temporaryItemID != nil }
 
-    func isCardFlipped(id: UUID) -> Bool {
-        temporaryItemID != id && flippedCardID == id
-    }
-
-    func isTemporaryItem(id: UUID) -> Bool {
+    func isTemporaryItem(id: UUID?) -> Bool {
         id == temporaryItemID
     }
 
-    func flipCard(id: UUID) {
-        guard temporaryItemID == nil else { return }
-        flippedCardID = id
-        objectWillChange.send()
-    }
-
-    func didSelectImage(_ image: UIImage?) {
-        guard temporaryItemID == nil, let image = image else { return }
-
-        if let id = flippedCardID {
-            manager.updateImage(image, for: id)
-        } else {
-            temporaryItemID = manager.createNewObject(with: image)
-        }
+    func didSelectImage(_ image: UIImage?) -> UUID? {
+        guard temporaryItemID == nil, let image = image else { return nil }
+//
+//        if let id = flippedCardID {
+//            manager.updateImage(image, for: id)
+//        } else {
+        temporaryItemID = manager.createNewObject(with: image)
+        return temporaryItemID
+//        }
     }
 
     func handleDone(countdown: Countdown, shouldSave: Bool) {
-        flippedCardID = nil
-
-        if countdown.id == temporaryItemID,
-           (!shouldSave || !manager.objectHasChange(countdown: countdown)) {
-            temporaryItemID = nil
-            return deleteItem(id: countdown.id)
-        }
+//        if countdown.id == temporaryItemID,
+//           (!shouldSave || !manager.objectHasChange(countdown: countdown)) {
+//            temporaryItemID = nil
+//            return deleteItem(id: countdown.id)
+//        }
 
         temporaryItemID = nil
 
@@ -56,11 +43,6 @@ final class CardsListViewModel: NSObject, ObservableObject {
             return objectWillChange.send()
         }
         manager.updateObject(for: countdown)
-    }
-
-    func deleteItem() {
-        guard let id = flippedCardID else { return }
-        deleteItem(id: id)
     }
 
     func deleteItem(id: UUID) {

@@ -22,7 +22,7 @@ struct ComponentView: View {
 #if DEBUG
 struct ComponentView_Previews: PreviewProvider {
     static var previews: some View {
-        CardFrontView(countdown: .preview)
+        CardFrontView(countdown: .preview, style: .thumbnail, flipHandler: {})
     }
 }
 #endif

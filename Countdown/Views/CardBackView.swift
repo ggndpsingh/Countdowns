@@ -3,18 +3,17 @@
 import SwiftUI
 
 struct CardBackView: View {
-    @Environment(\.colorScheme) var colorScheme
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
     let imageHandler: (PhotoSource) -> Void
-    let doneHandler: (Countdown, Bool) -> Void
+    let doneHandler: (Countdown) -> Void
     let deleteHandler: () -> Void
 
     init(
         viewModel: CardBackViewModel,
         imageHandler: @escaping (PhotoSource) -> Void,
-        doneHandler: @escaping (Countdown, Bool) -> Void,
+        doneHandler: @escaping (Countdown) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
         self.imageHandler = imageHandler
@@ -28,6 +27,16 @@ struct CardBackView: View {
                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
             VStack(alignment: .leading, spacing:24) {
+                VStack(spacing: 8) {
+                    TitleInput(
+                        title: $viewModel.title)
+                    DateInput(
+                        date: $viewModel.date,
+                        allDay: $viewModel.allDay)
+                }
+
+                Spacer()
+
                 ButtonsView(
                     isNew: viewModel.isNew,
                     hasEnded: viewModel.countdown.hasEnded,
@@ -37,24 +46,12 @@ struct CardBackView: View {
                     deleteHandler: deleteHandler,
                     imageHandler: imageHandler,
                     doneHandler: {
-                        doneHandler(viewModel.countdown, viewModel.canSave)
+                        doneHandler(viewModel.countdown)
                     })
 
-                VStack(spacing: 8) {
-                    TitleInput(
-                        title: $viewModel.title,
-                        disabled: !viewModel.isNew && viewModel.countdown.hasEnded)
-                    DateInput(
-                        date: $viewModel.date,
-                        allDay: $viewModel.allDay,
-                        disabled: !viewModel.isNew && viewModel.countdown.hasEnded)
-                }
-
-                Spacer()
             }
             .padding()
         }
-        .animation(.easeIn)
         .cornerRadius(16)
     }
 }
@@ -95,37 +92,6 @@ extension CardBackView {
                     color: canSave ? .green : .secondaryLabel)
             }
         }
-
-        struct RoundButton: View {
-            let action: () -> Void
-            let image: String
-            let color: Color
-
-            var body: some View {
-                Button(action: action) {
-                    ButtonImage(image, color: color)
-                }
-            }
-
-            struct ButtonImage: View {
-                private let image: String
-                private let color: Color
-
-                init(_ image: String, color: Color) {
-                    self.image = image
-                    self.color = color
-                }
-
-                var body: some View {
-                    Image(systemName: image)
-                        .font(Font.system(size: 14, weight: .medium, design: .monospaced))
-                        .frame(width: 40, height: 40)
-                        .background(Blur(style: .systemThickMaterial))
-                        .clipShape(Circle())
-                        .foregroundColor(color)
-                }
-            }
-        }
     }
 }
 
@@ -134,7 +100,6 @@ extension CardBackView {
         private let minLength = 3
         private let maxLength = 24
         @Binding var title: String
-        let disabled: Bool
 
         private var remainingLimit: Int { maxLength - title.count }
 
@@ -143,7 +108,6 @@ extension CardBackView {
                 TextField("New Countdown", text: $title)
                     .font(Font.system(size: 16, weight: .regular, design: .default))
                     .padding(.vertical, 12)
-                    .disabled(disabled)
 
                 HStack(spacing: 0) {
                     Spacer()
@@ -156,8 +120,8 @@ extension CardBackView {
                 .font(Font.dank(size: 11))
             }
             .padding(.horizontal, 8)
-            .foregroundColor(disabled ? .secondaryLabel : .label)
-            .background(Blur(style: disabled ? .systemThinMaterial : .systemThickMaterial))
+            .foregroundColor(.label)
+            .background(Blur(style: .systemThickMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .frame(maxWidth: .infinity)
             .onChange(of: title, perform: { value in
@@ -171,7 +135,6 @@ extension CardBackView {
     struct DateInput: View {
         @Binding var date: Date
         @Binding var allDay: Bool
-        let disabled: Bool
         
         var body: some View {
             VStack(alignment: .leading, spacing: 8) {
@@ -180,14 +143,7 @@ extension CardBackView {
                         "",
                         selection: $date,
                         in: .now...)
-                        .disabled(disabled)
                         .labelsHidden()
-
-                    if !disabled && date <= Date() {
-                        Text("set a future date")
-                            .font(Font.dank(size: 11))
-                            .foregroundColor(.red)
-                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -199,16 +155,15 @@ extension CardBackView {
                             .frame(width: 24, height: 24)
                         Text("All day event")
                     }
-                    .foregroundColor(disabled ? .secondaryLabel : .label)
+                    .foregroundColor(.label)
                     .font(Font.system(size: 16, weight: .regular, design: .default))
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .brand))
-                .disabled(disabled)
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Blur(style: disabled ? .systemThinMaterial : .systemThickMaterial))
+            .background(Blur(style: .systemThickMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
@@ -217,14 +172,10 @@ extension CardBackView {
 #if DEBUG
 struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackView(viewModel: .init(countdown: .preview, isNew: true, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {_ in }, doneHandler: {_,_  in }, deleteHandler: {})
-            .frame(width: 400, height: 320)
-            .previewLayout(.sizeThatFits)
-
-        CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.inMemory.container.viewContext)), imageHandler: {_ in }, doneHandler: {_,_  in }, deleteHandler: {})
-            .frame(width: 400, height: 320)
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
+        ZStack {
+            CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {_ in }, doneHandler: {_ in }, deleteHandler: {})
+        }
+        .padding()
     }
 }
 #endif

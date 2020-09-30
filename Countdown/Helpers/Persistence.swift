@@ -9,6 +9,26 @@ final class PersistenceController {
 
     let container: NSPersistentCloudKitContainer
 
+    static var preview: PersistenceController = {
+        let result = PersistenceController(inMemory: true)
+        let viewContext = result.container.viewContext
+        for i in 1..<5 {
+            let countdown = CountdownObject(context: viewContext)
+            countdown.id = UUID(uuidString: "3c8c4f84-13a8-4a73-92f8-011b0814a1e\(i)")
+            countdown.title = "Item \(i)"
+            countdown.date = Date().addingTimeInterval(TimeInterval(i * 3600))
+        }
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        return result
+    }()
+
     init(inMemory: Bool = false) {        
         container = NSPersistentCloudKitContainer(name: "Countdown")
 

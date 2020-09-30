@@ -3,31 +3,84 @@
 import SwiftUI
 
 struct FlipView<Front: View, Back: View>: View {
-    var isFlipped: Bool
-    var front: () -> Front
-    var back: () -> Back
+    var visibleSide: FlipViewSide
+    var front: Front
+    var back: Back
 
-    init(
-        isFlipped: Bool,
-        @ViewBuilder front: @escaping () -> Front,
-        @ViewBuilder back: @escaping () -> Back
-    ) {
-        self.isFlipped = isFlipped
-        self.front = front
-        self.back = back
+    init(visibleSide: FlipViewSide = .front, @ViewBuilder front: () -> Front, @ViewBuilder back: () -> Back) {
+        self.visibleSide = visibleSide
+        self.front = front()
+        self.back = back()
     }
 
     var body: some View {
         ZStack {
-            front()
-                .rotation3DEffect(.degrees(isFlipped == true ? -180 : 0), axis: (x: 0, y: 1, z: 0))
-                .opacity(isFlipped == true ? 0 : 1)
-                .accessibility(hidden: isFlipped == true)
+            front
+                .modifier(FlipModifier(side: .front, visibleSide: visibleSide))
+            back
+                .modifier(FlipModifier(side: .back, visibleSide: visibleSide))
+        }
+    }
+}
 
-            back()
-                .rotation3DEffect(.degrees(isFlipped == true ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                .opacity(isFlipped == true ? 1 : 0)
-                .accessibility(hidden: isFlipped == false)
+enum FlipViewSide {
+    case front
+    case back
+
+    mutating func toggle() {
+        self = self == .front ? .back : .front
+    }
+}
+
+struct FlipModifier: AnimatableModifier {
+    var side: FlipViewSide
+    var flipProgress: Double
+
+    init(side: FlipViewSide, visibleSide: FlipViewSide) {
+        self.side = side
+        self.flipProgress = visibleSide == .front ? 0 : 1
+    }
+
+    public var animatableData: Double {
+        get { flipProgress }
+        set { flipProgress = newValue }
+    }
+
+    var visible: Bool {
+        switch side {
+        case .front:
+            return flipProgress <= 0.5
+        case .back:
+            return flipProgress > 0.5
+        }
+    }
+
+    public func body(content: Content) -> some View {
+        ZStack {
+            content
+                .opacity(visible ? 1 : 0)
+                .accessibility(hidden: !visible)
+        }
+        .scaleEffect(x: scale, y: 1.0)
+        .rotation3DEffect(.degrees(flipProgress * -180), axis: (x: 0.0, y: 1.0, z: 0.0), perspective: 0.5)
+    }
+
+    var scale: CGFloat {
+        switch side {
+        case .front:
+            return 1.0
+        case .back:
+            return -1.0
+        }
+    }
+}
+
+struct FlipView_Previews: PreviewProvider {
+    static var previews: some View {
+        FlipView(visibleSide: .front) {
+            Text("Front Side")
+        } back: {
+            Text("Back Side")
         }
     }
 }

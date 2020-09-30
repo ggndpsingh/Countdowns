@@ -11,7 +11,7 @@ struct CountdownApp: App {
 
     var body: some Scene {
         WindowGroup {
-            CardsListView(viewModel: .init(context: persistenceController.container.viewContext))
+            SomeView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environment(\.countdownsManager, countdownsManager)
         }

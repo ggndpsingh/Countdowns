@@ -41,7 +41,6 @@ final class CardBackViewModel: ObservableObject {
 
     var canSave: Bool {
         countdown.title.count >= 3
-        && countdown.date > Date()
         && countdownsManager.objectHasChange(countdown: countdown)
     }
 

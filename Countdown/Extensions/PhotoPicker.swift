@@ -7,34 +7,22 @@ enum PhotoSource: Int {
     case library, unsplash
 }
 
-
-struct PhotoPicker: UIViewControllerRepresentable {
+struct UnsplashPicker: UIViewControllerRepresentable {
     typealias SelectionHandler = (UIImage?) -> Void
-    let source: PhotoSource
     let selectionHandler: SelectionHandler
 
-    init(source: PhotoSource, selectionHandler: @escaping SelectionHandler) {
-        self.source = source
+    init(selectionHandler: @escaping SelectionHandler) {
         self.selectionHandler = selectionHandler
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
-        switch source {
-        case .unsplash:
-            let picker = UnsplashPhotoPicker(
-                configuration: .init(
-                    accessKey: "wDof0appRIkX10bAvr82b9EWzg8E6NMG0W8qY6NUMcE",
-                    secretKey: "KRarbE5ghU6sJY630_aVf_00rh1x7LFGLIJbamdR2Qo"))
-            picker.photoPickerDelegate = context.coordinator
-            picker.title = "Select Photo"
-            return picker
-
-        case .library:
-            let picker = UIImagePickerController()
-            picker.sourceType = .photoLibrary
-            picker.delegate = context.coordinator
-            return picker
-        }
+        let picker = UnsplashPhotoPicker(
+            configuration: .init(
+                accessKey: "wDof0appRIkX10bAvr82b9EWzg8E6NMG0W8qY6NUMcE",
+                secretKey: "KRarbE5ghU6sJY630_aVf_00rh1x7LFGLIJbamdR2Qo"))
+        picker.photoPickerDelegate = context.coordinator
+        picker.title = "Select Photo"
+        return picker
     }
 
     func makeCoordinator() -> Coordinator {
@@ -43,10 +31,10 @@ struct PhotoPicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 
-    class Coordinator: NSObject, UnsplashPhotoPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        var parent: PhotoPicker
+    class Coordinator: NSObject, UnsplashPhotoPickerDelegate {
+        var parent: UnsplashPicker
 
-        init(_ parent: PhotoPicker) {
+        init(_ parent: UnsplashPicker) {
             self.parent = parent
         }
 
@@ -56,16 +44,6 @@ struct PhotoPicker: UIViewControllerRepresentable {
         }
 
         func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
-            didFinish(with: nil)
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            picker.dismiss(animated: true, completion: nil)
-            let image = info[.originalImage] as? UIImage
-            didFinish(with: image)
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             didFinish(with: nil)
         }
 
@@ -79,7 +57,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
             guard let image = image else { return parent.selectionHandler(nil) }
 
             let resized = image.fixedOrientation().resize(to: 600)
-            if let data = resized.jpegData(compressionQuality: 0.6) {
+            if let data = resized.jpegData(compressionQuality: 0.7) {
                 parent.selectionHandler(UIImage(data: data))
             }
         }
@@ -92,7 +70,7 @@ extension UIImage {
     ///
     /// - Parameter dimension: min width or height of image output
     /// - Returns: Resized image.
-    fileprivate func resize(to dimension: CGFloat) -> UIImage {
+    func resize(to dimension: CGFloat) -> UIImage {
         // no need to resize
         guard min(size.width, size.height) > dimension else { return self }
         guard let cgImage = cgImage, let colorSpace = cgImage.colorSpace else { return self }
