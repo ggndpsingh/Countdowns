@@ -8,6 +8,45 @@ extension Animation {
     static let flipCard = Animation.spring(response: 0.35, dampingFraction: 0.7)
 }
 
+final class PhotoSourceSelection: ObservableObject {
+    var source: PhotoSource? {
+        willSet {
+            switch newValue {
+            case .some(let value):
+                switch value {
+                case .unsplash:
+                    showUnsplashPicker = true
+                case .library:
+                    showLibraryPicker = true
+                }
+                objectWillChange.send()
+            case .none:
+                break
+            }
+        }
+    }
+
+    var showUnsplashPicker: Bool = false
+    var showLibraryPicker: Bool = false
+}
+
+final class CountdownSelection: ObservableObject {
+    @Published var id: Countdown.ID?
+    var isNew: Bool = false
+
+    var isActive: Bool { id != nil }
+
+    func select(_ id: Countdown.ID, isNew: Bool) {
+        self.id = id
+        self.isNew = isNew
+    }
+
+    func deselect() {
+        id = nil
+        isNew = false
+    }
+}
+
 struct SomeView: View {
     @Environment(\.countdownsManager) private var countdownsManager
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -18,11 +57,9 @@ struct SomeView: View {
         animation: .spring()
     ) var fetchedObjects
 
-    @State private var pickingImageFromLibrary: Bool = false
-    @State private var pickingImageFromUnsplash: Bool = false
+    @ObservedObject var countdownSelection = CountdownSelection()
+    @ObservedObject var photoSourceSelection = PhotoSourceSelection()
     @State private var deleteAlertPresented: Bool = false
-    @State private var new: Countdown.ID?
-    @State private var selected: Countdown.ID?
     @Namespace private var namespace
 
     private var countdowns: [Countdown] {
@@ -46,26 +83,30 @@ struct SomeView: View {
                     title: Text("Delete Countdown"),
                     message: Text("Are you sure you want to delete this countdown?"),
                     primaryButton: .destructive(Text("Delete")) {
-                        guard let id = selected else { return }
+                        guard let id = countdownSelection.id else { return }
                         withAnimation(.closeCard) {
-                            selected = nil
                             countdownsManager.deleteObject(with: id)
+                            deselectIngredient()
                         }
                     },
                     secondaryButton: .cancel(Text("Cancel")))
             }
-            .fullScreenCover(isPresented: $pickingImageFromUnsplash) {
+            .fullScreenCover(isPresented: $photoSourceSelection.showUnsplashPicker) {
                 UnsplashPicker(selectionHandler: didSelectImage)
             }
             .toolbar {
-                PhotoSourceMenu(label: { Image(systemName: "plus.circle.fill") }, action: pickImage)
-                    .disabled(selected != nil)
-                    .foregroundColor(selected == nil ? .brand : .secondaryLabel)
+                PhotoSourceMenu(
+                    label: {
+                        Image(systemName: "plus.circle.fill")
+                            .font(Font.dank(size: 24))
+                    }, action: pickImage)
+                    .disabled(countdownSelection.isActive)
+                    .foregroundColor(countdownSelection.isActive ? .secondaryLabel : .brand)
             }
             .navigationTitle("Upcoming")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .fullScreenCover(isPresented: $pickingImageFromLibrary) {
+        .fullScreenCover(isPresented: $photoSourceSelection.showLibraryPicker) {
             LibraryPicker(selectionHandler: didSelectImage)
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -76,29 +117,23 @@ struct SomeView: View {
             ScrollView {
                 content
             }
-            .accessibility(hidden: selected != nil)
+            .accessibility(hidden: countdownSelection.isActive)
 
             Blur(style: .systemMaterial)
                 .edgesIgnoringSafeArea(.all)
-                .opacity(selected != nil ? 1 : 0)
+                .opacity(countdownSelection.isActive ? 1 : 0)
 
             ForEach(countdowns) { countdown in
-                let presenting = selected == countdown.id
+                let presenting = countdown.id == countdownSelection.id
+                let isNew = presenting && countdownSelection.isNew
                 VStack {
                     CardView(
                         countdown: countdown,
-                        visibleSide: countdown.id == new ? .back : .front,
+                        isNew: isNew,
+                        visibleSide: isNew ? .back : .front,
                         imageHandler: pickImage,
                         doneHandler: { updatedCountdown in
-                            if new != nil, updatedCountdown.id == new {
-                                new = nil
-                                if !countdownsManager.objectHasChange(countdown: updatedCountdown) {
-                                    countdownsManager.deleteObject(with: updatedCountdown.id)
-                                    selected = nil
-                                    return
-                                }
-                            }
-
+                            countdownSelection.isNew = false
                             countdownsManager.updateObject(for: updatedCountdown)
                         },
                         closeHandler: deselectIngredient,
@@ -124,7 +159,7 @@ struct SomeView: View {
             VStack(alignment: .leading) {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 420, maximum: 520))], spacing: 16) {
                     ForEach(countdowns) { countdown in
-                        let presenting = selected == countdown.id
+                        let presenting = countdown.id == countdownSelection.id
                         Button(action: { select(countdown: countdown) }) {
                             CardFrontView(countdown: countdown, style: .thumbnail, flipHandler: {})
                                 .matchedGeometryEffect(
@@ -147,35 +182,30 @@ struct SomeView: View {
 
     func select(countdown: Countdown) {
         withAnimation(.openCard) {
-            selected = countdown.id
+            countdownSelection.select(countdown.id, isNew: false)
         }
     }
 
     func deselectIngredient() {
-        new = nil
         withAnimation(.closeCard) {
-            selected = nil
+            countdownSelection.deselect()
         }
     }
 
-    private func pickImage(from photoSource: PhotoSource) {
-        switch photoSource {
-        case .library:
-            pickingImageFromLibrary = true
-        case .unsplash:
-            pickingImageFromUnsplash = true
-        }
+    private func pickImage(from source: PhotoSource) {
+        photoSourceSelection.source = source
     }
 
     func didSelectImage(_ image: UIImage?) {
         guard let image = image else { return }
-        if let id = selected {
+        if let id = countdownSelection.id {
             countdownsManager.updateImage(image, for: id)
             return
         }
 
-        new = countdownsManager.createNewObject(with: image)
-        selected = new
+        if let newID = countdownsManager.createNewObject(with: image) {
+            countdownSelection.select(newID, isNew: true)
+        }
     }
 }
 

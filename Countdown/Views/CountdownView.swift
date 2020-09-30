@@ -24,7 +24,7 @@ struct CountdownView: View {
     }
 
     private func countdown() {
-        components = CountdownCalculator.countdown(for: date)
+        components = CountdownCalculator.countdown(for: date, size: size)
     }
 }
 

@@ -2,19 +2,33 @@
 
 import SwiftUI
 
+final class CardIsNewPublisher: ObservableObject {
+    var isNew: Bool
+
+    init(isNew: Bool) {
+        self.isNew = isNew
+    }
+}
+
 struct CardView: View {
     @Environment(\.countdownsManager) private var countdownsManager
-    @State private var flipped: Bool = false
+    @State private var visibleSide = FlipViewSide.front
+    var isNewPublisher: CardIsNewPublisher
+
     let countdown: Countdown
     let imageHandler: (PhotoSource) -> Void
     let doneHandler:  (Countdown) -> Void
     let closeHandler:  () -> Void
     let deleteHandler: () -> Void
 
-    @State private var visibleSide = FlipViewSide.front
+    private var calculatedVisibleSide: FlipViewSide {
+        print(countdown.title, isNewPublisher.isNew)
+        return isNewPublisher.isNew ? .back : visibleSide
+    }
 
     internal init(
         countdown: Countdown,
+        isNew: Bool,
         visibleSide: FlipViewSide,
         imageHandler: @escaping (PhotoSource) -> Void,
         doneHandler: @escaping (Countdown) -> Void,
@@ -26,10 +40,11 @@ struct CardView: View {
         self.doneHandler = doneHandler
         self.closeHandler = closeHandler
         self.deleteHandler = deleteHandler
+        self.isNewPublisher = .init(isNew: isNew)
     }
 
     var body: some View {
-        FlipView(visibleSide: visibleSide) {
+        FlipView(visibleSide: calculatedVisibleSide) {
             CardFrontView(
                 countdown: countdown,
                 style: .details,
@@ -39,7 +54,12 @@ struct CardView: View {
             CardBackView(
                 viewModel: .init(countdown: countdown, isNew: false, countdownsManager: countdownsManager), imageHandler: imageHandler,
                 doneHandler: {
-                    flipCard()
+                    if isNewPublisher.isNew {
+                        isNewPublisher.isNew = false
+                    } else {
+                        flipCard()
+                    }
+
                     doneHandler($0)
                 },
                 deleteHandler: deleteHandler)
@@ -66,11 +86,11 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardView(countdown: .preview, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
                 .frame(maxWidth: 520, alignment: .center)
                 .aspectRatio(0.75, contentMode: .fit)
 
-            CardView(countdown: .preview, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
                 .frame(maxWidth: 520, alignment: .center)
                 .aspectRatio(0.75, contentMode: .fit)
                 .preferredColorScheme(.dark)

@@ -4,8 +4,16 @@ import Foundation
 import WidgetKit
 
 struct CountdownCalculator {
-    static func countdown(for date: Date, trimmed: Bool = true) -> [DateComponent] {
-        return Array(dateComponents(for: date, trimmed: trimmed).prefix(4))
+    static func countdown(for date: Date, trimmed: Bool = true, size: CountdownSize) -> [DateComponent] {
+        switch size {
+        case .medium:
+            return Array(dateComponents(for: date, trimmed: trimmed).prefix(4))
+        case .full:
+            return dateComponents(for: date, trimmed: trimmed)
+        case .small, .widget:
+            return Array(dateComponents(for: date, trimmed: trimmed).prefix(2))
+        }
+
     }
 
     static func dateComponents(for countdownDate: Date, comparisonDate: Date = Date(), trimmed: Bool = true) -> [DateComponent] {

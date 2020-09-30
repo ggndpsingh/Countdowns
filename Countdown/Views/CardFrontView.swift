@@ -43,7 +43,7 @@ struct CardFrontView: View {
                         .padding()
                 }
             }
-            CountdownView(date: countdown.date, size: .medium)
+            CountdownView(date: countdown.date, size: style == .thumbnail ? .medium : .full)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .cornerRadius(16)
