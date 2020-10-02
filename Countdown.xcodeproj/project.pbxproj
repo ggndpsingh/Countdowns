@@ -14,7 +14,7 @@
 		E613685325245193009FF314 /* SquishableButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613684B25245185009FF314 /* SquishableButtonStyle.swift */; };
 		E613685A2524519E009FF314 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BC2510FEEA007E9AFD /* Blur.swift */; };
 		E616171025230EF800D58D19 /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E616170F25230EF800D58D19 /* UnsplashPhotoPicker */; };
-		E616173B2523FFD800D58D19 /* GeometryEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61617342523FFAF00D58D19 /* GeometryEffect.swift */; };
+		E616173B2523FFD800D58D19 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61617342523FFAF00D58D19 /* CardsListView.swift */; };
 		E6226793251B210700C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226794251B231A00C726C4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
 		E6226795251B235400C726C4 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
@@ -42,7 +42,6 @@
 		E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AB251057D1007E9AFD /* CardFrontView.swift */; };
 		E658E8AE25105E93007E9AFD /* FlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AD25105E93007E9AFD /* FlipView.swift */; };
 		E658E8B02510E86B007E9AFD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AF2510E86B007E9AFD /* Color.swift */; };
-		E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */; };
 		E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B32510FB28007E9AFD /* CardBackground.swift */; };
 		E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B52510FD7C007E9AFD /* CardView.swift */; };
 		E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B72510FE0B007E9AFD /* CardBackView.swift */; };
@@ -99,8 +98,8 @@
 		E6CAB06425172720003848F9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06325172720003848F9 /* ImageCache.swift */; };
 		E6CAB067251727DC003848F9 /* CountdownObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB066251727DC003848F9 /* CountdownObject.swift */; };
 		E6CAB07225172F51003848F9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB07125172F51003848F9 /* ImageLoader.swift */; };
+		E6DA81702526EC9A00194EC6 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA816F2526EC9A00194EC6 /* Animation.swift */; };
 		E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140A2504DF87005C8B61 /* CountdownApp.swift */; };
-		E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3140C2504DF87005C8B61 /* CardsListView.swift */; };
 		E6E3140F2504DF87005C8B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E3140E2504DF87005C8B61 /* Assets.xcassets */; };
 		E6E314122504DF87005C8B61 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E314112504DF87005C8B61 /* Preview Assets.xcassets */; };
 		E6E314142504DF87005C8B61 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E314132504DF87005C8B61 /* Persistence.swift */; };
@@ -175,7 +174,7 @@
 		E613683425244E71009FF314 /* LibraryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPicker.swift; sourceTree = "<group>"; };
 		E613683C25245154009FF314 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		E613684B25245185009FF314 /* SquishableButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquishableButtonStyle.swift; sourceTree = "<group>"; };
-		E61617342523FFAF00D58D19 /* GeometryEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryEffect.swift; sourceTree = "<group>"; };
+		E61617342523FFAF00D58D19 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
 		E6226797251B26E000C726C4 /* CountdownsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownsManager.swift; sourceTree = "<group>"; };
 		E622679B251B4ACC00C726C4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		E63542F62522ED59008E6D8E /* CountdownContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownContainer.swift; sourceTree = "<group>"; };
@@ -192,7 +191,6 @@
 		E658E8AB251057D1007E9AFD /* CardFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFrontView.swift; sourceTree = "<group>"; };
 		E658E8AD25105E93007E9AFD /* FlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipView.swift; sourceTree = "<group>"; };
 		E658E8AF2510E86B007E9AFD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListViewModel.swift; sourceTree = "<group>"; };
 		E658E8B32510FB28007E9AFD /* CardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackground.swift; sourceTree = "<group>"; };
 		E658E8B52510FD7C007E9AFD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		E658E8B72510FE0B007E9AFD /* CardBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackView.swift; sourceTree = "<group>"; };
@@ -228,9 +226,9 @@
 		E6CAB06325172720003848F9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		E6CAB066251727DC003848F9 /* CountdownObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownObject.swift; sourceTree = "<group>"; };
 		E6CAB07125172F51003848F9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		E6DA816F2526EC9A00194EC6 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		E6E314072504DF87005C8B61 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3140A2504DF87005C8B61 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
-		E6E3140C2504DF87005C8B61 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
 		E6E3140E2504DF87005C8B61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6E314112504DF87005C8B61 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E6E314132504DF87005C8B61 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -401,7 +399,6 @@
 		E6E314092504DF87005C8B61 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
-				E61617342523FFAF00D58D19 /* GeometryEffect.swift */,
 				E672EB01251DE16800724B2B /* Localizable.strings */,
 				E672EB00251DE16800724B2B /* Localizable.stringsdict */,
 				E672EAF3251DCFB600724B2B /* Fonts */,
@@ -465,6 +462,7 @@
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
 				E672EAFA251DD07D00724B2B /* Font.swift */,
+				E6DA816F2526EC9A00194EC6 /* Animation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -482,8 +480,7 @@
 		E6E314482504E0A2005C8B61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E658E8B12510F2A0007E9AFD /* CardsListViewModel.swift */,
-				E6E3140C2504DF87005C8B61 /* CardsListView.swift */,
+				E61617342523FFAF00D58D19 /* CardsListView.swift */,
 				E635430D252301CC008E6D8E /* EmptyListView.swift */,
 				E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */,
 				E6226797251B26E000C726C4 /* CountdownsManager.swift */,
@@ -804,7 +801,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E658E8BD2510FEEA007E9AFD /* Blur.swift in Sources */,
-				E658E8B22510F2A0007E9AFD /* CardsListViewModel.swift in Sources */,
 				E6226798251B26E000C726C4 /* CountdownsManager.swift in Sources */,
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
 				E613684C25245185009FF314 /* SquishableButtonStyle.swift in Sources */,
@@ -817,11 +813,11 @@
 				E635430E252301CC008E6D8E /* EmptyListView.swift in Sources */,
 				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,
 				E6874A552521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */,
-				E616173B2523FFD800D58D19 /* GeometryEffect.swift in Sources */,
+				E616173B2523FFD800D58D19 /* CardsListView.swift in Sources */,
+				E6DA81702526EC9A00194EC6 /* Animation.swift in Sources */,
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
 				E622679C251B4ACC00C726C4 /* RemindersManager.swift in Sources */,
-				E6E3140D2504DF87005C8B61 /* CardsListView.swift in Sources */,
 				E613683525244E71009FF314 /* LibraryPicker.swift in Sources */,
 				E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
