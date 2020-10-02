@@ -3,8 +3,8 @@
 import SwiftUI
 
 extension Animation {
-    static let openCard = Animation.spring(response: 0.55, dampingFraction: 0.9)
-    static let closeCard = Animation.spring(response: 0.45, dampingFraction: 1)
+    static let openCard = Animation.spring(response: 0.45, dampingFraction: 0.9)
+    static let closeCard = Animation.spring(response: 0.35, dampingFraction: 1)
     static let flipCard = Animation.spring(response: 0.35, dampingFraction: 0.7)
 }
 
@@ -49,7 +49,7 @@ final class CountdownSelection: ObservableObject {
 
 struct SomeView: View {
     @Environment(\.countdownsManager) private var countdownsManager
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
@@ -133,6 +133,16 @@ struct SomeView: View {
                         visibleSide: isNew ? .back : .front,
                         imageHandler: pickImage,
                         doneHandler: { updatedCountdown in
+                            if
+                                let id = countdownSelection.id,
+                                countdownSelection.isNew &&
+                                !countdownsManager.canSaveObject(for: updatedCountdown)
+                            {
+                                countdownsManager.deleteObject(with: id)
+                                countdownSelection.deselect()
+                                return
+                            }
+
                             countdownSelection.isNew = false
                             countdownsManager.updateObject(for: updatedCountdown)
                         },
@@ -141,7 +151,7 @@ struct SomeView: View {
                             deleteAlertPresented = true
                         })
                         .matchedGeometryEffect(id: countdown.id, in: namespace, isSource: presenting)
-                        .aspectRatio(0.75, contentMode: .fit)
+                        .aspectRatio(verticalSizeClass == .compact ? 2 : 0.75, contentMode: .fit)
                         .shadow(color: Color.black.opacity(presenting ? 0.2 : 0), radius: 20, y: 10)
                         .padding(20)
                         .opacity(presenting ? 1 : 0)
@@ -149,7 +159,7 @@ struct SomeView: View {
                         .accessibility(sortPriority: presenting ? 1 : 0)
                         .accessibility(hidden: !presenting)
                 }
-                .frame(maxWidth: 520, alignment: .center)
+                .frame(maxWidth: 720, maxHeight: presenting ? .infinity : 0, alignment: .center)
             }
         }
     }
@@ -169,8 +179,8 @@ struct SomeView: View {
                                 )
                                 .contentShape(Rectangle())
                         }
-                        .buttonStyle(SquishableButtonStyle())
-                        .aspectRatio( 1, contentMode: .fit)
+                        .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+                        .aspectRatio(verticalSizeClass == .compact ? 2 : 1, contentMode: .fit)
                         .accessibility(label: Text(countdown.title))
                         .accessibility(hidden: !presenting)
                     }

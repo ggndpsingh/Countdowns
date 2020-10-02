@@ -38,8 +38,13 @@ struct CountdownsManager {
         return (try? context.fetch(request)) ?? []
     }
 
+    func canSaveObject(for countdown: Countdown) -> Bool {
+        objectHasChange(countdown: countdown) &&
+        countdown.title.count >= 3
+    }
+
     func updateObject(for countdown: Countdown) {
-        guard objectHasChange(countdown: countdown) else { return }
+        guard canSaveObject(for: countdown) else { return }
         guard let object = getObject(by: countdown.id) else { return }
         context.perform {
             object.date = countdown.date

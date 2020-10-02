@@ -12,11 +12,11 @@ struct TitleView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(Font.system(size: 24, weight: .medium, design: .rounded))
+                        .font(Font.system(size: 28, weight: .medium, design: .default))
 
                     if showDate {
                         Text(date)
-                            .font(Font.system(size: 16, weight: .medium, design: .rounded))
+                            .font(Font.system(size: 16, weight: .medium, design: .default))
                     }
                 }
                 .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
@@ -33,11 +33,9 @@ struct TitleView: View {
 #if DEBUG
 struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            CardFrontView(countdown: .preview, style: .thumbnail, flipHandler: {})
-                .frame(width: 360, height: 320)
-                .previewLayout(.sizeThatFits)
-        }
+        CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600 * 3600), title: "Past", image: UIImage(named: "christmas")), style: .thumbnail, flipHandler: {})
+        .frame(width: 340, height: 320, alignment: .center)
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

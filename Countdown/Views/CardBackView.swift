@@ -3,6 +3,7 @@
 import SwiftUI
 
 struct CardBackView: View {
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
@@ -27,12 +28,22 @@ struct CardBackView: View {
                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
             VStack(alignment: .leading, spacing:24) {
-                VStack(spacing: 8) {
-                    TitleInput(
-                        title: $viewModel.title)
-                    DateInput(
-                        date: $viewModel.date,
-                        allDay: $viewModel.allDay)
+                Group {
+                    if verticalSizeClass == .compact {
+                        HStack(alignment: .top, spacing: 24) {
+                            TitleInput(title: $viewModel.title)
+                            DateInput(
+                                date: $viewModel.countdown.date,
+                                allDay: $viewModel.allDay)
+                        }
+                    } else {
+                        VStack(spacing: 24) {
+                            TitleInput(title: $viewModel.title)
+                            DateInput(
+                                date: $viewModel.countdown.date,
+                                allDay: $viewModel.allDay)
+                        }
+                    }
                 }
 
                 Spacer()
@@ -51,6 +62,7 @@ struct CardBackView: View {
 
             }
             .padding()
+            .padding([.top], 16)
         }
         .cornerRadius(16)
     }
@@ -75,13 +87,11 @@ extension CardBackView {
                         image: "trash",
                         color: .red)
 
-                    if !hasEnded {
-                        PhotoSourceMenu(
-                            label: {
-                                RoundButton.ButtonImage("photo.fill", color: .brand)
-                            },
-                            action: imageHandler)
-                    }
+                    PhotoSourceMenu(
+                        label: {
+                            RoundButton.ButtonImage("photo.fill", color: .brand)
+                        },
+                        action: imageHandler)
                 }
 
                 Spacer()
@@ -97,31 +107,44 @@ extension CardBackView {
 
 extension CardBackView {
     struct TitleInput: View {
+        @Environment(\.colorScheme) private var scheme
         private let minLength = 3
         private let maxLength = 24
         @Binding var title: String
 
+        @State var date: Date = Date()
+
         private var remainingLimit: Int { maxLength - title.count }
 
         var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                TextField("New Countdown", text: $title)
-                    .font(Font.system(size: 16, weight: .regular, design: .default))
-                    .padding(.vertical, 12)
-
+            VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 0) {
+                    Text("What's happening?")
+                        .font(Font.system(size: 12, weight: .regular, design: .default))
+                        .foregroundColor(.secondary)
+
                     Spacer()
+
                     Text("\(title.count)")
                         .foregroundColor((title.count < 3 || remainingLimit <= 5) ? .red : .secondaryLabel)
+                        .font(Font.dank(size: 11))
+
                     Text(" / \(minLength)-\(maxLength)")
-                        .foregroundColor(.secondaryLabel)
+                        .font(Font.dank(size: 11))
                 }
-                .padding([.bottom], 8)
-                .font(Font.dank(size: 11))
+
+                TextField("New Countdown", text: $title)
+                    .font(Font.system(size: 18, weight: .regular, design: .default))
+                    .padding(8)
+                    .background(
+                        Color.systemBackground
+                            .colorInvert()
+                            .opacity(scheme == .dark ? 0.2 : 0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
             }
-            .padding(.horizontal, 8)
+            .padding(16)
             .foregroundColor(.label)
-            .background(Blur(style: .systemThickMaterial))
+            .background(Blur(style: .systemMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .frame(maxWidth: .infinity)
             .onChange(of: title, perform: { value in
@@ -134,37 +157,54 @@ extension CardBackView {
 extension CardBackView {
     struct DateInput: View {
         @Binding var date: Date
-        @Binding var allDay: Bool
+        @Binding var allDay: Int
         
         var body: some View {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(alignment: .bottom, spacing: 8) {
-                    DatePicker(
-                        "",
-                        selection: $date,
-                        in: .now...)
+            VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("When is it happening?")
+                        .font(Font.system(size: 12, weight: .regular, design: .default))
+                        .foregroundColor(.secondary)
+
+                    DatePicker("", selection: $date, in: .now...)
                         .labelsHidden()
+                        .modifier(GrayscaleDatePickerStyle())
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
 
                 Divider()
 
-                Toggle(isOn: $allDay) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "calendar")
-                            .frame(width: 24, height: 24)
-                        Text("All day event")
-                    }
-                    .foregroundColor(.label)
-                    .font(Font.system(size: 16, weight: .regular, design: .default))
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Is it an all day event?")
+                        .font(Font.system(size: 12, weight: .regular, design: .default))
+                        .foregroundColor(.secondary)
+
+                    Picker(selection: $allDay, label: Text("What is your favorite color?")) {
+                        Text("Yes").tag(1)
+                        Text("No").tag(0)
+                    }.pickerStyle(SegmentedPickerStyle())
                 }
-                .toggleStyle(SwitchToggleStyle(tint: .brand))
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 8)
+            .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Blur(style: .systemThickMaterial))
+            .background(Blur(style: .systemMaterial))
             .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+    }
+}
+
+struct GrayscaleDatePickerStyle: ViewModifier {
+    @Environment(\.colorScheme) private var scheme
+
+    func body(content: Content) -> some View {
+        Group {
+            if scheme == .dark {
+                content
+                    .colorMultiply(.black)
+                    .colorInvert()
+            } else {
+                content
+                    .colorMultiply(.black)
+            }
         }
     }
 }
@@ -172,8 +212,15 @@ extension CardBackView {
 #if DEBUG
 struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
+        Group {
             CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {_ in }, doneHandler: {_ in }, deleteHandler: {})
+                .frame(width: 400, height: 420, alignment: .center)
+                .previewLayout(.sizeThatFits)
+
+            CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {_ in }, doneHandler: {_ in }, deleteHandler: {})
+                .preferredColorScheme(.dark)
+                .frame(width: 400, height: 420, alignment: .center)
+                .previewLayout(.sizeThatFits)
         }
         .padding()
     }

@@ -25,10 +25,10 @@ struct RoundButton: View {
 
         var body: some View {
             Image(systemName: image)
-                .font(Font.system(size: 16, weight: .bold, design: .monospaced))
+                .font(Font.system(size: 12, weight: .bold, design: .monospaced))
                 .imageScale(.large)
                 .frame(width: 44, height: 44)
-                .background(Blur(style: .systemThickMaterial))
+                .background(Blur(style: .systemMaterial))
                 .clipShape(Circle())
                 .foregroundColor(color)
         }

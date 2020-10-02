@@ -39,7 +39,7 @@ struct CardFrontView: View {
                         RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
                             .padding()
                     }
-                    RoundButton(action: flipHandler, image: "pencil", color: .secondaryLabel)
+                    RoundButton(action: flipHandler, image: "square.and.pencil", color: .secondaryLabel)
                         .padding()
                 }
             }

@@ -9,16 +9,16 @@ final class CardBackViewModel: ObservableObject {
     private let countdownsManager: CountdownsManager
     let isNew: Bool
 
-    internal init(countdown: Countdown, isNew: Bool, countdownsManager: CountdownsManager) {
+    init(countdown: Countdown, isNew: Bool, countdownsManager: CountdownsManager) {
         self.countdown = countdown
         self.isNew = isNew
         self.countdownsManager = countdownsManager
     }
 
-    var allDay: Bool {
-        get { countdown.date.isMidnight }
+    var allDay: Int {
+        get { NSNumber(booleanLiteral: countdown.date.isMidnight).intValue }
         set {
-            newValue
+            NSNumber(value: newValue).boolValue
                 ? countdown.date.setTimeToZero()
                 : countdown.date.setTimeToNow()
         }

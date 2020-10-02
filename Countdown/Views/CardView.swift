@@ -22,8 +22,7 @@ struct CardView: View {
     let deleteHandler: () -> Void
 
     private var calculatedVisibleSide: FlipViewSide {
-        print(countdown.title, isNewPublisher.isNew)
-        return isNewPublisher.isNew ? .back : visibleSide
+        isNewPublisher.isNew ? .back : visibleSide
     }
 
     internal init(
@@ -52,7 +51,7 @@ struct CardView: View {
                 closeHandler: closeHandler)
         } back: {
             CardBackView(
-                viewModel: .init(countdown: countdown, isNew: false, countdownsManager: countdownsManager), imageHandler: imageHandler,
+                viewModel: .init(countdown: countdown, isNew: isNewPublisher.isNew, countdownsManager: countdownsManager), imageHandler: imageHandler,
                 doneHandler: {
                     if isNewPublisher.isNew {
                         isNewPublisher.isNew = false
