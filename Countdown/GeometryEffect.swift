@@ -180,7 +180,7 @@ struct SomeView: View {
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
-                        .aspectRatio(verticalSizeClass == .compact ? 2 : 1, contentMode: .fit)
+                        .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
                         .accessibility(label: Text(countdown.title))
                         .accessibility(hidden: !presenting)
                     }
