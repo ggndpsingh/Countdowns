@@ -75,7 +75,7 @@ struct CardsListView: View {
                             }
                     }
                     .fullScreenCover(isPresented: $showGetPremium, content: {
-                        GetPremiumView()
+                        GetPremiumView(isPresenting: $showGetPremium)
 //                            .opacity(showGetPremium ? 1 : 0)
 //                            .accessibility(hidden: !showGetPremium)
 //                            .scaleEffect(showGetPremium ? 1 : 0.5)

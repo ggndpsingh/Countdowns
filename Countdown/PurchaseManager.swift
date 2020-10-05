@@ -25,8 +25,8 @@ final class PurchaseManager: NSObject, ObservableObject {
         SKPaymentQueue.default().add(self)
         Product.allCases.forEach {
             if UserDefaults.standard.bool(forKey: $0.identifier) {
-//                UserDefaults.standard.removeObject(forKey: $0.identifier)
-                purchasedProducts.append($0.identifier)
+                UserDefaults.standard.removeObject(forKey: $0.identifier)
+//                purchasedProducts.append($0.identifier)
             }
         }
     }

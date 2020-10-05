@@ -5,6 +5,7 @@ import StoreKit
 
 struct GetPremiumView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Binding var isPresenting: Bool
     @State private var product: SKProduct?
     @State var isLoading = false
 
@@ -35,16 +36,22 @@ struct GetPremiumView: View {
     }
 
     var body: some View {
-            ZStack {
-                Color.systemBackground
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .edgesIgnoringSafeArea(.all)
+        ZStack(alignment: .topTrailing) {
+            Color.systemBackground
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .edgesIgnoringSafeArea(.all)
 
-                VStack(alignment: .leading, spacing: 32) {
-                    VStack(alignment: .leading, spacing: 8) {
+            RoundButton(action: {
+                isPresenting = false
+            }, image: "xmark", color: .secondaryLabel)
+            .padding()
+
+            ZStack {
+                VStack(alignment: .center, spacing: 40) {
+                    VStack(alignment: .center, spacing: 8) {
                         Image("icon")
                             .resizable()
-                            .frame(width: 80, height: 80, alignment: .leading)
+                            .frame(width: 80, height: 80, alignment: .center)
                             .cornerRadius(16)
                             .shadow(radius: 10)
 
@@ -69,13 +76,13 @@ struct GetPremiumView: View {
                             .font(.system(size: 16, weight: .semibold, design: .default))
                         + Text("for unlimited Countdowns.")
                     }
+                    .multilineTextAlignment(.center)
                     .font(.system(size: 16, weight: .regular, design: .default))
                     .lineSpacing(3)
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("What you get with Premium?")
                             .font(.system(size: 14, weight: .medium, design: .rounded))
-                            .frame(alignment: .leading)
                             .padding([.bottom], 4)
 
                         premiumFeatureItem(text: "Unlimited Countdowns")
@@ -93,6 +100,9 @@ struct GetPremiumView: View {
                         PurchaseManager.shared.buyProduct(product) { success in
                             withAnimation(.easeIn) {
                                 isLoading = false
+                                if success {
+                                    isPresenting = false
+                                }
                             }
                         }
                     }) {
@@ -120,8 +130,10 @@ struct GetPremiumView: View {
                 }
                 .frame(maxWidth: 320)
             }
-            .cornerRadius(16)
-            .onAppear(perform: loadProduct)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        }
+        .cornerRadius(16)
+        .onAppear(perform: loadProduct)
     }
 
     func loadProduct() {
@@ -130,13 +142,15 @@ struct GetPremiumView: View {
 }
 
 struct GetPremiumView_Previews: PreviewProvider {
+    @State static var presenting: Bool = true
+
     static var previews: some View {
         Group {
-            GetPremiumView()
+            GetPremiumView(isPresenting: $presenting)
                 .frame(width: 400, height: 600, alignment: .center)
                 .previewLayout(.sizeThatFits)
                 .padding()
-            GetPremiumView()
+            GetPremiumView(isPresenting: $presenting)
                 .preferredColorScheme(.dark)
                 .frame(width: 800, height: 1200, alignment: .center)
                 .previewLayout(.sizeThatFits)
