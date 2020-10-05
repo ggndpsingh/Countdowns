@@ -2,122 +2,94 @@
 
 import SwiftUI
 
-final class PhotoSourceSelection: ObservableObject {
-    var source: PhotoSource? {
-        willSet {
-            switch newValue {
-            case .some(let value):
-                switch value {
-                case .unsplash:
-                    showUnsplashPicker = true
-                case .library:
-                    showLibraryPicker = true
-                }
-                objectWillChange.send()
-            case .none:
-                break
-            }
-        }
-    }
-
-    var showUnsplashPicker: Bool = false
-    var showLibraryPicker: Bool = false
-}
-
-final class CountdownSelection: ObservableObject {
-    @Published var id: Countdown.ID?
-    var isNew: Bool = false
-
-    var isActive: Bool { id != nil }
-
-    func select(_ id: Countdown.ID, isNew: Bool) {
-        self.id = id
-        self.isNew = isNew
-    }
-
-    func deselect() {
-        id = nil
-        isNew = false
-    }
+struct AppConstants {
+    static let maxFreeCountdowns: Int = 3
 }
 
 struct CardsListView: View {
-    @Environment(\.countdownsManager) private var countdownsManager
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
-
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
         animation: .spring()
     ) var fetchedObjects
 
+    @Namespace private var namespace
+    @Environment(\.countdownsManager) private var countdownsManager
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
     @ObservedObject var countdownSelection = CountdownSelection()
     @ObservedObject var photoSourceSelection = PhotoSourceSelection()
+    @ObservedObject var purchaseManager = PurchaseManager.shared
     @State private var deleteAlertPresented: Bool = false
-    @Namespace private var namespace
+    @State private var showGetPremium: Bool = false
 
-    private var countdowns: [Countdown] {
-        let countdowns = fetchedObjects.map(Countdown.init)
-        return countdowns.sorted {
-            $0.date < $1.date
-        }
+    private var upcoming: [Countdown] {
+        fetchedObjects.map(Countdown.init)
+            .filter { $0.date > Date() }
+            .sorted { $0.date < $1.date }
     }
+
+    private var past: [Countdown] {
+        fetchedObjects.map(Countdown.init)
+            .filter { $0.date <= Date() }
+            .sorted { $0.date < $1.date }
+    }
+
+    private var allCountdowns: [Countdown] { upcoming + past }
 
     var body: some View {
-        NavigationView {
+        ZStack {
             Group {
-                if countdowns.isEmpty {
-                    EmptyListView()
+                if allCountdowns.isEmpty {
+                    NavigationView {
+                        EmptyListView()
+                            .navigationBarItems(trailing: barButton)
+                            .navigationBarTitleDisplayMode(.inline)
+                    }
+                    .navigationViewStyle(StackNavigationViewStyle())
                 } else {
-                    container
+                    NavigationView {
+                        content
+                            .navigationBarItems(trailing: barButton)
+                            .navigationTitle("Upcoming")
+                            .navigationBarTitleDisplayMode(.inline)
+
+                            .alert(isPresented: $deleteAlertPresented) {
+                                Alert(
+                                    title: Text("Delete Countdown"),
+                                    message: Text("Are you sure you want to delete this countdown?"),
+                                    primaryButton: .destructive(Text("Delete")) {
+                                        guard let id = countdownSelection.id else { return }
+                                        withAnimation(.closeCard) {
+                                            countdownsManager.deleteObject(with: id)
+                                            deselectIngredient()
+                                        }
+                                    },
+                                    secondaryButton: .cancel(Text("Cancel")))
+                            }
+                            .fullScreenCover(isPresented: $photoSourceSelection.showUnsplashPicker) {
+                                UnsplashPicker(selectionHandler: didSelectImage)
+                            }
+                            .fullScreenCover(isPresented: $photoSourceSelection.showLibraryPicker) {
+                                LibraryPicker(selectionHandler: didSelectImage)
+                            }
+                    }
+                    .fullScreenCover(isPresented: $showGetPremium, content: {
+                        GetPremiumView()
+//                            .opacity(showGetPremium ? 1 : 0)
+//                            .accessibility(hidden: !showGetPremium)
+//                            .scaleEffect(showGetPremium ? 1 : 0.5)
+//                            .offset(y: showGetPremium ? 0 : 600)
+                    })
+                    .navigationViewStyle(StackNavigationViewStyle())
                 }
             }
-            .alert(isPresented: $deleteAlertPresented) {
-                Alert(
-                    title: Text("Delete Countdown"),
-                    message: Text("Are you sure you want to delete this countdown?"),
-                    primaryButton: .destructive(Text("Delete")) {
-                        guard let id = countdownSelection.id else { return }
-                        withAnimation(.closeCard) {
-                            countdownsManager.deleteObject(with: id)
-                            deselectIngredient()
-                        }
-                    },
-                    secondaryButton: .cancel(Text("Cancel")))
-            }
-            .fullScreenCover(isPresented: $photoSourceSelection.showUnsplashPicker) {
-                UnsplashPicker(selectionHandler: didSelectImage)
-            }
-            .toolbar {
-                PhotoSourceMenu(
-                    label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(Font.dank(size: 24))
-                    }, action: pickImage)
-                    .disabled(countdownSelection.isActive)
-                    .foregroundColor(countdownSelection.isActive ? .secondaryLabel : .brand)
-            }
-            .navigationTitle("Upcoming")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-        .fullScreenCover(isPresented: $photoSourceSelection.showLibraryPicker) {
-            LibraryPicker(selectionHandler: didSelectImage)
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-    }
 
-    var container: some View {
-        ZStack {
-            ScrollView {
-                content
-            }
-            .accessibility(hidden: countdownSelection.isActive)
-
-            Blur(style: .systemMaterial)
+            Blur(style: .systemUltraThinMaterial)
                 .edgesIgnoringSafeArea(.all)
                 .opacity(countdownSelection.isActive ? 1 : 0)
 
-            ForEach(countdowns) { countdown in
+            ForEach(allCountdowns) { countdown in
                 let presenting = countdown.id == countdownSelection.id
                 let isNew = presenting && countdownSelection.isNew
                 VStack {
@@ -158,26 +130,38 @@ struct CardsListView: View {
         }
     }
 
-    var content: some View {
-        VStack(spacing: 0) {
-            VStack(alignment: .leading) {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 420, maximum: 520))], spacing: 16) {
-                    ForEach(countdowns) { countdown in
-                        let presenting = countdown.id == countdownSelection.id
-                        Button(action: { select(countdown: countdown) }) {
-                            CardFrontView(countdown: countdown, style: .thumbnail, flipHandler: {})
-                                .matchedGeometryEffect(
-                                    id: countdown.id,
-                                    in: namespace,
-                                    isSource: !presenting
-                                )
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
-                        .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
-                        .accessibility(label: Text(countdown.title))
-                        .accessibility(hidden: !presenting)
+    var barButton: some View {
+        Group {
+            if upcoming.count < 3 || PurchaseManager.shared.hasPremium {
+                PhotoSourceMenu(
+                    label: {
+                        Image(systemName: "plus.circle.fill")
+                            .font(Font.dank(size: 24))
+                    }, action: pickImage)
+                    .disabled(countdownSelection.isActive)
+                    .foregroundColor(countdownSelection.isActive ? .secondaryLabel : .brand)
+            } else {
+                Button(action: {
+                    withAnimation(.easeIn(duration: 0.3)) {
+                        showGetPremium.toggle()
                     }
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(Font.dank(size: 24))
+                }
+            }
+        }
+    }
+
+    var content: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                if !upcoming.isEmpty {
+                    makeGrid(countdowns: upcoming, label: "Upcoming")
+                }
+
+                if !past.isEmpty {
+                    makeGrid(countdowns: past, label: "Past")
                 }
             }
             .padding()
@@ -211,13 +195,51 @@ struct CardsListView: View {
             countdownSelection.select(newID, isNew: true)
         }
     }
+
+    private func makeGrid(countdowns: [Countdown], label: String) -> some View {
+        VStack(alignment: .leading) {
+            Text(label)
+                .font(.headline)
+                .padding([.top], 16)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 420, maximum: 520))], spacing: 16) {
+                ForEach(countdowns) { countdown in
+                    let presenting = countdown.id == countdownSelection.id
+                    makeCardGriditem(countdown, presenting)
+                }
+            }
+        }
+    }
+
+    private func makeCardGriditem(_ countdown: Countdown, _ presenting: Bool) -> some View {
+        Button(action: { select(countdown: countdown) }) {
+            CardFrontView(countdown: countdown, style: .thumbnail, flipHandler: {})
+                .matchedGeometryEffect(
+                    id: countdown.id,
+                    in: namespace,
+                    isSource: !presenting
+                )
+                .contentShape(Rectangle())
+                .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+                .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
+                .accessibility(label: Text(countdown.title))
+                .accessibility(hidden: !presenting)
+        }
+        .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+    }
 }
 
 struct SomeView_Previews: PreviewProvider {
     static var previews: some View {
-        CardsListView()
-            .environment(\.countdownsManager, CountdownsManager(context: PersistenceController.preview.container.viewContext))
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        Group {
+            CardsListView()
+                .environment(\.countdownsManager, CountdownsManager(context: PersistenceController.preview.container.viewContext))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+
+            CardsListView()
+                .environment(\.countdownsManager, CountdownsManager(context: PersistenceController.preview.container.viewContext))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .preferredColorScheme(.dark)
+        }
     }
 }
 

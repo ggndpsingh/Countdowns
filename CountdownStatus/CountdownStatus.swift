@@ -6,7 +6,7 @@ import Intents
 
 extension Countdown {
     static let placeholder: Countdown = {
-        .init(id: .init(), date: .christmas, title: "Christmas 🎄", image: UIImage(named: "christmas"))
+        .init(id: .init(), date: .christmas, title: "Christmas 🎄", image: .randomSample)
     }()
 }
 
@@ -14,7 +14,7 @@ struct Provider: IntentTimelineProvider {
     private let manager = CountdownsManagerKey.defaultValue
 
     private var firstCountdown: Countdown? {
-        manager.getPendingObjects().first.map(Countdown.init)
+        manager.getFirstPendingObject().map(Countdown.init)
     }
 
     private var placeholder: Countdown {
@@ -22,7 +22,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     private var preview: Countdown {
-        manager.getPendingObjects().randomElement().map(Countdown.init) ?? .placeholder
+        firstCountdown ?? .placeholder
     }
 
     private func getCountdown(for configuration: SelectCountdownIntent) -> Countdown? {

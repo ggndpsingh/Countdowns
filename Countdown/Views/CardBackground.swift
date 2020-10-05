@@ -34,7 +34,7 @@ struct CardBackground: View {
 #if DEBUG
 struct CardBackground_Previews: PreviewProvider {
     static var previews: some View {
-        CardBackground(image: UIImage(named: "christmas"))
+        CardBackground(image: .randomSample)
     }
 }
 #endif

@@ -38,6 +38,10 @@ struct CountdownsManager {
         return (try? context.fetch(request)) ?? []
     }
 
+    func getFirstPendingObject() -> CountdownObject? {
+        getPendingObjects().first
+    }
+
     func canSaveObject(for countdown: Countdown) -> Bool {
         objectHasChange(countdown: countdown) &&
         countdown.title.count >= 3

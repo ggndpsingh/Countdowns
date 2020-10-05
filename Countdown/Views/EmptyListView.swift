@@ -3,11 +3,11 @@
 import SwiftUI
 
 struct EmptyListView: View {
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     
     private var countdowns: [Countdown] {
         var countdowns: [Countdown] = []
-        for _ in 0..<4 {
+        for _ in 0..<3 {
             countdowns.append(
                 .init(
                     id: .init(),
@@ -24,7 +24,7 @@ struct EmptyListView: View {
                 ForEach(countdowns, id: \.id) { countdown in
                     CardFrontView(countdown: countdown, style: .thumbnail, flipHandler: {})
                         .contentShape(Rectangle())
-                        .aspectRatio(1, contentMode: .fit)
+                        .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
                 }
             }
             .padding()

@@ -31,11 +31,11 @@ struct CardFrontView: View {
             CardBackground(image: countdown.image)
             switch style {
             case .thumbnail:
-                TitleView(title: countdown.title, date: countdown.dateString, showDate: style == .details)
+                title
             case .details:
                 VStack(alignment: .trailing) {
                     HStack(alignment: .top) {
-                        TitleView(title: countdown.title, date: countdown.dateString, showDate: style == .details)
+                        title
                         RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
                             .padding()
                     }
@@ -47,6 +47,10 @@ struct CardFrontView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .cornerRadius(16)
+    }
+
+    private var title: some View {
+        TitleView(title: countdown.title, date: countdown.dateString, showDate: style == .details)
     }
 }
 

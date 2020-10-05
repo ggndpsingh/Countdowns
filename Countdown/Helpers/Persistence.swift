@@ -12,7 +12,7 @@ final class PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for i in 1..<5 {
+        for i in 1..<3 {
             let countdown = CountdownObject(context: viewContext)
             countdown.id = UUID(uuidString: "3c8c4f84-13a8-4a73-92f8-011b0814a1e\(i)")
             countdown.title = "Item \(i)"

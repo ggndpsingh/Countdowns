@@ -58,15 +58,11 @@ struct CountdownView: View {
 struct CountdownView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CountdownContainer(hasEnded: false) {
-                CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600 * 3600), title: "Past", image: UIImage(named: "christmas")), style: .thumbnail, flipHandler: {})
-            }
+            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600 * 3600), title: "Past", image: .randomSample), style: .thumbnail, flipHandler: {})
             .frame(width: 340, height: 320, alignment: .center)
             .previewLayout(.sizeThatFits)
 
-            CountdownContainer(hasEnded: true) {
-                CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(-3600), title: "Past", image: UIImage(named: "christmas")), style: .thumbnail, flipHandler: {})
-            }
+            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(-3600), title: "Past", image: .randomSample), style: .thumbnail, flipHandler: {})
             .frame(width: 400, height: 320, alignment: .center)
             .previewLayout(.sizeThatFits)
         }

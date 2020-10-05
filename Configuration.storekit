@@ -1,0 +1,29 @@
+{
+  "products" : [
+    {
+      "displayPrice" : "1.49",
+      "familyShareable" : false,
+      "internalID" : "03A6F225",
+      "localizations" : [
+        {
+          "description" : "Unlock unlimited countdowns.",
+          "displayName" : "Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.deepgagan.countdown.premium01",
+      "referenceName" : "Premiun",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}

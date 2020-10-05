@@ -18,8 +18,15 @@ class IntentHandler: INExtension, SelectCountdownIntentHandling {
     }
 
     func provideCountdownOptionsCollection(for intent: SelectCountdownIntent, with completion: @escaping (INObjectCollection<WidgetCountdown>?, Error?) -> Void) {
-        let countdowns = manager.getAllObjects().map(Countdown.init)
-        let collection = INObjectCollection(items: countdowns.map { WidgetCountdown(identifier: $0.id.uuidString, display: $0.title) })
+        let selection: [Countdown] = {
+            if PurchaseManager.shared.hasPremium {
+                return manager.getAllObjects().map(Countdown.init)
+            }
+
+            guard let first = manager.getFirstPendingObject() else { return [] }
+            return [Countdown(object: first)]
+        }()
+        let collection = INObjectCollection(items: selection.map { WidgetCountdown(identifier: $0.id.uuidString, display: $0.title) })
         completion(collection, nil)
     }
 }
