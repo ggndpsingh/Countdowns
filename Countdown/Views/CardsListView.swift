@@ -18,9 +18,9 @@ struct CardsListView: View {
     @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     @ObservedObject var countdownSelection = CountdownSelection()
-    @ObservedObject var photoSourceSelection = PhotoSourceSelection()
     @ObservedObject var purchaseManager = PurchaseManager.shared
     @State private var deleteAlertPresented: Bool = false
+    @State var showPhotoPicker: Bool = false
     @State private var showGetPremium: Bool = false
 
     private var upcoming: [Countdown] {
@@ -67,19 +67,12 @@ struct CardsListView: View {
                                     },
                                     secondaryButton: .cancel(Text("Cancel")))
                             }
-                            .fullScreenCover(isPresented: $photoSourceSelection.showUnsplashPicker) {
-                                UnsplashPicker(selectionHandler: didSelectImage)
-                            }
-                            .fullScreenCover(isPresented: $photoSourceSelection.showLibraryPicker) {
-                                LibraryPicker(selectionHandler: didSelectImage)
+                            .fullScreenCover(isPresented: $showPhotoPicker) {
+                                PhotoPicker(selectionHandler: didSelectImage)
                             }
                     }
                     .fullScreenCover(isPresented: $showGetPremium, content: {
                         GetPremiumView(isPresenting: $showGetPremium)
-//                            .opacity(showGetPremium ? 1 : 0)
-//                            .accessibility(hidden: !showGetPremium)
-//                            .scaleEffect(showGetPremium ? 1 : 0.5)
-//                            .offset(y: showGetPremium ? 0 : 600)
                     })
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
@@ -131,25 +124,13 @@ struct CardsListView: View {
     }
 
     var barButton: some View {
-        Group {
-            if upcoming.count < 3 || PurchaseManager.shared.hasPremium {
-                PhotoSourceMenu(
-                    label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(Font.dank(size: 24))
-                    }, action: pickImage)
-                    .disabled(countdownSelection.isActive)
-                    .foregroundColor(countdownSelection.isActive ? .secondaryLabel : .brand)
-            } else {
-                Button(action: {
-                    withAnimation(.easeIn(duration: 0.3)) {
-                        showGetPremium.toggle()
-                    }
-                }) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(Font.dank(size: 24))
-                }
+        Button(action: {
+            withAnimation(.easeIn(duration: 0.3)) {
+                showPhotoPicker = true
             }
+        }) {
+            Image(systemName: "plus.circle.fill")
+                .font(Font.dank(size: 24))
         }
     }
 
@@ -180,8 +161,8 @@ struct CardsListView: View {
         }
     }
 
-    private func pickImage(from source: PhotoSource) {
-        photoSourceSelection.source = source
+    private func pickImage() {
+        showPhotoPicker = true
     }
 
     func didSelectImage(_ image: UIImage?) {

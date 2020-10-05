@@ -48,7 +48,7 @@ struct GetPremiumView: View {
 
             ZStack {
                 VStack(alignment: .center, spacing: 40) {
-                    VStack(alignment: .center, spacing: 8) {
+                    VStack(alignment: .center, spacing: 16) {
                         Image("icon")
                             .resizable()
                             .frame(width: 80, height: 80, alignment: .center)
@@ -70,11 +70,11 @@ struct GetPremiumView: View {
                         }
                     }
 
-                    Group {
-                        Text("You have used up your " + String(AppConstants.maxFreeCountdowns) + " free Countdowns.\n")
-                        + Text("Get Countdowns Premium ")
+                    VStack {
+                        Text("Upgrade to Countdowns Permium\nto unlock even more features with a\n")
+                        + Text("one-time purchase ")
                             .font(.system(size: 16, weight: .semibold, design: .default))
-                        + Text("for unlimited Countdowns.")
+                        + Text("of \(price ?? "")")
                     }
                     .multilineTextAlignment(.center)
                     .font(.system(size: 16, weight: .regular, design: .default))

@@ -16,7 +16,7 @@ struct CardView: View {
     var isNewPublisher: CardIsNewPublisher
 
     let countdown: Countdown
-    let imageHandler: (PhotoSource) -> Void
+    let imageHandler: () -> Void
     let doneHandler:  (Countdown) -> Void
     let closeHandler:  () -> Void
     let deleteHandler: () -> Void
@@ -29,7 +29,7 @@ struct CardView: View {
         countdown: Countdown,
         isNew: Bool,
         visibleSide: FlipViewSide,
-        imageHandler: @escaping (PhotoSource) -> Void,
+        imageHandler: @escaping () -> Void,
         doneHandler: @escaping (Countdown) -> Void,
         closeHandler: @escaping () -> Void,
         deleteHandler: @escaping () -> Void) {
@@ -85,11 +85,11 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
                 .frame(maxWidth: 520, alignment: .center)
                 .aspectRatio(0.75, contentMode: .fit)
 
-            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {_ in}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
                 .frame(maxWidth: 520, alignment: .center)
                 .aspectRatio(0.75, contentMode: .fit)
                 .preferredColorScheme(.dark)

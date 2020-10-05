@@ -7,13 +7,13 @@ struct CardBackView: View {
     @ObservedObject private var viewModel: CardBackViewModel
     @State private var datePickerPresented: Bool = false
 
-    let imageHandler: (PhotoSource) -> Void
+    let imageHandler: () -> Void
     let doneHandler: (Countdown) -> Void
     let deleteHandler: () -> Void
 
     init(
         viewModel: CardBackViewModel,
-        imageHandler: @escaping (PhotoSource) -> Void,
+        imageHandler: @escaping () -> Void,
         doneHandler: @escaping (Countdown) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
@@ -76,7 +76,7 @@ extension CardBackView {
         let hasReminder: Bool
         let reminderHandler: () -> Void
         let deleteHandler: () -> Void
-        let imageHandler: (PhotoSource) -> Void
+        let imageHandler: () -> Void
         let doneHandler: () -> Void
 
         var body: some View {
@@ -87,11 +87,10 @@ extension CardBackView {
                         image: "trash",
                         color: .red)
 
-                    PhotoSourceMenu(
-                        label: {
-                            RoundButton.ButtonImage("photo.fill", color: .brand)
-                        },
-                        action: imageHandler)
+                    RoundButton(
+                        action: imageHandler,
+                        image: "photo.fill",
+                        color: .brand)
                 }
 
                 Spacer()
@@ -213,11 +212,11 @@ struct GrayscaleDatePickerStyle: ViewModifier {
 struct CardBackView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {_ in }, doneHandler: {_ in }, deleteHandler: {})
+            CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {}, doneHandler: {_ in }, deleteHandler: {})
                 .frame(width: 400, height: 420, alignment: .center)
                 .previewLayout(.sizeThatFits)
 
-            CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {_ in }, doneHandler: {_ in }, deleteHandler: {})
+            CardBackView(viewModel: .init(countdown: .preview, isNew: false, countdownsManager: .init(context: PersistenceController.preview.container.viewContext)), imageHandler: {}, doneHandler: {_ in }, deleteHandler: {})
                 .preferredColorScheme(.dark)
                 .frame(width: 400, height: 420, alignment: .center)
                 .previewLayout(.sizeThatFits)

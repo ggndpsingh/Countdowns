@@ -3,11 +3,7 @@
 import SwiftUI
 import  UnsplashPhotoPicker
 
-enum PhotoSource: Int {
-    case library, unsplash
-}
-
-struct UnsplashPicker: UIViewControllerRepresentable {
+struct PhotoPicker: UIViewControllerRepresentable {
     typealias SelectionHandler = (UIImage?) -> Void
     let selectionHandler: SelectionHandler
 
@@ -16,10 +12,7 @@ struct UnsplashPicker: UIViewControllerRepresentable {
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
-        let picker = UnsplashPhotoPicker(
-            configuration: .init(
-                accessKey: "wDof0appRIkX10bAvr82b9EWzg8E6NMG0W8qY6NUMcE",
-                secretKey: "KRarbE5ghU6sJY630_aVf_00rh1x7LFGLIJbamdR2Qo"))
+        let picker = PhotoPickerViewController()
         picker.photoPickerDelegate = context.coordinator
         picker.title = "Select Photo"
         return picker
@@ -31,35 +24,19 @@ struct UnsplashPicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 
-    class Coordinator: NSObject, UnsplashPhotoPickerDelegate {
-        var parent: UnsplashPicker
+    class Coordinator: NSObject, PhotoPickerViewControllerDelegate {
+        var parent: PhotoPicker
 
-        init(_ parent: UnsplashPicker) {
+        init(_ parent: PhotoPicker) {
             self.parent = parent
         }
 
-        func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
-            guard let url = photos.first?.urls[.regular] else { return }
-            downloadImage(at: url)
+        func photoPickerViewControllerDidCancel(_ viewController: PhotoPickerViewController) {
+
         }
 
-        func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
-            didFinish(with: nil)
-        }
-
-        private func downloadImage(at url: URL) {
-            ImageLoader.shared.getImage(at: url) { [weak self] image in
-                self?.didFinish(with: image)
-            }
-        }
-
-        private func didFinish(with image: UIImage?) {
-            guard let image = image else { return parent.selectionHandler(nil) }
-
-            let resized = image.fixedOrientation().resize(to: 600)
-            if let data = resized.jpegData(compressionQuality: 0.7) {
-                parent.selectionHandler(UIImage(data: data))
-            }
+        func photoPickerViewController(_ viewController: PhotoPickerViewController, didFinishWith image: UIImage?) {
+            parent.selectionHandler(image)
         }
     }
 }

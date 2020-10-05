@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E613683525244E71009FF314 /* LibraryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683425244E71009FF314 /* LibraryPicker.swift */; };
 		E613683D25245154009FF314 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683C25245154009FF314 /* RoundButton.swift */; };
 		E613684425245160009FF314 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683C25245154009FF314 /* RoundButton.swift */; };
 		E613684C25245185009FF314 /* SquishableButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613684B25245185009FF314 /* SquishableButtonStyle.swift */; };
@@ -24,9 +23,7 @@
 		E622679C251B4ACC00C726C4 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622679B251B4ACC00C726C4 /* RemindersManager.swift */; };
 		E63542F72522ED59008E6D8E /* CountdownContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63542F62522ED59008E6D8E /* CountdownContainer.swift */; };
 		E63542FE2522ED6A008E6D8E /* CountdownContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63542F62522ED59008E6D8E /* CountdownContainer.swift */; };
-		E63543062522FCE4008E6D8E /* PhotoSourceMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */; };
 		E635430E252301CC008E6D8E /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E635430D252301CC008E6D8E /* EmptyListView.swift */; };
-		E6488A462528669100BD59FC /* PhotoSourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6488A452528669100BD59FC /* PhotoSourceSelection.swift */; };
 		E6488A4E252866A400BD59FC /* CountdownSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6488A4D252866A400BD59FC /* CountdownSelection.swift */; };
 		E6488A56252866FD00BD59FC /* CreateCountdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6488A55252866FD00BD59FC /* CreateCountdownButton.swift */; };
 		E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B772517643800F2DD13 /* IntentHandler.swift */; };
@@ -58,6 +55,7 @@
 		E65CFC5125270C6F00C97ED4 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CFC5025270C6F00C97ED4 /* UIImage.swift */; };
 		E65CFC5825270E8E00C97ED4 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CFC5025270C6F00C97ED4 /* UIImage.swift */; };
 		E65E210625280A1C0078CF33 /* PeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65E210525280A1C0078CF33 /* PeriodView.swift */; };
+		E6614F77252AEC930078A5ED /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6614F76252AEC930078A5ED /* PhotoPickerViewController.swift */; };
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
@@ -182,16 +180,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E613683425244E71009FF314 /* LibraryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPicker.swift; sourceTree = "<group>"; };
 		E613683C25245154009FF314 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		E613684B25245185009FF314 /* SquishableButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquishableButtonStyle.swift; sourceTree = "<group>"; };
 		E61617342523FFAF00D58D19 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
 		E6226797251B26E000C726C4 /* CountdownsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownsManager.swift; sourceTree = "<group>"; };
 		E622679B251B4ACC00C726C4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		E63542F62522ED59008E6D8E /* CountdownContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownContainer.swift; sourceTree = "<group>"; };
-		E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSourceMenu.swift; sourceTree = "<group>"; };
 		E635430D252301CC008E6D8E /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
-		E6488A452528669100BD59FC /* PhotoSourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSourceSelection.swift; sourceTree = "<group>"; };
 		E6488A4D252866A400BD59FC /* CountdownSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownSelection.swift; sourceTree = "<group>"; };
 		E6488A55252866FD00BD59FC /* CreateCountdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCountdownButton.swift; sourceTree = "<group>"; };
 		E6517B752517643800F2DD13 /* CountdownSelection.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CountdownSelection.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +213,7 @@
 		E65CFC482527045300C97ED4 /* GetPremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPremiumView.swift; sourceTree = "<group>"; };
 		E65CFC5025270C6F00C97ED4 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		E65E210525280A1C0078CF33 /* PeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodView.swift; sourceTree = "<group>"; };
+		E6614F76252AEC930078A5ED /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DankMono-Regular.otf"; sourceTree = "<group>"; };
@@ -482,8 +478,8 @@
 			isa = PBXGroup;
 			children = (
 				E66169A1251119AF00E5C15C /* PhotoPicker.swift */,
+				E6614F76252AEC930078A5ED /* PhotoPickerViewController.swift */,
 				E65CFC5025270C6F00C97ED4 /* UIImage.swift */,
-				E613683425244E71009FF314 /* LibraryPicker.swift */,
 				E658E8AF2510E86B007E9AFD /* Color.swift */,
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
@@ -509,9 +505,7 @@
 				E61617342523FFAF00D58D19 /* CardsListView.swift */,
 				E6488A55252866FD00BD59FC /* CreateCountdownButton.swift */,
 				E6488A4D252866A400BD59FC /* CountdownSelection.swift */,
-				E6488A452528669100BD59FC /* PhotoSourceSelection.swift */,
 				E635430D252301CC008E6D8E /* EmptyListView.swift */,
-				E63543052522FCE4008E6D8E /* PhotoSourceMenu.swift */,
 				E6226797251B26E000C726C4 /* CountdownsManager.swift */,
 				E622679B251B4ACC00C726C4 /* RemindersManager.swift */,
 				E658E8B52510FD7C007E9AFD /* CardView.swift */,
@@ -853,7 +847,6 @@
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
 				E622679C251B4ACC00C726C4 /* RemindersManager.swift in Sources */,
-				E613683525244E71009FF314 /* LibraryPicker.swift in Sources */,
 				E65E210625280A1C0078CF33 /* PeriodView.swift in Sources */,
 				E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
@@ -863,8 +856,8 @@
 				E6CAB067251727DC003848F9 /* CountdownObject.swift in Sources */,
 				E65CFC492527045300C97ED4 /* GetPremiumView.swift in Sources */,
 				E65CFC5125270C6F00C97ED4 /* UIImage.swift in Sources */,
-				E6488A462528669100BD59FC /* PhotoSourceSelection.swift in Sources */,
 				E6E314532504E0A2005C8B61 /* ComponentView.swift in Sources */,
+				E6614F77252AEC930078A5ED /* PhotoPickerViewController.swift in Sources */,
 				E6F81CE1251C81D60029FC93 /* AppDelegate.swift in Sources */,
 				E6E3140B2504DF87005C8B61 /* CountdownApp.swift in Sources */,
 				E65CFC3A2526F91B00C97ED4 /* PurchaseManager.swift in Sources */,
@@ -876,7 +869,6 @@
 				E6CAB07225172F51003848F9 /* ImageLoader.swift in Sources */,
 				E672EAFB251DD07D00724B2B /* Font.swift in Sources */,
 				E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */,
-				E63543062522FCE4008E6D8E /* PhotoSourceMenu.swift in Sources */,
 				E63542F72522ED59008E6D8E /* CountdownContainer.swift in Sources */,
 				E6CAB06425172720003848F9 /* ImageCache.swift in Sources */,
 				E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */,
