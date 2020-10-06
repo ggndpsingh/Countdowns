@@ -4,6 +4,7 @@ import WidgetKit
 import SwiftUI
 
 struct WidgetCountdownProvider: View {
+    let id: UUID
     let family: WidgetFamily
     let title: String
     let hasEnded: Bool
@@ -19,6 +20,7 @@ struct WidgetCountdownProvider: View {
         ZStack {
             CardBackground(image: image)
             countdown
+                .widgetURL(URL(string: "countdown/" + id.uuidString))
         }
     }
 

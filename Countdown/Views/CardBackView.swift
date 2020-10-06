@@ -10,13 +10,16 @@ struct CardBackView: View {
     let imageHandler: () -> Void
     let doneHandler: (Countdown) -> Void
     let deleteHandler: () -> Void
+    let isEditing: Bool
 
     init(
         viewModel: CardBackViewModel,
+        isEditing: Bool = false,
         imageHandler: @escaping () -> Void,
         doneHandler: @escaping (Countdown) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.isEditing = isEditing
         self.imageHandler = imageHandler
         self.doneHandler = doneHandler
         self.deleteHandler = deleteHandler
@@ -28,20 +31,22 @@ struct CardBackView: View {
                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
             VStack(alignment: .leading, spacing:24) {
-                Group {
-                    if verticalSizeClass == .compact {
-                        HStack(alignment: .top, spacing: 24) {
-                            TitleInput(title: $viewModel.title)
-                            DateInput(
-                                date: $viewModel.countdown.date,
-                                allDay: $viewModel.allDay)
-                        }
-                    } else {
-                        VStack(spacing: 24) {
-                            TitleInput(title: $viewModel.title)
-                            DateInput(
-                                date: $viewModel.countdown.date,
-                                allDay: $viewModel.allDay)
+                if isEditing {
+                    Group {
+                        if verticalSizeClass == .compact {
+                            HStack(alignment: .top, spacing: 24) {
+                                TitleInput(title: $viewModel.title)
+                                DateInput(
+                                    date: $viewModel.countdown.date,
+                                    allDay: $viewModel.allDay)
+                            }
+                        } else {
+                            VStack(spacing: 24) {
+                                TitleInput(title: $viewModel.title)
+                                DateInput(
+                                    date: $viewModel.countdown.date,
+                                    allDay: $viewModel.allDay)
+                            }
                         }
                     }
                 }
@@ -64,6 +69,7 @@ struct CardBackView: View {
             .padding()
             .padding([.top], 16)
         }
+        .accessibilityElement(children: .contain)
         .cornerRadius(16)
     }
 }

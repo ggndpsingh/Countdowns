@@ -28,8 +28,9 @@ struct Provider: IntentTimelineProvider {
     private func getCountdown(for configuration: SelectCountdownIntent) -> Countdown? {
         guard
             let id = configuration.countdown?.identifier,
-            let uuid = UUID(uuidString: id) else { return nil }
-        return manager.getObject(by: uuid).map(Countdown.init)
+            let uuid = UUID(uuidString: id)
+        else { return nil }
+        return manager.getObject(by: uuid).map(Countdown.init) ?? manager.getFirstPendingObject().map(Countdown.init)
     }
 
     func placeholder(in context: Context) -> CountdownEntry {

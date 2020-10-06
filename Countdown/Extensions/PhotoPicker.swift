@@ -31,10 +31,6 @@ struct PhotoPicker: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func photoPickerViewControllerDidCancel(_ viewController: PhotoPickerViewController) {
-
-        }
-
         func photoPickerViewController(_ viewController: PhotoPickerViewController, didFinishWith image: UIImage?) {
             parent.selectionHandler(image)
         }

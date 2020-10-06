@@ -29,12 +29,14 @@ struct CountdownsManager {
 
     func getAllObjects() -> [CountdownObject] {
         let request = CountdownObject.createFetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)]
         return (try? context.fetch(request)) ?? []
     }
 
     func getPendingObjects() -> [CountdownObject] {
         let request = CountdownObject.createFetchRequest()
         request.predicate = NSPredicate(format: "date > %@", Date() as CVarArg)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)]
         return (try? context.fetch(request)) ?? []
     }
 

@@ -56,6 +56,7 @@
 		E65CFC5825270E8E00C97ED4 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CFC5025270C6F00C97ED4 /* UIImage.swift */; };
 		E65E210625280A1C0078CF33 /* PeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65E210525280A1C0078CF33 /* PeriodView.swift */; };
 		E6614F77252AEC930078A5ED /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6614F76252AEC930078A5ED /* PhotoPickerViewController.swift */; };
+		E6614F90252B12570078A5ED /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CFC392526F91B00C97ED4 /* PurchaseManager.swift */; };
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
@@ -101,7 +102,6 @@
 		E6874A562521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E6874A592521CA3500B05377 /* CountdownStatus.intentdefinition */; };
 		E6874A572521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E6874A592521CA3500B05377 /* CountdownStatus.intentdefinition */; };
 		E68A7BE52522B2C300D62B74 /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8B32510FB28007E9AFD /* CardBackground.swift */; };
-		E68A7BEC2522B2CA00D62B74 /* CardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8AB251057D1007E9AFD /* CardFrontView.swift */; };
 		E68A7BF32522B2D300D62B74 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658E8BE2510FF70007E9AFD /* TitleView.swift */; };
 		E68A7BFA2522B2DB00D62B74 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3144A2504E0A2005C8B61 /* CountdownView.swift */; };
 		E6CAB06425172720003848F9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CAB06325172720003848F9 /* ImageCache.swift */; };
@@ -790,12 +790,12 @@
 				E622679A251B465000C726C4 /* CountdownsManager.swift in Sources */,
 				E6874A562521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */,
 				E67C536F2518319B00402D27 /* Color.swift in Sources */,
-				E68A7BEC2522B2CA00D62B74 /* CardFrontView.swift in Sources */,
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
 				E65CFC5825270E8E00C97ED4 /* UIImage.swift in Sources */,
 				E613685A2524519E009FF314 /* Blur.swift in Sources */,
 				E68A7BFA2522B2DB00D62B74 /* CountdownView.swift in Sources */,
 				E613685325245193009FF314 /* SquishableButtonStyle.swift in Sources */,
+				E6614F90252B12570078A5ED /* PurchaseManager.swift in Sources */,
 				E680AD6125175C4D001B5333 /* CountdownStatus.swift in Sources */,
 				E67AB3B5251C590E00D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E67C53692518317100402D27 /* CountdownObject.swift in Sources */,

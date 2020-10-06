@@ -11,6 +11,7 @@ struct CountdonWidget : View {
         Group {
             if let countdown = entry.countdown {
                 WidgetCountdownProvider(
+                    id: countdown.id,
                     family: family,
                     title: countdown.title,
                     hasEnded: countdown.hasEnded,

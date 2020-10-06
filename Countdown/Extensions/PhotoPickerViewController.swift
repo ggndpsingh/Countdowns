@@ -25,6 +25,8 @@ final class PhotoPickerViewController: UITabBarController {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
+        picker.navigationBar.isTranslucent = false
+        picker.navigationBar.barTintColor = .white
         picker.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "photo.on.rectangle"), selectedImage: UIImage(systemName: "photo.fill.on.rectangle.fill"))
         return picker
     }
@@ -34,6 +36,7 @@ final class PhotoPickerViewController: UITabBarController {
             configuration: .init(
                 accessKey: "wDof0appRIkX10bAvr82b9EWzg8E6NMG0W8qY6NUMcE",
                 secretKey: "KRarbE5ghU6sJY630_aVf_00rh1x7LFGLIJbamdR2Qo"))
+        picker.navigationBar.isTranslucent = false
         picker.photoPickerDelegate = self
         picker.viewControllers.first?.tabBarItem = UITabBarItem(title: "Unsplash", image: UIImage(named: "unsplash"), selectedImage: UIImage(named: "unsplash.fill"))
         return picker

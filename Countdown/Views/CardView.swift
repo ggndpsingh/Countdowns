@@ -28,7 +28,6 @@ struct CardView: View {
     internal init(
         countdown: Countdown,
         isNew: Bool,
-        visibleSide: FlipViewSide,
         imageHandler: @escaping () -> Void,
         doneHandler: @escaping (Countdown) -> Void,
         closeHandler: @escaping () -> Void,
@@ -51,7 +50,12 @@ struct CardView: View {
                 closeHandler: closeHandler)
         } back: {
             CardBackView(
-                viewModel: .init(countdown: countdown, isNew: isNewPublisher.isNew, countdownsManager: countdownsManager), imageHandler: imageHandler,
+                viewModel: .init(
+                    countdown: countdown,
+                    isNew: isNewPublisher.isNew,
+                    countdownsManager: countdownsManager),
+                isEditing: calculatedVisibleSide == .back,
+                imageHandler: imageHandler,
                 doneHandler: {
                     if isNewPublisher.isNew {
                         isNewPublisher.isNew = false
@@ -63,17 +67,7 @@ struct CardView: View {
                 },
                 deleteHandler: deleteHandler)
         }
-//        .contentShape(Rectangle())
         .animation(.flipCard, value: visibleSide)
-//        .onAppear {
-//            if isNew {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                    withAnimation(.spring(response: 1, dampingFraction: 0.8)) {
-//                        flipped = true
-//                    }
-//                }
-//            }
-//        }
     }
 
     func flipCard() {
@@ -85,11 +79,11 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+            CardView(countdown: .preview, isNew: false, imageHandler: {}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
                 .frame(maxWidth: 520, alignment: .center)
                 .aspectRatio(0.75, contentMode: .fit)
 
-            CardView(countdown: .preview, isNew: false, visibleSide: .front, imageHandler: {}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
+            CardView(countdown: .preview, isNew: false, imageHandler: {}, doneHandler: {_ in}, closeHandler: {}, deleteHandler: {})
                 .frame(maxWidth: 520, alignment: .center)
                 .aspectRatio(0.75, contentMode: .fit)
                 .preferredColorScheme(.dark)

@@ -23,6 +23,10 @@ struct CardsListView: View {
     @State var showPhotoPicker: Bool = false
     @State private var showGetPremium: Bool = false
 
+    private var canCreateCountdown: Bool {
+        purchaseManager.hasPremium || allCountdowns.count < AppConstants.maxFreeCountdowns
+    }
+
     private var upcoming: [Countdown] {
         fetchedObjects.map(Countdown.init)
             .filter { $0.date > Date() }
@@ -85,40 +89,38 @@ struct CardsListView: View {
             ForEach(allCountdowns) { countdown in
                 let presenting = countdown.id == countdownSelection.id
                 let isNew = presenting && countdownSelection.isNew
-                VStack {
-                    CardView(
-                        countdown: countdown,
-                        isNew: isNew,
-                        visibleSide: isNew ? .back : .front,
-                        imageHandler: pickImage,
-                        doneHandler: { updatedCountdown in
-                            if
-                                let id = countdownSelection.id,
-                                countdownSelection.isNew &&
-                                !countdownsManager.canSaveObject(for: updatedCountdown)
-                            {
-                                countdownsManager.deleteObject(with: id)
-                                countdownSelection.deselect()
-                                return
-                            }
+                CardView(
+                    countdown: countdown,
+                    isNew: isNew,
+                    imageHandler: pickImage,
+                    doneHandler: { updatedCountdown in
+                        if
+                            let id = countdownSelection.id,
+                            countdownSelection.isNew &&
+                            !countdownsManager.canSaveObject(for: updatedCountdown)
+                        {
+                            countdownsManager.deleteObject(with: id)
+                            countdownSelection.deselect()
+                            return
+                        }
 
-                            countdownSelection.isNew = false
-                            countdownsManager.updateObject(for: updatedCountdown)
-                        },
-                        closeHandler: deselectIngredient,
-                        deleteHandler: {
-                            deleteAlertPresented = true
-                        })
-                        .matchedGeometryEffect(id: countdown.id, in: namespace, isSource: presenting)
-                        .aspectRatio(verticalSizeClass == .compact ? 2 : 0.75, contentMode: .fit)
-                        .shadow(color: Color.black.opacity(presenting ? 0.2 : 0), radius: 20, y: 10)
-                        .padding(20)
-                        .opacity(presenting ? 1 : 0)
-                        .accessibilityElement(children: .contain)
-                        .accessibility(sortPriority: presenting ? 1 : 0)
-                        .accessibility(hidden: !presenting)
-                }
-                .frame(maxWidth: 720, maxHeight: presenting ? .infinity : 0, alignment: .center)
+                        countdownSelection.isNew = false
+                        countdownsManager.updateObject(for: updatedCountdown)
+                    },
+                    closeHandler: deselectIngredient,
+                    deleteHandler: {
+                        deleteAlertPresented = true
+                    })
+                    .matchedGeometryEffect(id: countdown.id, in: namespace, isSource: presenting)
+                    .aspectRatio(verticalSizeClass == .compact ? 2 : 0.75, contentMode: .fit)
+                    .shadow(color: Color.black.opacity(presenting ? 0.2 : 0), radius: 20, y: 10)
+                    .padding(20)
+                    .opacity(presenting ? 1 : 0)
+                    .zIndex(countdownSelection.id == countdown.id ? 1 : 0)
+                    .accessibilityElement(children: .contain)
+                    .accessibility(sortPriority: presenting ? 1 : 0)
+                    .accessibility(hidden: !presenting)
+                    .shadow(radius: 10)
             }
         }
     }
@@ -126,7 +128,11 @@ struct CardsListView: View {
     var barButton: some View {
         Button(action: {
             withAnimation(.easeIn(duration: 0.3)) {
-                showPhotoPicker = true
+                if canCreateCountdown {
+                    showPhotoPicker = true
+                } else {
+                    showGetPremium = true
+                }
             }
         }) {
             Image(systemName: "plus.circle.fill")
@@ -136,22 +142,20 @@ struct CardsListView: View {
 
     var content: some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                if !upcoming.isEmpty {
-                    makeGrid(countdowns: upcoming, label: "Upcoming")
-                }
-
-                if !past.isEmpty {
-                    makeGrid(countdowns: past, label: "Past")
-                }
+            if !upcoming.isEmpty {
+                makeGrid(countdowns: upcoming, label: "Upcoming")
             }
-            .padding()
+
+            if !past.isEmpty {
+                makeGrid(countdowns: past, label: "Past")
+            }
         }
+        .padding()
     }
 
-    func select(countdown: Countdown) {
+    func select(countdown id: Countdown.ID) {
         withAnimation(.openCard) {
-            countdownSelection.select(countdown.id, isNew: false)
+            countdownSelection.select(id, isNew: false)
         }
     }
 
@@ -192,7 +196,7 @@ struct CardsListView: View {
     }
 
     private func makeCardGriditem(_ countdown: Countdown, _ presenting: Bool) -> some View {
-        Button(action: { select(countdown: countdown) }) {
+        Button(action: { select(countdown: countdown.id) }) {
             CardFrontView(countdown: countdown, style: .thumbnail, flipHandler: {})
                 .matchedGeometryEffect(
                     id: countdown.id,
@@ -200,12 +204,11 @@ struct CardsListView: View {
                     isSource: !presenting
                 )
                 .contentShape(Rectangle())
-                .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
-                .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
-                .accessibility(label: Text(countdown.title))
-                .accessibility(hidden: !presenting)
         }
         .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+        .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
+        .accessibility(label: Text(countdown.title))
+        .accessibility(hidden: !presenting)
     }
 }
 
