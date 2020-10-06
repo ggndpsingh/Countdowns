@@ -4,7 +4,7 @@ import SwiftUI
 
 @main
 struct CountdownApp: App {
-//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     private let persistenceController = PersistenceController.shared
     private let countdownsManager = CountdownsManagerKey.defaultValue
     @Environment(\.scenePhase) private var scenePhase

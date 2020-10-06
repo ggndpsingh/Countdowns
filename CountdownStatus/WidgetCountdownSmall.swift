@@ -11,8 +11,9 @@ struct WidgetCountdownSmall: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(Font.system(size: 18, weight: .regular, design: .default))
+                .font(Font.system(size: 20, weight: .medium, design: .default))
                 .shadow(color: Color.black.opacity(0.4), radius: 1.5, x: 0.5, y: 0.5)
+                .lineLimit(2)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .foregroundColor(.white)

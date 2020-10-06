@@ -1,34 +1,52 @@
 //  Created by Gagandeep Singh on 2/10/20.
 
 import StoreKit
+import WidgetKit
+
+struct PurchaseStorage {
+    private var storage: UserDefaults {
+        guard let group = UserDefaults(suiteName: "group.com.deepgagan.CountdownGroup") else {
+            return .standard
+        }
+        return group
+    }
+
+    func addPurchase(for product: PurchaseManager.Product) {
+        storage.setValue(true, forKey: product.identifier)
+    }
+
+    func addPurchase(for identifier: ProductIdentifier) {
+        storage.setValue(true, forKey: identifier)
+    }
+
+    func removePurchase(for identifier: ProductIdentifier) {
+        storage.removeObject(forKey: identifier)
+    }
+
+    func hasPurchase(_ product: PurchaseManager.Product) -> Bool {
+        storage.bool(forKey: product.identifier)
+    }
+}
 
 typealias ProductIdentifier = String
 
 final class PurchaseManager: NSObject, ObservableObject {
     static let shared = PurchaseManager()
+    private let storage = PurchaseStorage()
     private var productsRequest: SKProductsRequest?
-    private var receiptRequest: SKReceiptRefreshRequest?
     private var productRequestCompletion: ((SKProduct?) -> Void)?
     private var purchaseCompletion: ((Bool) -> Void)?
-    private var purchasedProducts: [ProductIdentifier] = [] {
-        didSet {
-            objectWillChange.send()
-        }
-    }
 
     var hasPremium: Bool {
-        purchasedProducts.contains(Product.premium.identifier)
+        storage.hasPurchase(.premium)
     }
 
     override init() {
         super.init()
         SKPaymentQueue.default().add(self)
-        Product.allCases.forEach {
-            if UserDefaults.standard.bool(forKey: $0.identifier) {
-                UserDefaults.standard.removeObject(forKey: $0.identifier)
-//                purchasedProducts.append($0.identifier)
-            }
-        }
+//        if storage.hasPurchase(.premium) {
+//            storage.removePurchase(for: Product.premium.identifier)
+//        }
     }
 
     func requestProduct(completion: @escaping (SKProduct?) -> Void) {
@@ -38,12 +56,6 @@ final class PurchaseManager: NSObject, ObservableObject {
         productsRequest = SKProductsRequest(productIdentifiers: Product.identifiers)
         productsRequest?.delegate = self
         productsRequest?.start()
-    }
-
-    func requestReceipt() {
-        receiptRequest = SKReceiptRefreshRequest()
-        receiptRequest?.delegate = self
-        receiptRequest?.start()
     }
 
     func buyProduct(_ product: SKProduct, completion: @escaping (Bool) -> Void) {
@@ -70,15 +82,12 @@ extension PurchaseManager: SKPaymentTransactionObserver {
             switch transaction.transactionState {
             case .purchased:
                 complete(transaction: transaction)
-                purchaseCompletion?(true)
                 break
             case .failed:
                 fail(transaction: transaction)
-                purchaseCompletion?(false)
                 break
             case .restored:
                 restore(transaction: transaction)
-                purchaseCompletion?(true)
                 break
             case .deferred:
                 break
@@ -91,25 +100,21 @@ extension PurchaseManager: SKPaymentTransactionObserver {
     }
 
     private func complete(transaction: SKPaymentTransaction) {
-        print("complete...")
-        deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
-        UserDefaults.standard.setValue(true, forKey: transaction.payment.productIdentifier)
-        purchasedProducts.append(transaction.payment.productIdentifier)
+        storage.addPurchase(for: transaction.payment.productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
+        purchaseCompletion?(true)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func restore(transaction: SKPaymentTransaction) {
         guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
-
-        print("restore... \(productIdentifier)")
-        deliverPurchaseNotificationFor(identifier: productIdentifier)
-        UserDefaults.standard.setValue(true, forKey: transaction.payment.productIdentifier)
-        purchasedProducts.append(transaction.payment.productIdentifier)
+        storage.addPurchase(for: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
+        purchaseCompletion?(true)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func fail(transaction: SKPaymentTransaction) {
-        print("fail...")
         if let transactionError = transaction.error as NSError?,
            let localizedDescription = transaction.error?.localizedDescription,
            transactionError.code != SKError.paymentCancelled.rawValue {
@@ -117,11 +122,7 @@ extension PurchaseManager: SKPaymentTransactionObserver {
         }
 
         SKPaymentQueue.default().finishTransaction(transaction)
-    }
-
-    private func deliverPurchaseNotificationFor(identifier: String?) {
-        guard let identifier = identifier else { return }
-        UserDefaults.standard.set(true, forKey: identifier)
+        purchaseCompletion?(false)
     }
 }
 

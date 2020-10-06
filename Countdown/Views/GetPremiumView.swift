@@ -132,7 +132,6 @@ struct GetPremiumView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
-        .cornerRadius(16)
         .onAppear(perform: loadProduct)
     }
 

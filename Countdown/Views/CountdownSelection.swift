@@ -3,8 +3,13 @@
 import SwiftUI
 
 final class CountdownSelection: ObservableObject {
+    static let shared = CountdownSelection()
     @Published var id: Countdown.ID?
     var isNew: Bool = false
+
+    init() {
+        print("here")
+    }
 
     var isActive: Bool { id != nil }
 

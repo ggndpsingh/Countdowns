@@ -17,7 +17,7 @@ struct CardsListView: View {
     @Environment(\.countdownsManager) private var countdownsManager
     @Environment(\.verticalSizeClass) private var verticalSizeClass
 
-    @ObservedObject var countdownSelection = CountdownSelection()
+    @ObservedObject var countdownSelection = CountdownSelection.shared
     @ObservedObject var purchaseManager = PurchaseManager.shared
     @State private var deleteAlertPresented: Bool = false
     @State var showPhotoPicker: Bool = false
@@ -74,17 +74,19 @@ struct CardsListView: View {
                             .fullScreenCover(isPresented: $showPhotoPicker) {
                                 PhotoPicker(selectionHandler: didSelectImage)
                             }
+                            .onOpenURL { url in
+                                if url.pathComponents.first == "countdown", let uuid = UUID(uuidString: url.lastPathComponent) {
+                                    select(countdown: uuid)
+                                }
+                            }
                     }
-                    .fullScreenCover(isPresented: $showGetPremium, content: {
-                        GetPremiumView(isPresenting: $showGetPremium)
-                    })
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
             }
 
             Blur(style: .systemUltraThinMaterial)
                 .edgesIgnoringSafeArea(.all)
-                .opacity(countdownSelection.isActive ? 1 : 0)
+                .opacity(showGetPremium || countdownSelection.isActive ? 1 : 0)
 
             ForEach(allCountdowns) { countdown in
                 let presenting = countdown.id == countdownSelection.id
@@ -120,7 +122,13 @@ struct CardsListView: View {
                     .accessibilityElement(children: .contain)
                     .accessibility(sortPriority: presenting ? 1 : 0)
                     .accessibility(hidden: !presenting)
-                    .shadow(radius: 10)
+                    .frame(maxWidth: 720, maxHeight: presenting ? .infinity : 0, alignment: .center)
+            }
+
+            if !purchaseManager.hasPremium {
+                GetPremiumView(isPresenting: $showGetPremium)
+                    .accessibility(hidden: !showGetPremium)
+                    .opacity(showGetPremium ? 1 : 0)
             }
         }
     }
@@ -150,7 +158,6 @@ struct CardsListView: View {
                 makeGrid(countdowns: past, label: "Past")
             }
         }
-        .padding()
     }
 
     func select(countdown id: Countdown.ID) {
@@ -193,6 +200,7 @@ struct CardsListView: View {
                 }
             }
         }
+        .padding(.horizontal)
     }
 
     private func makeCardGriditem(_ countdown: Countdown, _ presenting: Bool) -> some View {

@@ -12,13 +12,17 @@ final class PhotoPickerViewController: UITabBarController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        viewControllers = [unsplashPicker(), imagePicker()]
         tabBar.isTranslucent = false
         navigationController?.navigationBar.isTranslucent = false
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewControllers = [unsplashPicker(), imagePicker()]
     }
 
     private func imagePicker() -> UIViewController {
