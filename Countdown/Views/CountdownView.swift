@@ -4,7 +4,7 @@ import SwiftUI
 import CoreData
 
 struct CountdownView: View {
-    private static let componentWidth: CGFloat = 70
+    private static let componentWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 80 : 70
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let date: Date
     let size: CountdownSize
@@ -26,7 +26,7 @@ struct CountdownView: View {
                             ComponentView(component: $0)
                         }
                     } else {
-                        VStack {
+                        VStack(spacing: 8) {
                             HStack {
                                 ForEach(components.prefix(3), id: \.self) {
                                     ComponentView(component: $0)

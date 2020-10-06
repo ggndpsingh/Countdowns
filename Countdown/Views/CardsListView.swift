@@ -71,9 +71,6 @@ struct CardsListView: View {
                                     },
                                     secondaryButton: .cancel(Text("Cancel")))
                             }
-                            .fullScreenCover(isPresented: $showPhotoPicker) {
-                                PhotoPicker(selectionHandler: didSelectImage)
-                            }
                             .onOpenURL { url in
                                 if url.pathComponents.first == "countdown", let uuid = UUID(uuidString: url.lastPathComponent) {
                                     select(countdown: uuid)
@@ -82,6 +79,9 @@ struct CardsListView: View {
                     }
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
+            }
+            .fullScreenCover(isPresented: $showPhotoPicker) {
+                PhotoPicker(selectionHandler: didSelectImage)
             }
 
             Blur(style: .systemUltraThinMaterial)
@@ -193,7 +193,7 @@ struct CardsListView: View {
             Text(label)
                 .font(.headline)
                 .padding([.top], 16)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 420, maximum: 520))], spacing: 16) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 360, maximum: 520))], spacing: 16) {
                 ForEach(countdowns) { countdown in
                     let presenting = countdown.id == countdownSelection.id
                     makeCardGriditem(countdown, presenting)
