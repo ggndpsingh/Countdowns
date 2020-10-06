@@ -84,7 +84,7 @@ struct CardsListView: View {
                 PhotoPicker(selectionHandler: didSelectImage)
             }
 
-            Blur(style: .systemUltraThinMaterial)
+            VisualEffectBlur()
                 .edgesIgnoringSafeArea(.all)
                 .opacity(showGetPremium || countdownSelection.isActive ? 1 : 0)
 

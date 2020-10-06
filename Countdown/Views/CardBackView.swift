@@ -149,7 +149,7 @@ extension CardBackView {
             }
             .padding(16)
             .foregroundColor(.label)
-            .background(Blur(style: .systemMaterial))
+            .background(VisualEffectBlur())
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .frame(maxWidth: .infinity)
             .onChange(of: title, perform: { value in
@@ -191,7 +191,7 @@ extension CardBackView {
             }
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Blur(style: .systemMaterial))
+            .background(VisualEffectBlur())
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }

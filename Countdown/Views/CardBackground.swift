@@ -14,7 +14,10 @@ struct CardBackground: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                         .clipped(antialiased: false)
-                        .overlay(Rectangle().fill(Color.black.opacity(0.3)))
+                        .overlay(Rectangle().fill(Color.black.opacity(0.2)))
+                        .contentShape(
+                            RoundedRectangle(cornerRadius: 16)
+                        )
                 }
             } else {
                 Color.pastels.randomElement()!

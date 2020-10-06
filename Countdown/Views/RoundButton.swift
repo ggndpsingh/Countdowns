@@ -28,7 +28,7 @@ struct RoundButton: View {
                 .font(Font.system(size: 12, weight: .bold, design: .monospaced))
                 .imageScale(.large)
                 .frame(width: 44, height: 44)
-                .background(Blur(style: .systemMaterial))
+                .background(VisualEffectBlur())
                 .clipShape(Circle())
                 .foregroundColor(color)
         }
