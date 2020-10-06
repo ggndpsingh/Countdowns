@@ -60,6 +60,8 @@
 		E66169A02511195400E5C15C /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E661699F2511195400E5C15C /* UnsplashPhotoPicker */; };
 		E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A1251119AF00E5C15C /* PhotoPicker.swift */; };
 		E66169A4251122B200E5C15C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66169A3251122B200E5C15C /* ImageView.swift */; };
+		E66F1622252C3D3400B552A8 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CFC5025270C6F00C97ED4 /* UIImage.swift */; };
+		E66F1636252C50D400B552A8 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66F1635252C50D400B552A8 /* ShareViewController.swift */; };
 		E672EAF9251DD02100724B2B /* DankMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */; };
 		E672EAFB251DD07D00724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
 		E672EAFC251DD1A000724B2B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672EAFA251DD07D00724B2B /* Font.swift */; };
@@ -216,6 +218,7 @@
 		E6614F76252AEC930078A5ED /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
 		E66169A1251119AF00E5C15C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E66169A3251122B200E5C15C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		E66F1635252C50D400B552A8 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		E672EAF8251DCFFF00724B2B /* DankMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DankMono-Regular.otf"; sourceTree = "<group>"; };
 		E672EAFA251DD07D00724B2B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		E672EB00251DE16800724B2B /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
@@ -485,6 +488,7 @@
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
 				E672EAFA251DD07D00724B2B /* Font.swift */,
 				E6DA816F2526EC9A00194EC6 /* Animation.swift */,
+				E66F1635252C50D400B552A8 /* ShareViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -771,6 +775,7 @@
 				E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */,
 				E6226794251B231A00C726C4 /* Persistence.swift in Sources */,
 				E6517B9D251766C000F2DD13 /* UNUserNotificationCenter.swift in Sources */,
+				E66F1622252C3D3400B552A8 /* UIImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +875,7 @@
 				E672EAFB251DD07D00724B2B /* Font.swift in Sources */,
 				E66169A2251119AF00E5C15C /* PhotoPicker.swift in Sources */,
 				E63542F72522ED59008E6D8E /* CountdownContainer.swift in Sources */,
+				E66F1636252C50D400B552A8 /* ShareViewController.swift in Sources */,
 				E6CAB06425172720003848F9 /* ImageCache.swift in Sources */,
 				E658E8BA2510FE80007E9AFD /* CardBackViewModel.swift in Sources */,
 			);

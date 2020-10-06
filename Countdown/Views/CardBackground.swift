@@ -13,19 +13,11 @@ struct CardBackground: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                        .cornerRadius(16)
-                        .contentShape(
-                            RoundedRectangle(cornerRadius: 24)
-                        )
                         .clipped(antialiased: false)
                         .overlay(Rectangle().fill(Color.black.opacity(0.3)))
                 }
             } else {
                 Color.pastels.randomElement()!
-                    .cornerRadius(16)
-                    .contentShape(
-                        RoundedRectangle(cornerRadius: 24)
-                    )
             }
         }
     }

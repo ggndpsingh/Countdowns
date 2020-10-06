@@ -10,7 +10,7 @@ struct TitleView: View {
     var body: some View {
         ZStack {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text(title)
                         .font(Font.system(size: 28, weight: .medium, design: .default))
 
@@ -20,9 +20,7 @@ struct TitleView: View {
                     }
                 }
                 .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
-            .padding([.top], 24)
             .padding(.horizontal, 16)
         }
         .frame(alignment: .topLeading)

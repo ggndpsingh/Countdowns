@@ -211,10 +211,10 @@ struct CardsListView: View {
                     in: namespace,
                     isSource: !presenting
                 )
-                .contentShape(Rectangle())
+                .cornerRadius(16)
         }
         .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
-        .aspectRatio(verticalSizeClass == .compact ? 2 : 1.5, contentMode: .fit)
+        .aspectRatio(verticalSizeClass == .compact ? 2 : 1, contentMode: .fit)
         .accessibility(label: Text(countdown.title))
         .accessibility(hidden: !presenting)
     }

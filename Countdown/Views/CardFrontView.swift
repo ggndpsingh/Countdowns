@@ -5,17 +5,20 @@ import SwiftUI
 struct CardFrontView: View {
     let countdown: Countdown
     let style: Style
+    let addWatermark: Bool
     let flipHandler: () -> Void
     let closeHandler: () -> Void
-
+    @State var sharing: Bool = false
 
     init(
         countdown: Countdown,
         style: CardFrontView.Style,
+        addWatermark: Bool = false,
         flipHandler: @escaping () -> Void = {},
         closeHandler: @escaping () -> Void = {}) {
         self.countdown = countdown
         self.style = style
+        self.addWatermark = addWatermark
         self.flipHandler = flipHandler
         self.closeHandler = closeHandler
     }
@@ -31,22 +34,58 @@ struct CardFrontView: View {
             CardBackground(image: countdown.image)
             switch style {
             case .thumbnail:
-                title
+                VStack(alignment: .leading) {
+                    title
+                    if addWatermark {
+                        Spacer()
+                        HStack {
+                            Image("icon")
+                                .resizable()
+                                .frame(width: 20, height: 20, alignment: .center)
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
+                            Text("Created with Countdowns")
+                                .font(.system(size: 12, weight: .medium, design: .default))
+                                .foregroundColor(.white)
+                                .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0.5, y: 0.5)
+                        }
+                        .padding()
+                    }
+                }
+                .padding([.top], 24)
             case .details:
                 VStack(alignment: .trailing) {
                     HStack(alignment: .top) {
                         title
-                        RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
-                            .padding()
+
+                        Spacer()
+
+                        HStack(alignment: .top) {
+                            RoundButton(
+                                action: { sharing = true },
+                                image: "square.and.arrow.up",
+                                color: .secondaryLabel)
+                                .sheet(isPresented: $sharing, content: {
+                                    ShareView(countdown: countdown)
+                                        .edgesIgnoringSafeArea(.all)
+                                })
+
+                            RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
+                        }
+                        .padding(.horizontal)
+                        .frame(alignment: .top)
                     }
+
+                    Spacer()
+
                     RoundButton(action: flipHandler, image: "square.and.pencil", color: .secondaryLabel)
                         .padding()
                 }
+                .padding([.top], 24)
             }
             CountdownView(date: countdown.date, size: style == .thumbnail ? .medium : .full)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .cornerRadius(16)
     }
 
     private var title: some View {
@@ -58,7 +97,16 @@ struct CardFrontView: View {
 struct CardFrontView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardFrontView(countdown: .preview, style: .details, flipHandler: {})
+            CardFrontView(countdown: .preview, style: .thumbnail)
+                .frame(width: 400, height: 400, alignment: .center)
+                .previewLayout(.sizeThatFits)
+
+            CardFrontView(countdown: .preview, style: .details)
+                .frame(width: 400, height: 600, alignment: .center)
+                .previewLayout(.sizeThatFits)
+            CardFrontView(countdown: .preview, style: .thumbnail, addWatermark: true)
+                .frame(width: 400, height: 400, alignment: .center)
+                .previewLayout(.sizeThatFits)
         }
     }
 }

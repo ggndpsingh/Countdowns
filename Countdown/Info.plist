@@ -20,6 +20,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow adding photos to library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>CountdownIntentIntent</string>
