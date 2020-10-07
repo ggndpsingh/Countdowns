@@ -6,6 +6,30 @@ struct AppConstants {
     static let maxFreeCountdowns: Int = 3
 }
 
+final class PreferenceToggle: ObservableObject {
+    static let shared = PreferenceToggle()
+
+    var showPreferences: Bool = false
+    var showGetPremium: Bool = false
+
+    func open(showGetPremium: Bool) {
+        showPreferences = true
+        self.showGetPremium = showGetPremium
+        objectWillChange.send()
+    }
+
+    func closeGetPremium() {
+        showGetPremium = false
+        objectWillChange.send()
+    }
+
+    func close() {
+        showPreferences = false
+        showGetPremium = false
+        objectWillChange.send()
+    }
+}
+
 struct CardsListView: View {
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
@@ -19,9 +43,9 @@ struct CardsListView: View {
 
     @ObservedObject var countdownSelection = CountdownSelection.shared
     @ObservedObject var purchaseManager = PurchaseManager.shared
+    @ObservedObject var preferenceTogle = PreferenceToggle.shared
     @State private var deleteAlertPresented: Bool = false
-    @State var showPhotoPicker: Bool = false
-    @State private var showGetPremium: Bool = false
+    @State private var showPhotoPicker: Bool = false
 
     private var canCreateCountdown: Bool {
         purchaseManager.hasPremium || allCountdowns.count < AppConstants.maxFreeCountdowns
@@ -47,14 +71,14 @@ struct CardsListView: View {
                 if allCountdowns.isEmpty {
                     NavigationView {
                         EmptyListView()
-                            .navigationBarItems(trailing: barButton)
+                            .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
                             .navigationBarTitleDisplayMode(.inline)
                     }
                     .navigationViewStyle(StackNavigationViewStyle())
                 } else {
                     NavigationView {
                         content
-                            .navigationBarItems(trailing: barButton)
+                            .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
                             .navigationTitle("Upcoming")
                             .navigationBarTitleDisplayMode(.inline)
 
@@ -84,9 +108,9 @@ struct CardsListView: View {
                 PhotoPicker(selectionHandler: didSelectImage)
             }
 
-            VisualEffectBlur()
+            VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
                 .edgesIgnoringSafeArea(.all)
-                .opacity(showGetPremium || countdownSelection.isActive ? 1 : 0)
+                .opacity(preferenceTogle.showPreferences || countdownSelection.isActive ? 1 : 0)
 
             ForEach(allCountdowns) { countdown in
                 let presenting = countdown.id == countdownSelection.id
@@ -125,21 +149,45 @@ struct CardsListView: View {
                     .frame(maxWidth: 720, maxHeight: presenting ? .infinity : 0, alignment: .center)
             }
 
-            if !purchaseManager.hasPremium {
-                GetPremiumView(isPresenting: $showGetPremium)
-                    .accessibility(hidden: !showGetPremium)
-                    .opacity(showGetPremium ? 1 : 0)
+//            if !purchaseManager.hasPremium {
+//                GetPremiumView(isPresenting: $showGetPremium)
+//                    .accessibility(hidden: !showGetPremium)
+//                    .opacity(showGetPremium ? 1 : 0)
+//            }
+
+            VStack {
+                SettingsView(closeHandler: {
+                    withAnimation(.closeCard) {
+                        preferenceTogle.close()
+                    }
+                })
+                .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
+                .offset(x: preferenceTogle.showPreferences ? 0 : -480)
             }
+            .edgesIgnoringSafeArea(.all)
+            .opacity(preferenceTogle.showPreferences ? 1 : 0)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         }
     }
 
-    var barButton: some View {
+    var preferencesButton: some View {
         Button(action: {
-            withAnimation(.easeIn(duration: 0.3)) {
-                if canCreateCountdown {
-                    showPhotoPicker = true
-                } else {
-                    showGetPremium = true
+            withAnimation(.openCard) {
+                preferenceTogle.open(showGetPremium: false)
+            }
+        }) {
+            Image(systemName: "text.justify")
+                .font(Font.dank(size: 24))
+        }
+    }
+
+    var createCountdownButton: some View {
+        Button(action: {
+            if canCreateCountdown {
+                showPhotoPicker = true
+            } else {
+                withAnimation(.openCard) {
+                    preferenceTogle.open(showGetPremium: true)
                 }
             }
         }) {

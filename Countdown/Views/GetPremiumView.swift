@@ -5,7 +5,7 @@ import StoreKit
 
 struct GetPremiumView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @Binding var isPresenting: Bool
+    let closeHandler: () -> Void
     @State private var product: SKProduct?
     @State var isLoading = false
 
@@ -41,10 +41,8 @@ struct GetPremiumView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .edgesIgnoringSafeArea(.all)
 
-            RoundButton(action: {
-                isPresenting = false
-            }, image: "xmark", color: .secondaryLabel)
-            .padding()
+            RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
+                .padding(24)
 
             ZStack {
                 VStack(alignment: .center, spacing: 40) {
@@ -85,9 +83,9 @@ struct GetPremiumView: View {
                             .font(.system(size: 14, weight: .medium, design: .rounded))
                             .padding([.bottom], 4)
 
-                        premiumFeatureItem(text: "Unlimited Countdowns")
-                        premiumFeatureItem(text: "Choose any Countdown in a Widget")
-                        premiumFeatureItem(text: "Add Photos from your library")
+                        premiumFeatureItem(text: "Unlimited events")
+                        premiumFeatureItem(text: "Add any event to a Widget")
+                        premiumFeatureItem(text: "No watermark")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 14, weight: .regular, design: .default))
@@ -101,7 +99,7 @@ struct GetPremiumView: View {
                             withAnimation(.easeIn) {
                                 isLoading = false
                                 if success {
-                                    isPresenting = false
+                                    closeHandler()
                                 }
                             }
                         }
@@ -132,6 +130,7 @@ struct GetPremiumView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
+        .padding(.vertical, 40)
         .onAppear(perform: loadProduct)
     }
 
@@ -145,11 +144,11 @@ struct GetPremiumView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            GetPremiumView(isPresenting: $presenting)
+            GetPremiumView(closeHandler: {})
                 .frame(width: 400, height: 600, alignment: .center)
                 .previewLayout(.sizeThatFits)
                 .padding()
-            GetPremiumView(isPresenting: $presenting)
+            GetPremiumView(closeHandler: {})
                 .preferredColorScheme(.dark)
                 .frame(width: 800, height: 1200, alignment: .center)
                 .previewLayout(.sizeThatFits)
