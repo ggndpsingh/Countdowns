@@ -20,7 +20,7 @@ struct BuyPremiumButton: View {
                 .background(Color.primary)
                 .cornerRadius(8)
         }
-        .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+        .buttonStyle(SquishableButtonStyle())
     }
 
     enum ButtonState {

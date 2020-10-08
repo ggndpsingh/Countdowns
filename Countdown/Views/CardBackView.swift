@@ -104,7 +104,7 @@ extension CardBackView {
                 RoundButton(
                     action: doneHandler,
                     image: canSave ? "checkmark" : isNew ? "xmark" : "arrow.backward",
-                    color: canSave ? .green : .secondaryLabel)
+                    color: canSave ? .green : .secondary)
             }
         }
     }
@@ -131,7 +131,7 @@ extension CardBackView {
                     Spacer()
 
                     Text("\(title.count)")
-                        .foregroundColor((title.count < 3 || remainingLimit <= 5) ? .red : .secondaryLabel)
+                        .foregroundColor((title.count < 3 || remainingLimit <= 5) ? .red : .secondary)
                         .font(Font.dank(size: 11))
 
                     Text(" / \(minLength)-\(maxLength)")

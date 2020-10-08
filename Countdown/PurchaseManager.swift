@@ -63,6 +63,10 @@ final class PurchaseManager: NSObject, ObservableObject {
         let payment = SKPayment(product: product)
         SKPaymentQueue.default().add(payment)
     }
+
+    func restorePurchases() {
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
 }
 
 extension PurchaseManager: SKProductsRequestDelegate {

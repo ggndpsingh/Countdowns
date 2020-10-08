@@ -48,7 +48,7 @@ final class ShareViewController: UIViewController {
 
     init(_ countdown: Countdown) {
         self.countdown = countdown
-        let card = CardFrontView(countdown: countdown, style: .thumbnail, addWatermark: !PurchaseManager.shared.hasPremium)
+        let card = CardFrontView(countdown: countdown, style: .shareable, addWatermark: !PurchaseManager.shared.hasPremium)
         host = UIHostingController(rootView: CardWrapper(card: card))
         super.init(nibName: nil, bundle: nil)
     }

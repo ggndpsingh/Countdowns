@@ -9,7 +9,7 @@ struct WidgetEmptyStateLarge: View {
             Image(systemName: "info.circle.fill")
                 .font(Font.dank(size: 12))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .foregroundColor(Color.secondaryLabel)
+                .foregroundColor(Color.secondary)
 
             VStack(alignment: .center, spacing: 4) {
                 Text("Select a countdown")

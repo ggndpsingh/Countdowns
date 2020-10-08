@@ -33,8 +33,7 @@ final class PreferenceToggle: ObservableObject {
 struct CardsListView: View {
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
-        animation: .spring()
+        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)]
     ) var fetchedObjects
 
     @Namespace private var namespace
@@ -43,7 +42,7 @@ struct CardsListView: View {
 
     @ObservedObject var countdownSelection = CountdownSelection.shared
     @ObservedObject var purchaseManager = PurchaseManager.shared
-    @ObservedObject var preferenceTogle = PreferenceToggle.shared
+    @ObservedObject var preferenceToggle = PreferenceToggle.shared
     @State private var deleteAlertPresented: Bool = false
     @State private var showPhotoPicker: Bool = false
 
@@ -65,52 +64,55 @@ struct CardsListView: View {
 
     private var allCountdowns: [Countdown] { upcoming + past }
 
+    private var emptyState: some View {
+        EmptyListView()
+            .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
+            .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var container: some View {
+        Group {
+            if allCountdowns.isEmpty {
+                emptyState
+            } else {
+                content
+            }
+        }
+    }
+
     var body: some View {
         ZStack {
-            Group {
-                if allCountdowns.isEmpty {
-                    NavigationView {
-                        EmptyListView()
-                            .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
-                            .navigationBarTitleDisplayMode(.inline)
-                    }
-                    .navigationViewStyle(StackNavigationViewStyle())
-                } else {
-                    NavigationView {
-                        content
-                            .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
-                            .navigationTitle("Upcoming")
-                            .navigationBarTitleDisplayMode(.inline)
+            NavigationView {
+                container
+                    .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
+                    .navigationTitle("Countdowns")
+                    .navigationBarTitleDisplayMode(.inline)
 
-                            .alert(isPresented: $deleteAlertPresented) {
-                                Alert(
-                                    title: Text("Delete Countdown"),
-                                    message: Text("Are you sure you want to delete this countdown?"),
-                                    primaryButton: .destructive(Text("Delete")) {
-                                        guard let id = countdownSelection.id else { return }
-                                        withAnimation(.closeCard) {
-                                            countdownsManager.deleteObject(with: id)
-                                            deselectIngredient()
-                                        }
-                                    },
-                                    secondaryButton: .cancel(Text("Cancel")))
-                            }
-                            .onOpenURL { url in
-                                if url.pathComponents.first == "countdown", let uuid = UUID(uuidString: url.lastPathComponent) {
-                                    select(countdown: uuid)
-                                }
-                            }
+                    .alert(isPresented: $deleteAlertPresented) {
+                        Alert(
+                            title: Text("Delete Countdown"),
+                            message: Text("Are you sure you want to delete this countdown?"),
+                            primaryButton: .destructive(Text("Delete")) {
+                                guard let id = countdownSelection.id else { return }
+                                countdownsManager.deleteObject(with: id)
+                                deselectIngredient()
+                            },
+                            secondaryButton: .cancel(Text("Cancel")))
                     }
-                    .navigationViewStyle(StackNavigationViewStyle())
+                    .onOpenURL { url in
+                        if url.pathComponents.first == "countdown", let uuid = UUID(uuidString: url.lastPathComponent) {
+                            select(countdown: uuid)
+                        }
+                    }
                 }
-            }
-            .fullScreenCover(isPresented: $showPhotoPicker) {
-                PhotoPicker(selectionHandler: didSelectImage)
-            }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .fullScreenCover(isPresented: $showPhotoPicker) {
+                    PhotoPicker(selectionHandler: didSelectImage)
+                }
 
             VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
                 .edgesIgnoringSafeArea(.all)
-                .opacity(preferenceTogle.showPreferences || countdownSelection.isActive ? 1 : 0)
+                .opacity(preferenceToggle.showPreferences || countdownSelection.isActive ? 1 : 0)
 
             ForEach(allCountdowns) { countdown in
                 let presenting = countdown.id == countdownSelection.id
@@ -149,35 +151,26 @@ struct CardsListView: View {
                     .frame(maxWidth: 720, maxHeight: presenting ? .infinity : 0, alignment: .center)
             }
 
-//            if !purchaseManager.hasPremium {
-//                GetPremiumView(isPresenting: $showGetPremium)
-//                    .accessibility(hidden: !showGetPremium)
-//                    .opacity(showGetPremium ? 1 : 0)
-//            }
-
-            VStack {
-                SettingsView(closeHandler: {
-                    withAnimation(.closeCard) {
-                        preferenceTogle.close()
-                    }
-                })
-                .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
-                .offset(x: preferenceTogle.showPreferences ? 0 : -480)
+            if preferenceToggle.showPreferences {
+                VStack {
+                    SettingsView(closeHandler: preferenceToggle.close)
+                    .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
+                }
+                .edgesIgnoringSafeArea(.all)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .transition(.moveAndFadeLeading)
             }
-            .edgesIgnoringSafeArea(.all)
-            .opacity(preferenceTogle.showPreferences ? 1 : 0)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         }
     }
 
     var preferencesButton: some View {
         Button(action: {
             withAnimation(.openCard) {
-                preferenceTogle.open(showGetPremium: false)
+                preferenceToggle.open(showGetPremium: false)
             }
         }) {
             Image(systemName: "text.justify")
-                .font(Font.dank(size: 24))
+                .font(Font.dank(size: 20))
         }
     }
 
@@ -187,12 +180,12 @@ struct CardsListView: View {
                 showPhotoPicker = true
             } else {
                 withAnimation(.openCard) {
-                    preferenceTogle.open(showGetPremium: true)
+                    preferenceToggle.open(showGetPremium: true)
                 }
             }
         }) {
-            Image(systemName: "plus.circle.fill")
-                .font(Font.dank(size: 24))
+            Image(systemName: "plus")
+                .font(Font.dank(size: 20))
         }
     }
 
@@ -209,7 +202,7 @@ struct CardsListView: View {
     }
 
     func select(countdown id: Countdown.ID) {
-        withAnimation(.openCard) {
+        withAnimation {
             countdownSelection.select(id, isNew: false)
         }
     }
@@ -261,7 +254,7 @@ struct CardsListView: View {
                 )
                 .cornerRadius(16)
         }
-        .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+        .buttonStyle(SquishableButtonStyle())
         .aspectRatio(verticalSizeClass == .compact ? 2 : 1, contentMode: .fit)
         .accessibility(label: Text(countdown.title))
         .accessibility(hidden: !presenting)
@@ -283,3 +276,29 @@ struct SomeView_Previews: PreviewProvider {
     }
 }
 
+
+extension AnyTransition {
+    static var moveAndFadeLeading: AnyTransition {
+        let insertion = AnyTransition.move(edge: .leading)
+            .combined(with: .opacity)
+        let removal = AnyTransition.move(edge: .leading)
+            .combined(with: .opacity)
+        return .asymmetric(insertion: insertion, removal: removal)
+    }
+    
+    static var moveAndFadeBottom: AnyTransition {
+        let insertion = AnyTransition.move(edge: .bottom)
+            .combined(with: .opacity)
+        let removal = AnyTransition.move(edge: .bottom)
+            .combined(with: .opacity)
+        return .asymmetric(insertion: insertion, removal: removal)
+    }
+    
+    static var moveAndFadeTop: AnyTransition {
+        let insertion = AnyTransition.move(edge: .top)
+            .combined(with: .opacity)
+        let removal = AnyTransition.move(edge: .top)
+            .combined(with: .opacity)
+        return .asymmetric(insertion: insertion, removal: removal)
+    }
+}

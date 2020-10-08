@@ -28,7 +28,7 @@ struct CreateCountdownButton: View {
                     .clipShape(Capsule())
                     .padding([.top], 16)
                 }
-                .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+                .buttonStyle(SquishableButtonStyle())
                 
             } else {
                 Button(action: getPremiumHandler) {
@@ -44,7 +44,7 @@ struct CreateCountdownButton: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .padding([.top], 16)
                 }
-                .buttonStyle(SquishableButtonStyle(fadeOnPress: false))
+                .buttonStyle(SquishableButtonStyle())
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)

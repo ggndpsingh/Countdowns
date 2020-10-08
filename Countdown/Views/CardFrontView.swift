@@ -27,13 +27,14 @@ struct CardFrontView: View {
     enum Style {
         case thumbnail
         case details
+        case shareable
     }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            CardBackground(image: countdown.image)
+            CardBackground(image: countdown.image, squareEdges: style == .shareable)
             switch style {
-            case .thumbnail:
+            case .thumbnail, .shareable:
                 VStack(alignment: .leading) {
                     title
                     if addWatermark {
@@ -64,13 +65,13 @@ struct CardFrontView: View {
                             RoundButton(
                                 action: { sharing = true },
                                 image: "square.and.arrow.up",
-                                color: .secondaryLabel)
+                                color: .secondary)
                                 .sheet(isPresented: $sharing, content: {
                                     ShareView(countdown: countdown)
                                         .edgesIgnoringSafeArea(.all)
                                 })
 
-                            RoundButton(action: closeHandler, image: "xmark", color: .secondaryLabel)
+                            RoundButton(action: closeHandler, image: "xmark", color: .secondary)
                         }
                         .padding(.horizontal)
                         .frame(alignment: .top)
@@ -78,7 +79,7 @@ struct CardFrontView: View {
 
                     Spacer()
 
-                    RoundButton(action: flipHandler, image: "square.and.pencil", color: .secondaryLabel)
+                    RoundButton(action: flipHandler, image: "square.and.pencil", color: .secondary)
                         .padding()
                 }
                 .padding([.top], 24)

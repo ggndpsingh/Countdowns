@@ -48,7 +48,6 @@ struct CardView: View {
                 style: .details,
                 flipHandler: flipCard,
                 closeHandler: closeHandler)
-                .cornerRadius(16)
         } back: {
             CardBackView(
                 viewModel: .init(

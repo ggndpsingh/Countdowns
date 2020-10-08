@@ -3,7 +3,13 @@
 import SwiftUI
 
 struct CardBackground: View {
-    let image: UIImage?
+    private let image: UIImage?
+    private let squareEdges: Bool
+
+    init(image: UIImage?, squareEdges: Bool = false) {
+        self.image = image
+        self.squareEdges = squareEdges
+    }
 
     var body: some View {
         Group {
@@ -15,12 +21,28 @@ struct CardBackground: View {
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                         .clipped(antialiased: false)
                         .overlay(Rectangle().fill(Color.black.opacity(0.2)))
-                        .contentShape(
-                            RoundedRectangle(cornerRadius: 16)
-                        )
+                        .modifier(CardCornerRadius(squareEdges: squareEdges))
                 }
             } else {
                 Color.pastels.randomElement()!
+            }
+        }
+    }
+}
+
+struct CardCornerRadius: ViewModifier {
+    let squareEdges: Bool
+
+    func body(content: Content) -> some View {
+        Group {
+            if squareEdges {
+                content
+            } else {
+                content
+                .cornerRadius(16)
+                .contentShape(
+                    RoundedRectangle(cornerRadius: 16)
+                )
             }
         }
     }

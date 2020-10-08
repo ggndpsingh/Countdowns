@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E613193E252ED9E900F4B810 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613193D252ED9E900F4B810 /* ShareSheet.swift */; };
 		E613683D25245154009FF314 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683C25245154009FF314 /* RoundButton.swift */; };
 		E613684425245160009FF314 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613683C25245154009FF314 /* RoundButton.swift */; };
 		E613684C25245185009FF314 /* SquishableButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E613684B25245185009FF314 /* SquishableButtonStyle.swift */; };
@@ -183,6 +184,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E613193D252ED9E900F4B810 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		E613683C25245154009FF314 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		E613684B25245185009FF314 /* SquishableButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquishableButtonStyle.swift; sourceTree = "<group>"; };
 		E61617342523FFAF00D58D19 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				E65E210525280A1C0078CF33 /* PeriodView.swift */,
 				E6766A8C252898EE00CAEF6E /* LoadingSpinner.swift */,
 				E67F4F35252D3D51001466D2 /* SettingsView.swift */,
+				E613193D252ED9E900F4B810 /* ShareSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				E622679C251B4ACC00C726C4 /* RemindersManager.swift in Sources */,
 				E65E210625280A1C0078CF33 /* PeriodView.swift in Sources */,
 				E658E8C725110753007E9AFD /* UNUserNotificationCenter.swift in Sources */,
+				E613193E252ED9E900F4B810 /* ShareSheet.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
 				E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */,

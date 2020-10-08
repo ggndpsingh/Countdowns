@@ -11,7 +11,7 @@ struct RoundButton: View {
         Button(action: action) {
             ButtonImage(image, color: color)
         }
-        .buttonStyle(SquishableButtonStyle(fadeOnPress: true))
+        .buttonStyle(SquishableButtonStyle())
     }
 
     struct ButtonImage: View {
@@ -37,8 +37,8 @@ struct RoundButton: View {
 
 struct RoundButton_Previews: PreviewProvider {
     static var previews: some View {
-        RoundButton(action: {}, image: "pencil", color: .secondaryLabel)
-            .background(Color.secondaryLabel)
+        RoundButton(action: {}, image: "pencil", color: .secondary)
+            .background(Color.secondary)
             .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             .previewLayout(.sizeThatFits)
     }
