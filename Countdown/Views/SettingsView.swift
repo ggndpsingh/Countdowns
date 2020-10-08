@@ -1,15 +1,34 @@
 //  Created by Gagandeep Singh on 7/10/20.
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var toggle = PreferenceToggle.shared
     @State private var showGetPremium: Bool = false
     @State private var showShareSheet: Bool = false
+    @State private var isLoading = false
+    @State private var product: SKProduct?
     let closeHandler: () -> Void
 
-    private var showPremium: Bool { showGetPremium || toggle.showGetPremium }
+    private var showPremium: Bool {
+        showGetPremium || toggle.showGetPremium
+    }
+    private var price: String? {
+        guard let product = product else { return nil }
+        let formatter = NumberFormatter()
+        formatter.locale = product.priceLocale
+        formatter.numberStyle = .currency
+        return formatter.string(from: product.price)
+    }
+
+    private var buttonText: String {
+        if showPremium {
+            return isLoading ? "" : "Buy for \(price ?? "")"
+        }
+        return "Upgrade to Premium"
+    }
 
     fileprivate func preferenceItem(text: String, image: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
@@ -27,67 +46,61 @@ struct SettingsView: View {
     }
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             Color.systemBackground
                 .edgesIgnoringSafeArea(.all)
+            VStack(spacing: 0) {
+                navigation
 
-            GeometryReader { geo in
-                VStack(spacing: 0) {
-                    navigation
-
-                    if (!showPremium) {
-                        VStack {
-                            preferences
-
-                            Spacer()
-
-                            if !PurchaseManager.shared.hasPremium {
-                                premiumButton
-                            }
-                        }
-                        .padding(24)
-                        .transition(.moveAndFadeTop)
-                    }
-
-                    if (showPremium) {
-                        GetPremiumView(closeHandler: handleClose)
-                    }
+                if (showPremium) {
+                    GetPremiumView(closeHandler: handleClose)
+                } else {
+                    preferences
                 }
             }
-            .padding(.vertical, 24)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .edgesIgnoringSafeArea(.bottom)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
+            if showPremium {
+                gradient.edgesIgnoringSafeArea(.bottom)
+            }
+            premiumButton
         }
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.bottom)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .onAppear(perform: loadProduct)
     }
 
     private var preferences: some View {
         VStack(alignment: .leading, spacing: 16) {
-            preferenceItem(text: "Reminders", image: "bell") {
+            preferenceItem(text: "Reminders", image: "bell.fill") {
 
             }
 
             Divider()
 
-            preferenceItem(text: "About", image: "clock.arrow.circlepath") {
+            preferenceItem(text: "About", image: "info.circle.fill") {
 
             }
 
             Divider()
 
-            preferenceItem(text: "Rate Countdowns", image: "star") {
-
+            preferenceItem(text: "Rate Countdowns", image: "star.fill") {
+                guard let scene = UIApplication.shared.windows.first?.windowScene else { return }
+                SKStoreReviewController.requestReview(in: scene)
             }
 
             Divider()
 
-            preferenceItem(text: "Share Countdowns", image: "square.and.arrow.up") {
+            preferenceItem(text: "Share Countdowns", image: "square.and.arrow.up.fill") {
                 showShareSheet = true
             }
         }
+        .padding(.horizontal, 24)
+        .font(.system(size: 16, weight: .regular, design: .default))
         .sheet(isPresented: $showShareSheet) {
             ShareSheet()
         }
-        .font(.system(size: 16, weight: .regular, design: .default))
     }
 
     private var navigation: some View {
@@ -101,26 +114,49 @@ struct SettingsView: View {
                     .rotationEffect(.degrees(showPremium ? 180 : 0))
             }
         }
-        .padding(.horizontal, 24)
-        .padding(.top, 24)
+        .padding(24)
         .font(.system(size: 16, weight: .medium, design: .default))
     }
 
     private var premiumButton: some View {
         Button(action: {
-            withAnimation(.openCard) {
-                showGetPremium = true
+            if showPremium {
+                buyPremium()
+            } else {
+                withAnimation(.openCard) {
+                    showGetPremium = true
+                }
             }
         }) {
-            Text("Upgrade to Premium")
-                .font(.system(size: 16, weight: .medium, design: .default))
-                .frame(maxWidth:.infinity)
-                .padding(.vertical)
-                .background(Color.primary)
-                .foregroundColor(.systemBackground)
-                .cornerRadius(8)
+            ZStack {
+                Text(buttonText)
+                    .font(.system(size: 16, weight: .medium, design: .default))
+                    .frame(maxWidth:.infinity)
+                    .padding(.vertical)
+                    .background(Color.primary)
+                    .foregroundColor(.systemBackground)
+                    .cornerRadius(8)
+                    .padding(24)
+
+                let colors = Gradient(colors: [.clear, .systemBackground])
+                let conic = AngularGradient(gradient: colors, center: .center, startAngle: .zero, endAngle: .degrees(270))
+                Circle()
+                    .strokeBorder(conic, lineWidth: 3)
+                    .rotationEffect(.init(degrees: isLoading ? 360 : 0))
+                    .animation(Animation.linear(duration: 0.5).repeatForever(autoreverses: false))
+                    .frame(width: 24, height: 24, alignment: .center)
+                    .padding()
+                    .opacity(isLoading ? 1 : 0)
+            }
         }
+        .padding(.bottom, 24)
         .buttonStyle(SquishableButtonStyle())
+    }
+
+    private var gradient: some View {
+        LinearGradient(gradient: .init(colors: [.systemBackground, Color.systemBackground.opacity(0)]), startPoint: .bottom, endPoint: .top)
+            .frame(height: 120)
+            .edgesIgnoringSafeArea(.bottom)
     }
 
     private func handleClose() {
@@ -131,6 +167,25 @@ struct SettingsView: View {
                 closeHandler()
             }
         }
+    }
+
+    private func buyPremium() {
+        guard let product = product else { return }
+        withAnimation(.easeIn) {
+            isLoading = true
+        }
+        PurchaseManager.shared.buyProduct(product) { success in
+            withAnimation(.easeIn) {
+                isLoading = false
+                if success {
+                    closeHandler()
+                }
+            }
+        }
+    }
+
+    func loadProduct() {
+        PurchaseManager.shared.requestProduct { self.product = $0 }
     }
 }
 

@@ -156,7 +156,7 @@ struct CardsListView: View {
                     SettingsView(closeHandler: preferenceToggle.close)
                     .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
                 }
-                .edgesIgnoringSafeArea(.all)
+//                .edgesIgnoringSafeArea(.all)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .transition(.moveAndFadeLeading)
             }

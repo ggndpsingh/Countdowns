@@ -17,12 +17,6 @@ struct GetPremiumView: View {
         return formatter.string(from: product.price)
     }
 
-    private var buttonText: String {
-        isLoading
-            ? ""
-            : "Buy for \(price ?? "")"
-    }
-
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack {
@@ -36,13 +30,11 @@ struct GetPremiumView: View {
                         faq.padding(.bottom, 100)
                     }
                     .padding([.top], 40)
-                    .padding(24)
                 }
-                .onAppear(perform: loadProduct)
             }
-
-            buyButton
         }
+        .padding(.horizontal, 24)
+        .transition(.moveAndFadeBottom)
         .edgesIgnoringSafeArea(.bottom)
     }
 
@@ -143,76 +135,7 @@ struct GetPremiumView: View {
         }
     }
 
-    private var buyButton: some View {
-        ZStack(alignment: .bottom) {
-            LinearGradient(gradient: .init(colors: [.systemBackground, Color.systemBackground.opacity(0)]), startPoint: .bottom, endPoint: .top)
-            Button(action: buyPremium) {
-                ZStack {
-                    Text(buttonText)
-                        .font(.system(size: 16, weight: .medium, design: .default))
-                        .frame(maxWidth:.infinity)
-                        .padding(.vertical)
-                        .background(Color.primary)
-                        .foregroundColor(.systemBackground)
-                        .cornerRadius(8)
-                        .padding(24)
-
-                    let colors = Gradient(colors: [.clear, .systemBackground])
-                    let conic = AngularGradient(gradient: colors, center: .center, startAngle: .zero, endAngle: .degrees(270))
-                    Circle()
-                        .strokeBorder(conic, lineWidth: 3)
-                        .rotationEffect(.init(degrees: isLoading ? 360 : 0))
-                        .animation(Animation.linear(duration: 0.5).repeatForever(autoreverses: false))
-                        .frame(width: 24, height: 24, alignment: .center)
-                        .padding()
-                        .opacity(isLoading ? 1 : 0)
-                }
-            }
-            .buttonStyle(SquishableButtonStyle())
-        }
-        .frame(height: 120)
-        .edgesIgnoringSafeArea(.bottom)
-    }
-
-    private func buyPremium() {
-        guard let product = product else { return }
-        withAnimation(.easeIn) {
-            isLoading = true
-        }
-        PurchaseManager.shared.buyProduct(product) { success in
-            withAnimation(.easeIn) {
-                isLoading = false
-                if success {
-                    closeHandler()
-                }
-            }
-        }
-    }
-
     private func restorePurchase() {
         PurchaseManager.shared.restorePurchases()
-    }
-
-    func loadProduct() {
-        PurchaseManager.shared.requestProduct { self.product = $0 }
-    }
-}
-
-struct GetPremiumView_Previews: PreviewProvider {
-    @State static var presenting: Bool = true
-
-    static var previews: some View {
-        Group {
-            GetPremiumView(closeHandler: {})
-                .frame(maxWidth: 480)
-//                .frame(width: 400, height: 1000, alignment: .center)
-//                .previewLayout(.sizeThatFits)
-//                .padding()
-//            GetPremiumView(closeHandler: {})
-//                .preferredColorScheme(.dark)
-//                .frame(width: 800, height: 1200, alignment: .center)
-//                .previewLayout(.sizeThatFits)
-//                .padding()
-        }
     }
 }
