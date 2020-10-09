@@ -23,13 +23,6 @@ struct SettingsView: View {
         return formatter.string(from: product.price)
     }
 
-    private var buttonText: String {
-        if showPremium {
-            return isLoading ? "" : "Buy for \(price ?? "")"
-        }
-        return "Upgrade to Premium"
-    }
-
     fileprivate func preferenceItem(text: String, image: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -96,7 +89,7 @@ struct SettingsView: View {
                 showShareSheet = true
             }
         }
-        .padding(.horizontal, 24)
+        .padding(24)
         .font(.system(size: 16, weight: .regular, design: .default))
         .sheet(isPresented: $showShareSheet) {
             ShareSheet()
@@ -104,9 +97,16 @@ struct SettingsView: View {
     }
 
     private var navigation: some View {
-        ZStack {
-            Text(showPremium ? "Countdowns Premium" : "Preferences")
-                .frame(maxWidth: .infinity)
+        return ZStack {
+            VStack {
+                Text("Preferences")
+                    .frame(height: 60)
+                    .offset(y: showPremium ? -30 : 30)
+                Text("Countdowns Premium")
+                    .frame(height: 60)
+                    .offset(y: showPremium ? -30 : 30)
+            }
+            .frame(maxWidth: .infinity)
 
             HStack {
                 Spacer()
@@ -115,7 +115,9 @@ struct SettingsView: View {
             }
         }
         .padding(24)
+        .frame(height: 60)
         .font(.system(size: 16, weight: .medium, design: .default))
+        .clipped()
     }
 
     private var premiumButton: some View {
@@ -129,14 +131,21 @@ struct SettingsView: View {
             }
         }) {
             ZStack {
-                Text(buttonText)
-                    .font(.system(size: 16, weight: .medium, design: .default))
-                    .frame(maxWidth:.infinity)
-                    .padding(.vertical)
-                    .background(Color.primary)
-                    .foregroundColor(.systemBackground)
-                    .cornerRadius(8)
-                    .padding(24)
+                VStack {
+                    Text("Upgrade to Premium")
+                        .frame(maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
+                        .offset(y: showPremium ? -30 : 30)
+                    Text(isLoading ? "" : "Buy for \(price ?? "")")
+                        .frame(maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
+                        .offset(y: showPremium ? -30 : 30)
+                }
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .frame(maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
+                .background(Color.primary)
+                .foregroundColor(.systemBackground)
+                .cornerRadius(8)
+                .padding()
+                .clipped()
 
                 let colors = Gradient(colors: [.clear, .systemBackground])
                 let conic = AngularGradient(gradient: colors, center: .center, startAngle: .zero, endAngle: .degrees(270))

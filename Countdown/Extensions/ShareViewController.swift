@@ -41,7 +41,7 @@ final class ShareViewController: UIViewController {
     }()
 
     let blur: UIVisualEffectView = {
-        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
         blur.translatesAutoresizingMaskIntoConstraints = false
         return blur
     }()
@@ -125,6 +125,7 @@ struct CardWrapper: View {
 
     var body: some View {
         card
+            .animation(nil)
             .contentShape(Rectangle())
             .aspectRatio(1, contentMode: .fit)
     }

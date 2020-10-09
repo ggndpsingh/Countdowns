@@ -156,7 +156,6 @@ struct CardsListView: View {
                     SettingsView(closeHandler: preferenceToggle.close)
                     .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
                 }
-//                .edgesIgnoringSafeArea(.all)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .transition(.moveAndFadeLeading)
             }
@@ -273,32 +272,5 @@ struct SomeView_Previews: PreviewProvider {
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
                 .preferredColorScheme(.dark)
         }
-    }
-}
-
-
-extension AnyTransition {
-    static var moveAndFadeLeading: AnyTransition {
-        let insertion = AnyTransition.move(edge: .leading)
-            .combined(with: .opacity)
-        let removal = AnyTransition.move(edge: .leading)
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
-    }
-    
-    static var moveAndFadeBottom: AnyTransition {
-        let insertion = AnyTransition.move(edge: .bottom)
-            .combined(with: .opacity)
-        let removal = AnyTransition.move(edge: .bottom)
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
-    }
-    
-    static var moveAndFadeTop: AnyTransition {
-        let insertion = AnyTransition.move(edge: .top)
-            .combined(with: .opacity)
-        let removal = AnyTransition.move(edge: .top)
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
     }
 }

@@ -4,37 +4,45 @@ import SwiftUI
 import CoreData
 
 struct CountdownView: View {
-    private static let componentWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 80 : 70
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @Environment(\.timer) var timer
+    private static let componentWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 64 : 48
+    @State private var components: [DateComponent] = []
+
     let date: Date
     let size: CountdownSize
+    let animate: Bool
     private var hasEnded: Bool { date <= .now }
-
-    @State private var components: [DateComponent] = []
+    private var isiPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
 
     var body: some View {
         GeometryReader { geometry in
             let canFit: Bool = {
                 guard components.count > 3 else { return true }
-                return Int(ceil(geometry.size.width / Self.componentWidth)) > components.count
+                let requiredWidth = (Self.componentWidth + 24) * CGFloat(components.count)
+                return geometry.size.width > requiredWidth
             }()
 
             CountdownContainer(hasEnded: hasEnded) {
                 Group {
                     if canFit {
-                        ForEach(components, id: \.self) {
-                            ComponentView(component: $0)
+                        VStack {
+                            values(for: components)
+                            labels(for: components)
                         }
                     } else {
                         VStack(spacing: 8) {
                             HStack {
-                                ForEach(components.prefix(3), id: \.self) {
-                                    ComponentView(component: $0)
+                                let comps = Array(components.prefix(3))
+                                VStack {
+                                    values(for: comps)
+                                    labels(for: comps)
                                 }
                             }
                             HStack {
-                                ForEach(components.suffix(components.count - 3), id: \.self) {
-                                    ComponentView(component: $0)
+                                let comps = Array(components.suffix(components.count - 3))
+                                VStack {
+                                    values(for: comps)
+                                    labels(for: comps)
                                 }
                             }
                         }
@@ -49,23 +57,56 @@ struct CountdownView: View {
         }
     }
 
+    private func values(for components: [DateComponent]) -> some View {
+        HStack(spacing: 8) {
+            ForEach(components, id: \.self) {
+                value(for: $0)
+            }
+        }
+        .animation(animate ? .linear(duration: 0.7) : nil, value: components)
+        .clipShape(Rectangle())
+        .clipped()
+    }
+
+    private func value(for component: DateComponent) -> some View {
+        Text(component.valueString)
+            .font(Font.system(size: isiPad ? 48 : 36, weight: .medium, design: .rounded))
+            .shadow(color: Color.black.opacity(0.4), radius: 2, x: 0.5, y: 0.5)
+            .frame(width: Self.componentWidth)
+            .clipShape(Rectangle())
+            .clipped()
+            .transition(.moveAndFadeVertical)
+    }
+
+    private func labels(for components: [DateComponent]) -> some View {
+        return HStack {
+            ForEach(components, id: \.self) {
+                label(for: $0)
+            }
+        }
+    }
+
+    private func label(for component: DateComponent) -> some View {
+        Text(component.label)
+            .font(Font.system(size: isiPad ? 14 : 12, weight: .medium, design: .rounded))
+            .shadow(color: Color.black.opacity(0.4), radius: 1, x: 0.5, y: 0.5)
+            .frame(width: Self.componentWidth)
+    }
+
     private func countdown() {
         components = CountdownCalculator.countdown(for: date, size: size)
     }
 }
 
 #if DEBUG
-//struct CountdownView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(3600 * 3600), title: "Past", image: .randomSample), style: .thumbnail, flipHandler: {})
-//            .frame(width: 340, height: 320, alignment: .center)
-//            .previewLayout(.sizeThatFits)
-//
-//            CardFrontView(countdown: .init(id: .init(), date: Date().addingTimeInterval(-3600), title: "Past", image: .randomSample), style: .thumbnail, flipHandler: {})
-//            .frame(width: 400, height: 320, alignment: .center)
-//            .previewLayout(.sizeThatFits)
-//        }
-//    }
-//}
+struct CountdownView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CountdownView(date: Date().addingTimeInterval(3600 * 3600 * 36), size: .full, animate: true)
+                .background(Color.pastels.randomElement())
+            CountdownView(date: Date().addingTimeInterval(3600 * 3600 * 36), size: .medium, animate: true)
+                .background(Color.pastels.randomElement())
+        }
+    }
+}
 #endif

@@ -28,6 +28,15 @@ struct CardFrontView: View {
         case thumbnail
         case details
         case shareable
+
+        var componentSize: CountdownSize {
+            switch self {
+            case .thumbnail, .shareable:
+                return .medium
+            case .details:
+                return .full
+            }
+        }
     }
 
     var body: some View {
@@ -84,7 +93,7 @@ struct CardFrontView: View {
                 }
                 .padding([.top], 24)
             }
-            CountdownView(date: countdown.date, size: style == .thumbnail ? .medium : .full)
+            CountdownView(date: countdown.date, size: style.componentSize, animate: style != .shareable)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

@@ -12,7 +12,7 @@ struct TitleView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(title)
-                        .font(Font.system(size: 28, weight: .medium, design: .default))
+                        .animatableFont(size: 28, weight: .medium)
 
                     if showDate {
                         Text(date)

@@ -14,6 +14,7 @@ struct CountdownApp: App {
             CardsListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environment(\.countdownsManager, countdownsManager)
+                .environment(\.timer, TimerKey.defaultValue)
         }
         .onChange(of: scenePhase) { phase in
             if phase == .background {

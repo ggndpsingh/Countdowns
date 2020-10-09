@@ -27,13 +27,13 @@ struct GetPremiumView: View {
                             .padding(.vertical, 40)
                         featuresList
 
-                        faq.padding(.bottom, 100)
+                        faq.padding(.bottom, 120)
                     }
+                    .padding(.horizontal, 24)
                     .padding([.top], 40)
                 }
             }
         }
-        .padding(.horizontal, 24)
         .transition(.moveAndFadeBottom)
         .edgesIgnoringSafeArea(.bottom)
     }

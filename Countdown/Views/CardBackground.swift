@@ -24,7 +24,8 @@ struct CardBackground: View {
                         .modifier(CardCornerRadius(squareEdges: squareEdges))
                 }
             } else {
-                Color.pastels.randomElement()!
+                Color.pastels.randomElement()
+                    .modifier(CardCornerRadius(squareEdges: squareEdges))
             }
         }
     }

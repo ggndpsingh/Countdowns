@@ -32,22 +32,11 @@ struct CardBackView: View {
 
             VStack(alignment: .leading, spacing:24) {
                 if isEditing {
-                    Group {
-                        if verticalSizeClass == .compact {
-                            HStack(alignment: .top, spacing: 24) {
-                                TitleInput(title: $viewModel.title)
-                                DateInput(
-                                    date: $viewModel.countdown.date,
-                                    allDay: $viewModel.allDay)
-                            }
-                        } else {
-                            VStack(spacing: 24) {
-                                TitleInput(title: $viewModel.title)
-                                DateInput(
-                                    date: $viewModel.countdown.date,
-                                    allDay: $viewModel.allDay)
-                            }
-                        }
+                    VStack(spacing: 24) {
+                        TitleInput(title: $viewModel.title)
+                        DateInput(
+                            date: $viewModel.countdown.date,
+                            allDay: $viewModel.allDay)
                     }
                 }
 
