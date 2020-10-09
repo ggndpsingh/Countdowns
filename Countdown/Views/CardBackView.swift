@@ -26,40 +26,41 @@ struct CardBackView: View {
     }
 
     var body: some View {
-        ZStack {
-            CardBackground(image: viewModel.countdown.image)
-                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+        GeometryReader { geo in
+            ZStack {
+                CardBackground(image: viewModel.countdown.image)
+                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
 
-            VStack(alignment: .leading, spacing:24) {
-                if isEditing {
-                    VStack(spacing: 24) {
-                        TitleInput(title: $viewModel.title)
-                        DateInput(
-                            date: $viewModel.countdown.date,
-                            allDay: $viewModel.allDay)
-                    }
+                VStack(alignment: .leading, spacing:24) {
+                        VStack(spacing: 24) {
+                            TitleInput(title: $viewModel.title)
+                            DateInput(
+                                date: $viewModel.countdown.date,
+                                allDay: $viewModel.allDay)
+                        }
+
+                    Spacer()
+
+                    ButtonsView(
+                        isNew: viewModel.isNew,
+                        hasEnded: viewModel.countdown.hasEnded,
+                        canSave: viewModel.canSave,
+                        hasReminder: viewModel.hasReminder,
+                        reminderHandler: { viewModel.hasReminder.toggle() },
+                        deleteHandler: deleteHandler,
+                        imageHandler: imageHandler,
+                        doneHandler: {
+                            doneHandler(viewModel.countdown)
+                        })
+
                 }
-
-                Spacer()
-
-                ButtonsView(
-                    isNew: viewModel.isNew,
-                    hasEnded: viewModel.countdown.hasEnded,
-                    canSave: viewModel.canSave,
-                    hasReminder: viewModel.hasReminder,
-                    reminderHandler: { viewModel.hasReminder.toggle() },
-                    deleteHandler: deleteHandler,
-                    imageHandler: imageHandler,
-                    doneHandler: {
-                        doneHandler(viewModel.countdown)
-                    })
-
+                .padding()
+                .padding([.top], 16)
             }
-            .padding()
-            .padding([.top], 16)
+            .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+            .accessibilityElement(children: .contain)
+            .cornerRadius(16)
         }
-        .accessibilityElement(children: .contain)
-        .cornerRadius(16)
     }
 }
 

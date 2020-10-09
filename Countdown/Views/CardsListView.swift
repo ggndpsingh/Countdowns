@@ -87,7 +87,6 @@ struct CardsListView: View {
                     .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
                     .navigationTitle("Countdowns")
                     .navigationBarTitleDisplayMode(.inline)
-
                     .alert(isPresented: $deleteAlertPresented) {
                         Alert(
                             title: Text("Delete Countdown"),
@@ -95,7 +94,7 @@ struct CardsListView: View {
                             primaryButton: .destructive(Text("Delete")) {
                                 guard let id = countdownSelection.id else { return }
                                 countdownsManager.deleteObject(with: id)
-                                deselectIngredient()
+                                deselectCountdown()
                             },
                             secondaryButton: .cancel(Text("Cancel")))
                     }
@@ -104,15 +103,17 @@ struct CardsListView: View {
                             select(countdown: uuid)
                         }
                     }
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .fullScreenCover(isPresented: $showPhotoPicker) {
-                    PhotoPicker(selectionHandler: didSelectImage)
-                }
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .fullScreenCover(isPresented: $showPhotoPicker) {
+                PhotoPicker(selectionHandler: didSelectImage)
+            }
 
-            VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
-                .edgesIgnoringSafeArea(.all)
-                .opacity(preferenceToggle.showPreferences || countdownSelection.isActive ? 1 : 0)
+            if (preferenceToggle.showPreferences || countdownSelection.isActive) {
+                VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
+                    .edgesIgnoringSafeArea(.all)
+                    .transition(.opacity)
+            }
 
             ForEach(allCountdowns) { countdown in
                 let presenting = countdown.id == countdownSelection.id
@@ -135,29 +136,30 @@ struct CardsListView: View {
                         countdownSelection.isNew = false
                         countdownsManager.updateObject(for: updatedCountdown)
                     },
-                    closeHandler: deselectIngredient,
+                    closeHandler: deselectCountdown,
                     deleteHandler: {
                         deleteAlertPresented = true
                     })
                     .matchedGeometryEffect(id: countdown.id, in: namespace, isSource: presenting)
-                    .aspectRatio(verticalSizeClass == .compact ? 2 : 0.75, contentMode: .fit)
+                    .aspectRatio(0.75, contentMode: .fit)
                     .shadow(color: Color.black.opacity(presenting ? 0.2 : 0), radius: 20, y: 10)
                     .padding(20)
                     .opacity(presenting ? 1 : 0)
-                    .zIndex(countdownSelection.id == countdown.id ? 1 : 0)
+                    .zIndex(countdownSelection.id == countdown.id ? 2 : 0)
                     .accessibilityElement(children: .contain)
                     .accessibility(sortPriority: presenting ? 1 : 0)
                     .accessibility(hidden: !presenting)
-                    .frame(maxWidth: 720, maxHeight: presenting ? .infinity : 0, alignment: .center)
+                    .frame(maxWidth: 720, maxHeight: .infinity, alignment: .center)
             }
 
             if preferenceToggle.showPreferences {
                 VStack {
-                    SettingsView(closeHandler: preferenceToggle.close)
+                    SettingsView()
                     .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
                 }
+                .transition(.preferences)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                .transition(.moveAndFadeLeading)
+                .zIndex(3)
             }
         }
     }
@@ -201,12 +203,12 @@ struct CardsListView: View {
     }
 
     func select(countdown id: Countdown.ID) {
-        withAnimation {
+        withAnimation(.openCard) {
             countdownSelection.select(id, isNew: false)
         }
     }
 
-    func deselectIngredient() {
+    func deselectCountdown() {
         withAnimation(.closeCard) {
             countdownSelection.deselect()
         }

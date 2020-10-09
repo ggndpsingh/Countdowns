@@ -10,7 +10,6 @@ struct SettingsView: View {
     @State private var showShareSheet: Bool = false
     @State private var isLoading = false
     @State private var product: SKProduct?
-    let closeHandler: () -> Void
 
     private var showPremium: Bool {
         showGetPremium || toggle.showGetPremium
@@ -173,7 +172,7 @@ struct SettingsView: View {
             if showGetPremium {
                 showGetPremium = false
             } else {
-                closeHandler()
+                toggle.close()
             }
         }
     }
@@ -187,7 +186,7 @@ struct SettingsView: View {
             withAnimation(.easeIn) {
                 isLoading = false
                 if success {
-                    closeHandler()
+                    handleClose()
                 }
             }
         }
@@ -202,8 +201,8 @@ struct SettingsView_Previews: PreviewProvider {
     @State static var show: Bool = false
     static var previews: some View {
         Group {
-            SettingsView(closeHandler: {})
-            SettingsView(closeHandler: {})
+            SettingsView()
+            SettingsView()
                 .preferredColorScheme(.dark)
         }
     }

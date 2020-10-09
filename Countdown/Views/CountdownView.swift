@@ -75,7 +75,7 @@ struct CountdownView: View {
             .frame(width: Self.componentWidth)
             .clipShape(Rectangle())
             .clipped()
-            .transition(.moveAndFadeVertical)
+            .transition(.countdown)
     }
 
     private func labels(for components: [DateComponent]) -> some View {

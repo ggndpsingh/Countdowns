@@ -3,7 +3,7 @@
 import SwiftUI
 
 extension AnyTransition {
-    static var moveAndFadeLeading: AnyTransition {
+    static var preferences: AnyTransition {
         let insertion = AnyTransition.move(edge: .leading)
             .combined(with: .opacity)
         let removal = AnyTransition.move(edge: .leading)
@@ -11,7 +11,7 @@ extension AnyTransition {
         return .asymmetric(insertion: insertion, removal: removal)
     }
 
-    static var moveAndFadeBottom: AnyTransition {
+    static var premium: AnyTransition {
         let insertion = AnyTransition.move(edge: .bottom)
             .combined(with: .opacity)
         let removal = AnyTransition.move(edge: .bottom)
@@ -19,19 +19,11 @@ extension AnyTransition {
         return .asymmetric(insertion: insertion, removal: removal)
     }
 
-    static var moveAndFadeTop: AnyTransition {
-        let insertion = AnyTransition.move(edge: .top)
-            .combined(with: .opacity)
-        let removal = AnyTransition.move(edge: .top)
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
-    }
-
-    static var moveAndFadeVertical: AnyTransition {
+    static var countdown: AnyTransition {
         let insertion = AnyTransition.move(edge: .bottom)
-//            .combined(with: .opacity)
+            .combined(with: .opacity)
         let removal = AnyTransition.move(edge: .top)
-//            .combined(with: .opacity)
+            .combined(with: .opacity)
         return .asymmetric(insertion: insertion, removal: removal)
     }
 }

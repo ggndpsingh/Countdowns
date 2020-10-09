@@ -34,7 +34,7 @@ struct GetPremiumView: View {
                 }
             }
         }
-        .transition(.moveAndFadeBottom)
+        .transition(.premium)
         .edgesIgnoringSafeArea(.bottom)
     }
 
