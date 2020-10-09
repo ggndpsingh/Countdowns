@@ -96,6 +96,16 @@
 		E67C538625188A1E00402D27 /* WidgetEmptyStateSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538525188A1E00402D27 /* WidgetEmptyStateSmall.swift */; };
 		E67C538825188A3B00402D27 /* WidgetEmptyStateMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538725188A3B00402D27 /* WidgetEmptyStateMedium.swift */; };
 		E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C538925188A4100402D27 /* WidgetEmptyStateLarge.swift */; };
+		E67D8FA825301996001B86AC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FA725301996001B86AC /* Storage.swift */; };
+		E67D8FB6253019AC001B86AC /* PurchaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FB5253019AC001B86AC /* PurchaseStorage.swift */; };
+		E67D8FBD253019BD001B86AC /* PurchaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FB5253019AC001B86AC /* PurchaseStorage.swift */; };
+		E67D8FC4253019CC001B86AC /* PurchaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FB5253019AC001B86AC /* PurchaseStorage.swift */; };
+		E67D8FCB253019E8001B86AC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FA725301996001B86AC /* Storage.swift */; };
+		E67D8FD2253019E9001B86AC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FA725301996001B86AC /* Storage.swift */; };
+		E67D8FDA25301A02001B86AC /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FD925301A02001B86AC /* SettingsStorage.swift */; };
+		E67D8FE225301E7D001B86AC /* CustomEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FE125301E7D001B86AC /* CustomEnvironment.swift */; };
+		E67D900425302120001B86AC /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FD925301A02001B86AC /* SettingsStorage.swift */; };
+		E67D900B25302121001B86AC /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D8FD925301A02001B86AC /* SettingsStorage.swift */; };
 		E67F4F36252D3D51001466D2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F4F35252D3D51001466D2 /* SettingsView.swift */; };
 		E680AD5C25175C4D001B5333 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD5B25175C4D001B5333 /* WidgetKit.framework */; };
 		E680AD5E25175C4D001B5333 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD5D25175C4D001B5333 /* SwiftUI.framework */; };
@@ -240,6 +250,10 @@
 		E67C538525188A1E00402D27 /* WidgetEmptyStateSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyStateSmall.swift; sourceTree = "<group>"; };
 		E67C538725188A3B00402D27 /* WidgetEmptyStateMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyStateMedium.swift; sourceTree = "<group>"; };
 		E67C538925188A4100402D27 /* WidgetEmptyStateLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyStateLarge.swift; sourceTree = "<group>"; };
+		E67D8FA725301996001B86AC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		E67D8FB5253019AC001B86AC /* PurchaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseStorage.swift; sourceTree = "<group>"; };
+		E67D8FD925301A02001B86AC /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
+		E67D8FE125301E7D001B86AC /* CustomEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironment.swift; sourceTree = "<group>"; };
 		E67F4F35252D3D51001466D2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E680AD5A25175C4D001B5333 /* CountdownStatusExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CountdownStatusExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E680AD5B25175C4D001B5333 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -378,6 +392,16 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		E67D8FA625301988001B86AC /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				E67D8FA725301996001B86AC /* Storage.swift */,
+				E67D8FB5253019AC001B86AC /* PurchaseStorage.swift */,
+				E67D8FD925301A02001B86AC /* SettingsStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		E680AD5F25175C4D001B5333 /* CountdownStatus */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,6 +454,7 @@
 		E6E314092504DF87005C8B61 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E67D8FA625301988001B86AC /* Storage */,
 				E672EB01251DE16800724B2B /* Localizable.strings */,
 				E672EB00251DE16800724B2B /* Localizable.stringsdict */,
 				E672EAF3251DCFB600724B2B /* Fonts */,
@@ -495,6 +520,7 @@
 				E658E8AF2510E86B007E9AFD /* Color.swift */,
 				E6E3143F2504E0A2005C8B61 /* Date.swift */,
 				E67AB3B3251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift */,
+				E67D8FE125301E7D001B86AC /* CustomEnvironment.swift */,
 				E672EAFA251DD07D00724B2B /* Font.swift */,
 				E6DA816F2526EC9A00194EC6 /* Animation.swift */,
 				E66F1635252C50D400B552A8 /* ShareViewController.swift */,
@@ -775,10 +801,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6517B9B251766AD00F2DD13 /* DateComponent.swift in Sources */,
+				E67D8FC4253019CC001B86AC /* PurchaseStorage.swift in Sources */,
 				E6226795251B235400C726C4 /* CountdownObject.swift in Sources */,
 				E6766A9A2529C90D00CAEF6E /* PurchaseManager.swift in Sources */,
 				E6226799251B464F00C726C4 /* CountdownsManager.swift in Sources */,
 				E6517B9C251766B700F2DD13 /* CountdownCalculator.swift in Sources */,
+				E67D900B25302121001B86AC /* SettingsStorage.swift in Sources */,
 				E6517B962517668400F2DD13 /* Countdown.xcdatamodeld in Sources */,
 				E6517B982517669A00F2DD13 /* Countdown.swift in Sources */,
 				E6874A572521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */,
@@ -786,6 +814,7 @@
 				E67AB3B6251C591100D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
 				E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */,
 				E6226794251B231A00C726C4 /* Persistence.swift in Sources */,
+				E67D8FD2253019E9001B86AC /* Storage.swift in Sources */,
 				E6517B9D251766C000F2DD13 /* UNUserNotificationCenter.swift in Sources */,
 				E66F1622252C3D3400B552A8 /* UIImage.swift in Sources */,
 			);
@@ -809,7 +838,9 @@
 				E67C536F2518319B00402D27 /* Color.swift in Sources */,
 				E67C538A25188A4100402D27 /* WidgetEmptyStateLarge.swift in Sources */,
 				E65CFC5825270E8E00C97ED4 /* UIImage.swift in Sources */,
+				E67D900425302120001B86AC /* SettingsStorage.swift in Sources */,
 				E613685A2524519E009FF314 /* Blur.swift in Sources */,
+				E67D8FCB253019E8001B86AC /* Storage.swift in Sources */,
 				E68A7BFA2522B2DB00D62B74 /* CountdownView.swift in Sources */,
 				E613685325245193009FF314 /* SquishableButtonStyle.swift in Sources */,
 				E6614F90252B12570078A5ED /* PurchaseManager.swift in Sources */,
@@ -819,6 +850,7 @@
 				E67C53702518319B00402D27 /* Date.swift in Sources */,
 				E67AB3B7251C5D1200D94B87 /* ImageCache.swift in Sources */,
 				E6226793251B210700C726C4 /* Persistence.swift in Sources */,
+				E67D8FBD253019BD001B86AC /* PurchaseStorage.swift in Sources */,
 				E67AB3B8251C5DD200D94B87 /* ImageLoader.swift in Sources */,
 				E67C5380251887C100402D27 /* WidgetCountdownProvider.swift in Sources */,
 				E67C53822518880500402D27 /* CountdonWidget.swift in Sources */,
@@ -849,11 +881,14 @@
 				E67F4F36252D3D51001466D2 /* SettingsView.swift in Sources */,
 				E6226798251B26E000C726C4 /* CountdownsManager.swift in Sources */,
 				E6E314502504E0A2005C8B61 /* CountdownCalculator.swift in Sources */,
+				E67D8FB6253019AC001B86AC /* PurchaseStorage.swift in Sources */,
 				E613684C25245185009FF314 /* SquishableButtonStyle.swift in Sources */,
 				E613683D25245154009FF314 /* RoundButton.swift in Sources */,
 				E6E314142504DF87005C8B61 /* Persistence.swift in Sources */,
 				E66169A4251122B200E5C15C /* ImageView.swift in Sources */,
 				E67AB3B4251C58D200D94B87 /* EnvironmentValues+CountdownsManagerKey.swift in Sources */,
+				E67D8FDA25301A02001B86AC /* SettingsStorage.swift in Sources */,
+				E67D8FA825301996001B86AC /* Storage.swift in Sources */,
 				E6E314542504E0A2005C8B61 /* CountdownView.swift in Sources */,
 				E658E8B02510E86B007E9AFD /* Color.swift in Sources */,
 				E6FE9137252F1E09007BAE96 /* AnimatableFontModifier.swift in Sources */,
@@ -871,6 +906,7 @@
 				E613193E252ED9E900F4B810 /* ShareSheet.swift in Sources */,
 				E658E8B82510FE0B007E9AFD /* CardBackView.swift in Sources */,
 				E658E8B42510FB28007E9AFD /* CardBackground.swift in Sources */,
+				E67D8FE225301E7D001B86AC /* CustomEnvironment.swift in Sources */,
 				E658E8BF2510FF70007E9AFD /* TitleView.swift in Sources */,
 				E658E8B62510FD7C007E9AFD /* CardView.swift in Sources */,
 				E6CAB067251727DC003848F9 /* CountdownObject.swift in Sources */,

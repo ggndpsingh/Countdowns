@@ -29,16 +29,3 @@ struct WidgetCountdownMedium: View {
         .offset(y: 8)
     }
 }
-
-#if DEBUG
-struct CountdownWidgetMedium_Previews: PreviewProvider {
-    static var previews: some View {
-        let countdown = Countdown.placeholder
-        ZStack {
-            CardBackground(image: countdown.image)
-            WidgetCountdownMedium(title: countdown.title, hasEnded: true, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
-        }
-        .previewContext(WidgetPreviewContext(family: .systemMedium))
-    }
-}
-#endif

@@ -93,9 +93,9 @@ struct CardFrontView: View {
                 }
                 .padding([.top], 24)
             }
+        }.overlay(
             CountdownView(date: countdown.date, size: style.componentSize, animate: style != .shareable)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
+        )
     }
 
     private var title: some View {

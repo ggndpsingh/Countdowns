@@ -70,7 +70,7 @@ struct GetPremiumView: View {
             + Text("of \(price ?? "")")
         }
         .multilineTextAlignment(.center)
-        .font(.system(size: 16, weight: .regular, design: .default))
+        .font(.system(size: 15, weight: .light, design: .default))
         .lineSpacing(4)
     }
 
@@ -81,16 +81,16 @@ struct GetPremiumView: View {
 
         return VStack(alignment: .leading, spacing: 12) {
             Text("What you get with Premium?")
-                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .font(.system(size: 14, weight: .medium, design: .rounded))
                 .padding([.bottom], 4)
 
             ForEach(features, id: \.self) { feature in
                 HStack(spacing: 16) {
                     Image(systemName: "checkmark.circle")
-                        .font(.system(size: 14, weight: .medium, design: .default))
+                        .font(.system(size: 13, weight: .medium, design: .default))
                         .foregroundColor(.secondary)
                     Text(feature)
-                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .font(.system(size: 14, weight: .light, design: .default))
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -115,10 +115,10 @@ struct GetPremiumView: View {
                     let (question, answer)  = sets[i]
                     VStack(alignment: .leading, spacing: 8) {
                         Text(question)
-                            .font(.system(size: 16, weight: .medium, design: .default))
+                            .font(.system(size: 14, weight: .regular, design: .default))
                             .foregroundColor(.secondary)
                         Text(answer)
-                            .font(.system(size: 16, weight: .regular, design: .default))
+                            .font(.system(size: 14, weight: .light, design: .default))
                             .lineSpacing(4)
                     }
                 }
@@ -130,7 +130,7 @@ struct GetPremiumView: View {
                 Text("Restore")
                     .underline()
                     .foregroundColor(.primary)
-                    .font(.system(size: 16, weight: .medium, design: .default))
+                    .font(.system(size: 14, weight: .medium, design: .default))
             })
         }
     }

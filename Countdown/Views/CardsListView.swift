@@ -153,13 +153,7 @@ struct CardsListView: View {
             }
 
             if preferenceToggle.showPreferences {
-                VStack {
-                    SettingsView()
-                    .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
-                }
-                .transition(.preferences)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                .zIndex(3)
+                SettingsView()
             }
         }
     }
@@ -235,6 +229,9 @@ struct CardsListView: View {
             Text(label)
                 .font(.headline)
                 .padding([.top], 16)
+                .onAppear {
+                    print(label)
+                }
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 360, maximum: 520))], spacing: 16) {
                 ForEach(countdowns) { countdown in
                     let presenting = countdown.id == countdownSelection.id

@@ -4,6 +4,8 @@ import Foundation
 import WidgetKit
 
 struct CountdownCalculator {
+    private static let settings = SettingsStorage()
+
     static func countdown(for date: Date, trimmed: Bool = true, size: CountdownSize) -> [DateComponent] {
         switch size {
         case .medium:
@@ -33,15 +35,13 @@ struct CountdownCalculator {
             .second(seconds)
         ]
 
-        return trimmed ? components.byTrimmingLeadingZeros() : components
+        let trimmed = trimmed ? components.byTrimmingLeadingZeros() : components
+        return settings.showSeconds.wrappedValue ? trimmed : trimmed.byRemovingSeconds()
     }
 
     static func components(for widgetFamily: WidgetFamily, countdownDate: Date, comparisonDate: Date) -> [DateComponent] {
         let components = dateComponents(for: countdownDate, comparisonDate: comparisonDate, trimmed: false)
-        let noSeconds = components.filter {
-            if case .second = $0 { return false}
-            return true
-        }
+        let noSeconds = components.byRemovingSeconds()
 
         let interval = comparisonDate.timeIntervalSince(countdownDate)
         if (0...60).contains(interval) {
@@ -66,6 +66,14 @@ extension Array where Element == DateComponent {
             mutable.remove(at: 0)
         }
         return mutable
+    }
+
+    func byRemovingSeconds() -> Self {
+        guard count >= 2 else { return self }
+        return filter {
+            if case .second = $0 { return false}
+            return true
+        }
     }
 }
 

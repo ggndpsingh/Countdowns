@@ -3,31 +3,6 @@
 import StoreKit
 import WidgetKit
 
-struct PurchaseStorage {
-    private var storage: UserDefaults {
-        guard let group = UserDefaults(suiteName: "group.com.deepgagan.CountdownGroup") else {
-            return .standard
-        }
-        return group
-    }
-
-    func addPurchase(for product: PurchaseManager.Product) {
-        storage.setValue(true, forKey: product.identifier)
-    }
-
-    func addPurchase(for identifier: ProductIdentifier) {
-        storage.setValue(true, forKey: identifier)
-    }
-
-    func removePurchase(for identifier: ProductIdentifier) {
-        storage.removeObject(forKey: identifier)
-    }
-
-    func hasPurchase(_ product: PurchaseManager.Product) -> Bool {
-        storage.bool(forKey: product.identifier)
-    }
-}
-
 typealias ProductIdentifier = String
 
 final class PurchaseManager: NSObject, ObservableObject {
@@ -104,15 +79,19 @@ extension PurchaseManager: SKPaymentTransactionObserver {
     }
 
     private func complete(transaction: SKPaymentTransaction) {
-        storage.addPurchase(for: transaction.payment.productIdentifier)
+        guard let product = Product(rawValue: transaction.payment.productIdentifier) else { return }
+        storage.addPurchase(for: product)
         SKPaymentQueue.default().finishTransaction(transaction)
         purchaseCompletion?(true)
         WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func restore(transaction: SKPaymentTransaction) {
-        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
-        storage.addPurchase(for: productIdentifier)
+        guard
+            let productIdentifier = transaction.original?.payment.productIdentifier,
+            let product = Product(rawValue: productIdentifier)
+        else { return }
+        storage.addPurchase(for: product)
         SKPaymentQueue.default().finishTransaction(transaction)
         purchaseCompletion?(true)
         WidgetCenter.shared.reloadAllTimelines()

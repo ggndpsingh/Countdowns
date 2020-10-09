@@ -28,14 +28,3 @@ struct WidgetCountdownLarge: View {
         }
     }
 }
-
-#if DEBUG
-struct CountdownWidgetLarge_Previews: PreviewProvider {
-    static var previews: some View {
-        let countdown = Countdown.placeholder
-        WidgetCountdownLarge(title: countdown.title, hasEnded: true, components: CountdownCalculator.dateComponents(for: countdown.date, comparisonDate: Date(), trimmed: true))
-            .previewContext(WidgetPreviewContext(family: .systemLarge))
-    }
-}
-
-#endif

@@ -5,6 +5,7 @@ import StoreKit
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.settings) var settings
     @ObservedObject var toggle = PreferenceToggle.shared
     @State private var showGetPremium: Bool = false
     @State private var showShareSheet: Bool = false
@@ -22,49 +23,50 @@ struct SettingsView: View {
         return formatter.string(from: product.price)
     }
 
-    fileprivate func preferenceItem(text: String, image: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(spacing: 16) {
-                Image(systemName: image)
-                    .font(.system(size: 16, weight: .medium, design: .default))
-                    .foregroundColor(.secondary)
-                Text(text)
-                    .font(.system(size: 16, weight: .regular, design: .default))
-            }
-            .frame(maxWidth:.infinity, alignment: .leading)
-            .padding(.vertical, 8)
-        }
-        .buttonStyle(SquishableButtonStyle())
-    }
-
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Color.systemBackground
-                .edgesIgnoringSafeArea(.all)
-            VStack(spacing: 0) {
-                navigation
+        VStack {
+            ZStack(alignment: .bottom) {
+                Color.systemBackground
+                    .edgesIgnoringSafeArea(.all)
+                VStack(spacing: 0) {
+                    navigation
 
-                if (showPremium) {
-                    GetPremiumView(closeHandler: handleClose)
-                } else {
-                    preferences
+                    if (showPremium) {
+                        GetPremiumView(closeHandler: handleClose)
+                    } else {
+                        preferences
+                    }
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
+                if showPremium {
+                    gradient.edgesIgnoringSafeArea(.bottom)
+                }
+
+                if !PurchaseManager.shared.hasPremium {
+                    premiumButton
                 }
             }
             .edgesIgnoringSafeArea(.bottom)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-
-            if showPremium {
-                gradient.edgesIgnoringSafeArea(.bottom)
-            }
-            premiumButton
+            .frame(minWidth: 360, idealWidth: 400, maxWidth: 480, maxHeight: .infinity)
+            .onAppear(perform: loadProduct)
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .onAppear(perform: loadProduct)
+        .transition(.preferences)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .zIndex(3)
     }
 
     private var preferences: some View {
         VStack(alignment: .leading, spacing: 16) {
+            Toggle(isOn: settings.showSeconds, label: {
+                HStack {
+                    preferenceItemLabel(text: "Dsiplay seconds", image: "clock.fill")
+                }
+            })
+
+            Divider()
+
             preferenceItem(text: "Reminders", image: "bell.fill") {
 
             }
@@ -93,6 +95,25 @@ struct SettingsView: View {
         .sheet(isPresented: $showShareSheet) {
             ShareSheet()
         }
+    }
+
+    private func preferenceItem(text: String, image: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            preferenceItemLabel(text: text, image: image)
+        }
+        .buttonStyle(SquishableButtonStyle())
+    }
+
+    private func preferenceItemLabel(text: String, image: String) -> some View {
+        HStack(spacing: 16) {
+            Image(systemName: image)
+                .font(.system(size: 14, weight: .medium, design: .default))
+                .foregroundColor(.secondary)
+            Text(text)
+                .font(.system(size: 14, weight: .light, design: .default))
+        }
+        .frame(maxWidth:.infinity, alignment: .leading)
+        .padding(.vertical, 8)
     }
 
     private var navigation: some View {
