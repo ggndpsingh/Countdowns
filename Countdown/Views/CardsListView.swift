@@ -85,7 +85,7 @@ struct CardsListView: View {
             NavigationView {
                 container
                     .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
-                    .navigationTitle("Countdowns")
+                    .navigationTitle("Events")
                     .navigationBarTitleDisplayMode(.inline)
                     .alert(isPresented: $deleteAlertPresented) {
                         Alert(
@@ -160,7 +160,7 @@ struct CardsListView: View {
 
     var preferencesButton: some View {
         Button(action: {
-            withAnimation(.openCard) {
+            withAnimation(.togglePreferences) {
                 preferenceToggle.open(showGetPremium: false)
             }
         }) {
@@ -187,7 +187,7 @@ struct CardsListView: View {
     var content: some View {
         ScrollView {
             if !upcoming.isEmpty {
-                makeGrid(countdowns: upcoming, label: "Upcoming")
+                makeGrid(countdowns: upcoming, label: "")
             }
 
             if !past.isEmpty {
@@ -229,9 +229,6 @@ struct CardsListView: View {
             Text(label)
                 .font(.headline)
                 .padding([.top], 16)
-                .onAppear {
-                    print(label)
-                }
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 360, maximum: 520))], spacing: 16) {
                 ForEach(countdowns) { countdown in
                     let presenting = countdown.id == countdownSelection.id

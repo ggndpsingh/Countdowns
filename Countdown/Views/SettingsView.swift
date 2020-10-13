@@ -153,14 +153,14 @@ struct SettingsView: View {
             ZStack {
                 VStack {
                     Text("Upgrade to Premium")
-                        .frame(maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
-                        .offset(y: showPremium ? -30 : 30)
+                        .frame(maxWidth: .infinity, minHeight: 54, idealHeight: 54, maxHeight: 54)
+                        .offset(y: showPremium ? -27 : 27)
                     Text(isLoading ? "" : "Buy for \(price ?? "")")
-                        .frame(maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
-                        .offset(y: showPremium ? -30 : 30)
+                        .frame(maxWidth: .infinity, minHeight: 54, idealHeight: 54, maxHeight: 54)
+                        .offset(y: showPremium ? -27 : 27)
                 }
                 .font(.system(size: 16, weight: .medium, design: .default))
-                .frame(maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
+                .frame(maxWidth: .infinity, minHeight: 54, idealHeight: 54, maxHeight: 54)
                 .background(Color.primary)
                 .foregroundColor(.systemBackground)
                 .cornerRadius(8)
@@ -189,10 +189,12 @@ struct SettingsView: View {
     }
 
     private func handleClose() {
-        withAnimation(.closeCard) {
-            if showGetPremium {
+        if showGetPremium {
+            withAnimation(.closeCard) {
                 showGetPremium = false
-            } else {
+            }
+        } else {
+            withAnimation(.togglePreferences) {
                 toggle.close()
             }
         }
