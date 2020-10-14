@@ -3,6 +3,12 @@
 import SwiftUI
 import StoreKit
 
+extension UIApplication {
+    var versionNumber: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    }
+}
+
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.settings) var settings
@@ -34,7 +40,12 @@ struct SettingsView: View {
                     if (showPremium) {
                         GetPremiumView(product: product, closeHandler: handleClose)
                     } else {
-                        preferences
+                        VStack(spacing: 36) {
+                            preferences
+//                            Divider().opacity(0.6)
+                            socialButtons
+                        }
+                        .padding(24)
                     }
                 }
                 .edgesIgnoringSafeArea(.bottom)
@@ -58,39 +69,24 @@ struct SettingsView: View {
     }
 
     private var preferences: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 36) {
             Toggle(isOn: settings.showSeconds, label: {
-                HStack {
-                    preferenceItemLabel(text: "Dsiplay seconds", image: "clock.fill")
-                }
+                preferenceItemLabel(text: "Dsiplay seconds", image: "clock.fill")
             })
 
-            Divider()
-
-            preferenceItem(text: "Reminders", image: "bell.fill") {
-
-            }
-
-            Divider()
-
-            preferenceItem(text: "About", image: "info.circle.fill") {
-
-            }
-
-            Divider()
+//            Divider().opacity(0.6)
 
             preferenceItem(text: "Rate Countdowns", image: "star.fill") {
                 guard let scene = UIApplication.shared.windows.first?.windowScene else { return }
                 SKStoreReviewController.requestReview(in: scene)
             }
 
-            Divider()
+//            Divider().opacity(0.6)
 
             preferenceItem(text: "Share Countdowns", image: "square.and.arrow.up.fill") {
                 showShareSheet = true
             }
         }
-        .padding(24)
         .font(.system(size: 16, weight: .regular, design: .default))
         .sheet(isPresented: $showShareSheet) {
             ShareSheet()
@@ -110,10 +106,31 @@ struct SettingsView: View {
                 .font(.system(size: 14, weight: .medium, design: .default))
                 .foregroundColor(.secondary)
             Text(text)
-                .font(.system(size: 14, weight: .light, design: .default))
+                .font(.system(size: 14, weight: .regular, design: .default))
         }
         .frame(maxWidth:.infinity, alignment: .leading)
-        .padding(.vertical, 8)
+        .padding(.vertical, 4)
+    }
+
+    private var socialButtons: some View {
+        func makeButton(image: Image, url: String) -> some View {
+            Button(action: {
+                UIApplication.shared.open(URL(string: url)!, options: [.universalLinksOnly: false], completionHandler: nil)
+            }, label: {
+                image
+                    .resizable()
+                    .frame(width: 32, height: 32, alignment: .center)
+            })
+        }
+
+        return HStack(spacing: 24) {
+            makeButton(image: Image("twitter"), url: "https://twitter.com/GetCountdowns")
+            makeButton(image: Image("instagram"), url: "https://instagram.com/getcountdowns")
+            makeButton(image: Image(systemName: "person.circle.fill"), url: "https://twitter.com/ggndpsingh")
+        }
+        .foregroundColor(.secondary)
+        .padding(.vertical)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var navigation: some View {

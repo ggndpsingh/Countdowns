@@ -5,6 +5,9 @@ import SwiftUI
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UINavigationBar.appearance().tintColor = UIColor.label
+        UINavigationBar.appearance().isOpaque = true
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = .systemBackground
         return true
     }
 

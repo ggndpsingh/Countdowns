@@ -31,7 +31,6 @@ final class PhotoPickerViewController: UITabBarController {
         picker.sourceType = .photoLibrary
         picker.delegate = self
         picker.navigationBar.isTranslucent = false
-        picker.navigationBar.barTintColor = .white
         picker.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "photo.on.rectangle"), selectedImage: UIImage(systemName: "photo.fill.on.rectangle.fill"))
         return picker
     }
