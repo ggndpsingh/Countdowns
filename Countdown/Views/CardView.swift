@@ -54,7 +54,6 @@ struct CardView: View {
                     countdown: countdown,
                     isNew: isNewPublisher.isNew,
                     countdownsManager: countdownsManager),
-                isEditing: calculatedVisibleSide == .back,
                 imageHandler: imageHandler,
                 doneHandler: {
                     if isNewPublisher.isNew {

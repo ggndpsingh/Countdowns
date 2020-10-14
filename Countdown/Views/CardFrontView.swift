@@ -64,34 +64,25 @@ struct CardFrontView: View {
                 }
                 .padding([.top], 24)
             case .details:
-                VStack(alignment: .trailing) {
-                    HStack(alignment: .top) {
-                        title
-
-                        Spacer()
-
-                        HStack(alignment: .top) {
-                            RoundButton(
-                                action: { sharing = true },
-                                image: "square.and.arrow.up",
-                                color: .secondary)
-                                .sheet(isPresented: $sharing, content: {
-                                    ShareView(countdown: countdown)
-                                        .edgesIgnoringSafeArea(.all)
-                                })
-
-                            RoundButton(action: closeHandler, image: "xmark", color: .secondary)
-                        }
-                        .padding(.horizontal)
-                        .frame(alignment: .top)
-                    }
+                VStack(alignment: .leading) {
+                    title
 
                     Spacer()
 
-                    RoundButton(action: flipHandler, image: "square.and.pencil", color: .secondary)
-                        .padding()
+                    HStack(alignment: .bottom) {
+                        RoundButton(action: closeHandler, image: "xmark", color: .secondary)
+                        Spacer()
+                        RoundButton(action: { sharing = true }, image: "square.and.arrow.up", color: .secondary)
+                        RoundButton(action: flipHandler, image: "square.and.pencil", color: .secondary)
+                    }
+                    .padding()
+                    .frame(alignment: .top)
                 }
                 .padding([.top], 24)
+                .sheet(isPresented: $sharing, content: {
+                    ShareView(countdown: countdown)
+                        .edgesIgnoringSafeArea(.all)
+                })
             }
         }.overlay(
             CountdownView(date: countdown.date, size: style.componentSize, animate: style != .shareable)
@@ -107,9 +98,11 @@ struct CardFrontView: View {
 struct CardFrontView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CardFrontView(countdown: .preview, style: .thumbnail)
-                .frame(width: 400, height: 400, alignment: .center)
-                .previewLayout(.sizeThatFits)
+            CardFrontView(countdown: .preview, style: .details)
+                .aspectRatio(1, contentMode: .fit)
+                .padding()
+//                .frame(width: 400, height: 400, alignment: .center)
+//                .previewLayout(.sizeThatFits)
 
             CardFrontView(countdown: .preview, style: .details)
                 .frame(width: 400, height: 600, alignment: .center)

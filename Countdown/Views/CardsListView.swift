@@ -33,7 +33,8 @@ final class PreferenceToggle: ObservableObject {
 struct CardsListView: View {
     @FetchRequest<CountdownObject>(
         entity: CountdownObject.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)]
+        sortDescriptors: [NSSortDescriptor(keyPath: \CountdownObject.date, ascending: true)],
+        animation: .closeCard
     ) var fetchedObjects
 
     @Namespace private var namespace
@@ -113,6 +114,7 @@ struct CardsListView: View {
                 VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
                     .edgesIgnoringSafeArea(.all)
                     .transition(.opacity)
+                    .onTapGesture(perform: deselectCountdown)
             }
 
             ForEach(allCountdowns) { countdown in
@@ -203,6 +205,7 @@ struct CardsListView: View {
     }
 
     func deselectCountdown() {
+        guard countdownSelection.isActive else { return }
         withAnimation(.closeCard) {
             countdownSelection.deselect()
         }

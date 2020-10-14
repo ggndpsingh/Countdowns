@@ -32,7 +32,7 @@ struct SettingsView: View {
                     navigation
 
                     if (showPremium) {
-                        GetPremiumView(closeHandler: handleClose)
+                        GetPremiumView(product: product, closeHandler: handleClose)
                     } else {
                         preferences
                     }

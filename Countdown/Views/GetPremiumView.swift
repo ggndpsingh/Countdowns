@@ -5,8 +5,8 @@ import StoreKit
 
 struct GetPremiumView: View {
     @Environment(\.colorScheme) private var colorScheme
+    let product: SKProduct?
     let closeHandler: () -> Void
-    @State private var product: SKProduct?
     @State var isLoading = false
 
     private var price: String? {

@@ -10,16 +10,13 @@ struct CardBackView: View {
     let imageHandler: () -> Void
     let doneHandler: (Countdown) -> Void
     let deleteHandler: () -> Void
-    let isEditing: Bool
 
     init(
         viewModel: CardBackViewModel,
-        isEditing: Bool = false,
         imageHandler: @escaping () -> Void,
         doneHandler: @escaping (Countdown) -> Void,
         deleteHandler: @escaping () -> Void) {
         self.viewModel = viewModel
-        self.isEditing = isEditing
         self.imageHandler = imageHandler
         self.doneHandler = doneHandler
         self.deleteHandler = deleteHandler
