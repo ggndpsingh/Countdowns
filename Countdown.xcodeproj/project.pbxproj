@@ -999,7 +999,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1019,7 +1019,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1040,7 +1040,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1061,7 +1061,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1084,7 +1084,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1107,7 +1107,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1247,7 +1247,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;
@@ -1272,7 +1272,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;
