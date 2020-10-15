@@ -38,14 +38,9 @@ struct SettingsView: View {
                     navigation
 
                     if (showPremium) {
-                        GetPremiumView(product: product, closeHandler: handleClose)
+                        GetPremiumView(freeEventsExhausted: toggle.showGetPremium, product: product, closeHandler: handleClose)
                     } else {
-                        VStack(spacing: 36) {
-                            preferences
-//                            Divider().opacity(0.6)
-                            socialButtons
-                        }
-                        .padding(24)
+                        preferences
                     }
                 }
                 .edgesIgnoringSafeArea(.bottom)
@@ -69,22 +64,24 @@ struct SettingsView: View {
     }
 
     private var preferences: some View {
-        VStack(alignment: .leading, spacing: 36) {
-            Toggle(isOn: settings.showSeconds, label: {
-                preferenceItemLabel(text: "Dsiplay seconds", image: "clock.fill")
-            })
-
-//            Divider().opacity(0.6)
-
-            preferenceItem(text: "Rate Countdowns", image: "star.fill") {
-                guard let scene = UIApplication.shared.windows.first?.windowScene else { return }
-                SKStoreReviewController.requestReview(in: scene)
+        Form {
+            Section {
+                Toggle(isOn: settings.showSeconds, label: {
+                    preferenceItemLabel(text: "Display seconds", image: "clock.fill")
+                })
             }
 
-//            Divider().opacity(0.6)
+            Section {
+                preferenceItem(text: "Rate Countdowns", image: "star.fill") {
+                    guard let scene = UIApplication.shared.windows.first?.windowScene else { return }
+                    SKStoreReviewController.requestReview(in: scene)
+                }
 
-            preferenceItem(text: "Share Countdowns", image: "square.and.arrow.up.fill") {
-                showShareSheet = true
+                preferenceItem(text: "Share Countdowns", image: "square.and.arrow.up.fill") {
+                    showShareSheet = true
+                }
+
+                socialButtons
             }
         }
         .font(.system(size: 16, weight: .regular, design: .default))
@@ -119,17 +116,18 @@ struct SettingsView: View {
             }, label: {
                 image
                     .resizable()
-                    .frame(width: 32, height: 32, alignment: .center)
+                    .frame(width: 24, height: 24, alignment: .center)
+                    .padding(8)
             })
         }
 
-        return HStack(spacing: 24) {
+        return HStack(spacing: 8) {
             makeButton(image: Image("twitter"), url: "https://twitter.com/GetCountdowns")
             makeButton(image: Image("instagram"), url: "https://instagram.com/getcountdowns")
-            makeButton(image: Image(systemName: "person.circle.fill"), url: "https://twitter.com/ggndpsingh")
         }
         .foregroundColor(.secondary)
         .padding(.vertical)
+        .offset(x: -8)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 

@@ -5,6 +5,7 @@ import StoreKit
 
 struct GetPremiumView: View {
     @Environment(\.colorScheme) private var colorScheme
+    let freeEventsExhausted: Bool
     let product: SKProduct?
     let closeHandler: () -> Void
     @State var isLoading = false
@@ -64,6 +65,12 @@ struct GetPremiumView: View {
 
     private var description: some View {
         VStack {
+            if (freeEventsExhausted) {
+                Text("You have used up your \(AppConstants.maxFreeCountdowns) free events")
+                    .font(.system(size: 16, weight: .medium, design: .default))
+                    .padding(.bottom, 24)
+            }
+
             Text("Upgrade to Countdowns Permium\nto unlock even more features with a\n")
             + Text("one-time purchase ")
                 .font(.system(size: 16, weight: .semibold, design: .default))
