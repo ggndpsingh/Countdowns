@@ -20,23 +20,48 @@ struct GetPremiumView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            VStack {
-                ScrollView {
-                    VStack(alignment: .center, spacing: 40) {
-                        header
-                        description
-                            .padding(.vertical, 40)
-                        featuresList
+            if PurchaseManager.shared.hasPremium {
+                thankYouView
+            } else {
+                VStack {
+                    ScrollView {
+                        VStack(alignment: .center, spacing: 40) {
+                            header
+                            description
+                                .padding(.vertical, 40)
+                            featuresList
 
-                        faq.padding(.bottom, 120)
+                            faq.padding(.bottom, 120)
+                        }
+                        .padding(.horizontal, 24)
+                        .padding([.top], 40)
                     }
-                    .padding(.horizontal, 24)
-                    .padding([.top], 40)
                 }
             }
         }
         .transition(.premium)
         .edgesIgnoringSafeArea(.bottom)
+    }
+
+    private var thankYouView: some View {
+        VStack(alignment: .center, spacing: 40) {
+            Image(systemName: "checkmark.circle.fill")
+                .resizable()
+                .frame(width: 120, height: 120, alignment: .center)
+                .foregroundColor(.green)
+
+            VStack(alignment: .center) {
+                Text("Thank You!\n")
+                    .font(.title2)
+                Text("You can now enjoy all the Premium features of Countdowns.")
+                    .multilineTextAlignment(.center)
+            }
+            .padding()
+        }
+        .transition(.scale)
+        .animation(.spring())
+        .frame(maxHeight: .infinity)
+        .offset(y: -40)
     }
 
     private var header: some View {

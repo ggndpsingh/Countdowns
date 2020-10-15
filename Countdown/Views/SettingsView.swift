@@ -224,7 +224,7 @@ struct SettingsView: View {
             withAnimation(.easeIn) {
                 isLoading = false
                 if success {
-                    handleClose()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: handleClose)
                 }
             }
         }
