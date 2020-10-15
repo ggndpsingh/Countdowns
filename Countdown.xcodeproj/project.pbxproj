@@ -26,7 +26,6 @@
 		E63542FE2522ED6A008E6D8E /* CountdownContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63542F62522ED59008E6D8E /* CountdownContainer.swift */; };
 		E635430E252301CC008E6D8E /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E635430D252301CC008E6D8E /* EmptyListView.swift */; };
 		E6488A4E252866A400BD59FC /* CountdownSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6488A4D252866A400BD59FC /* CountdownSelection.swift */; };
-		E6488A56252866FD00BD59FC /* CreateCountdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6488A55252866FD00BD59FC /* CreateCountdownButton.swift */; };
 		E6517B782517643800F2DD13 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B772517643800F2DD13 /* IntentHandler.swift */; };
 		E6517B7F2517643800F2DD13 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E680AD7D25175EF3001B5333 /* IntentsUI.framework */; };
 		E6517B822517643800F2DD13 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517B812517643800F2DD13 /* IntentViewController.swift */; };
@@ -205,7 +204,6 @@
 		E63542F62522ED59008E6D8E /* CountdownContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownContainer.swift; sourceTree = "<group>"; };
 		E635430D252301CC008E6D8E /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		E6488A4D252866A400BD59FC /* CountdownSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownSelection.swift; sourceTree = "<group>"; };
-		E6488A55252866FD00BD59FC /* CreateCountdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCountdownButton.swift; sourceTree = "<group>"; };
 		E6517B752517643800F2DD13 /* CountdownSelection.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CountdownSelection.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6517B772517643800F2DD13 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		E6517B792517643800F2DD13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -543,7 +541,6 @@
 			isa = PBXGroup;
 			children = (
 				E61617342523FFAF00D58D19 /* CardsListView.swift */,
-				E6488A55252866FD00BD59FC /* CreateCountdownButton.swift */,
 				E6488A4D252866A400BD59FC /* CountdownSelection.swift */,
 				E635430D252301CC008E6D8E /* EmptyListView.swift */,
 				E6226797251B26E000C726C4 /* CountdownsManager.swift */,
@@ -896,7 +893,6 @@
 				E658E8AC251057D1007E9AFD /* CardFrontView.swift in Sources */,
 				E6874A552521CA3500B05377 /* CountdownStatus.intentdefinition in Sources */,
 				E616173B2523FFD800D58D19 /* CardsListView.swift in Sources */,
-				E6488A56252866FD00BD59FC /* CreateCountdownButton.swift in Sources */,
 				E6DA81702526EC9A00194EC6 /* Animation.swift in Sources */,
 				E6E3144C2504E0A2005C8B61 /* Date.swift in Sources */,
 				E6E314522504E0A2005C8B61 /* DateComponent.swift in Sources */,
@@ -1003,7 +999,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1023,7 +1019,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelectionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1044,7 +1040,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1065,7 +1061,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CountdownSelection/CountdownSelection.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1088,7 +1084,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1111,7 +1107,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CountdownStatusExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				INFOPLIST_FILE = CountdownStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1251,7 +1247,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;
@@ -1276,7 +1272,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Countdown/Preview Content\"";
 				DEVELOPMENT_TEAM = EAN9592EK4;
 				ENABLE_PREVIEWS = YES;

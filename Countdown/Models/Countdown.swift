@@ -39,6 +39,6 @@ extension Countdown {
 
 #if DEBUG
 extension Countdown {
-    static let preview: Countdown = .init(date: Date().addingTimeInterval(3600 * 3600 * 36).bySettingTimeToZero(), title: "This is a test title for", image: UIImage.randomSample)
+    static let preview: Countdown = .init(date: Date().addingTimeInterval(3600 * 3600 * 36).bySettingTimeToZero(), title: "This is a test title", image: UIImage.randomSample)
 }
 #endif

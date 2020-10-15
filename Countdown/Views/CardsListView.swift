@@ -39,7 +39,6 @@ struct CardsListView: View {
 
     @Namespace private var namespace
     @Environment(\.countdownsManager) private var countdownsManager
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     @ObservedObject var countdownSelection = CountdownSelection.shared
     @ObservedObject var purchaseManager = PurchaseManager.shared
@@ -66,7 +65,7 @@ struct CardsListView: View {
     private var allCountdowns: [Countdown] { upcoming + past }
 
     private var emptyState: some View {
-        EmptyListView()
+        EmptyListView(createEventHandler: openPhotoPicker)
             .navigationBarItems(leading: preferencesButton, trailing: createCountdownButton)
             .navigationBarTitleDisplayMode(.inline)
     }
@@ -174,7 +173,7 @@ struct CardsListView: View {
     var createCountdownButton: some View {
         Button(action: {
             if canCreateCountdown {
-                showPhotoPicker = true
+                openPhotoPicker()
             } else {
                 withAnimation(.openCard) {
                     preferenceToggle.open(showGetPremium: true)
@@ -196,6 +195,10 @@ struct CardsListView: View {
                 makeGrid(countdowns: past, label: "Past")
             }
         }
+    }
+
+    func openPhotoPicker() {
+        showPhotoPicker = true
     }
 
     func select(countdown id: Countdown.ID) {
@@ -253,7 +256,7 @@ struct CardsListView: View {
                 .cornerRadius(16)
         }
         .buttonStyle(SquishableButtonStyle())
-        .aspectRatio(verticalSizeClass == .compact ? 2 : 1, contentMode: .fit)
+        .aspectRatio(1, contentMode: .fit)
         .accessibility(label: Text(countdown.title))
         .accessibility(hidden: !presenting)
     }
